@@ -15,7 +15,12 @@ class Index extends CI_Controller {
     // List all your items
     public function index( $offset = 0 )
     {
-
+        $this->load->view('include/head');
+        $this->load->view('include/header');
+        $this->load->view('include/sidebar');
+        $this->load->view('operator');
+        $this->load->view('include/script');
+        
     }
 
     // Add a new item
