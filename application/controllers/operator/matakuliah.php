@@ -1,22 +1,25 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class index extends CI_Controller {
+class matakuliah extends CI_Controller {
 
     public function __construct()
     {
         parent::__construct();
         //Load Dependencies
 
+        
     }
 
     // List all your items
     public function index( $offset = 0 )
     {
+        
         $this->load->view('include/head');
         $this->load->view('include/header');
         $this->load->view('include/sidebar');
-        $this->load->view('operator/index');
+        echo "matkul";
+        // $this->load->view('operator/index');
         $this->load->view('include/script');
         
     }
