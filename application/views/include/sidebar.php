@@ -5,13 +5,13 @@
         <div class="sidebar-content">
             <div class="user">
                 <div class="avatar-sm float-left mr-2">
-                    <img src="<?=base_url()?>/assets/img/profile.jpg" alt="..." class="avatar-img rounded-circle">
+                    <img src="<?=base_url()?>/assets/images/<?=$this->session->userdata('foto');?>" alt="..." class="avatar-img rounded-circle">
                 </div>
                 <div class="info">
                     <a data-toggle="collapse" href="#collapseExample" aria-expanded="true">
                         <span>
-                            Hizrian
-                            <span class="user-level">Administrator</span>
+                            <?=$this->session->userdata('nama');?>
+                            <span class="user-level"><?=$this->session->userdata('lv');?></span>
                             <span class="caret"></span>
                         </span>
                     </a>
@@ -25,7 +25,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="#settings">
+                                <a href="<?=base_url()?>login/logout">
                                     <span class="link-collapse">Log Out</span>
                                 </a>
                             </li>

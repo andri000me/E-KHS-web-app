@@ -11,7 +11,7 @@ if(!function_exists('op_semester'))
     {
         
         return   '<option value="" selected disabled>pilih Semester</option>'
-                .'<option value="">Semua Semester</option>'
+            
                 .'<option value="I">Semester I</option>'
                 .'<option value="II">Semester II</option>'
                 .'<option value="III">Semester III</option>'
@@ -27,7 +27,7 @@ if(!function_exists('op_kelas'))
     function op_kelas()
     {
         return  '<option value="" selected disabled>pilih Kelas</option>'
-                .'<option value="">Semua Kelas</option>'
+               
                 .'<option value="A">Kelas A</option>'
                 .'<option value="B">Kelas B</option>'
                 .'<option value="C">Kelas C</option>'

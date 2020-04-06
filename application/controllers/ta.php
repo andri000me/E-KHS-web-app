@@ -15,8 +15,11 @@ class ta extends CI_Controller {
     public function index()
     {
        
-       $ta=$this->input->get('ta');
+        $ta=$this->input->get('ta');
+
        $this->session->set_userdata('takademik',$ta);
+       
+       echo $this->session->userdata('takademik');
        
     }
 }

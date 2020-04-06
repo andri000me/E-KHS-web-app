@@ -4,7 +4,10 @@
       
       <div class="row">
         <div class="col-md-12">
-            <div class="card">
+          <div class="tab-content" id="v-pills-without-border-tabContent">
+            <!-- tab-home -->
+            <div class="tab-pane fade show " id="v-pills-home-nobd" role="tabpanel" aria-labelledby="v-pills-home-tab-nobd">
+              <div class="card">
                 <div class="card-header">
                   <div class="d-flex align-items-center">
                     <h4 class="card-title">Jadwal Perkuliahan</h4>
@@ -17,7 +20,6 @@
                         <i class="icon-note"></i>
                         Tambah Data
                       </button>
-
                     </div>
                   </div>
                 </div>
@@ -34,7 +36,7 @@
                       </div>	
                       <div class="form-group  col-md-3 col-12 mr-2">
                         <label>Semester</label>
-                          <select class="form-control fill" id="semester">
+                          <select class="form-control fill" id="angkatan">
                           <?=op_semester();?>
                         </select>
                       </div>
@@ -50,44 +52,93 @@
                     <table id="data-tb" class="display table table-striped table-hover "style="width:100%;">
                       <thead>
                         <tr>
-                          <th>id</th>
+                          <th>nim</th>
                           <th>No</th>
+                          <th>Nim</th>
+                          <th>Nama</th>
                           <th>Prodi</th>
-                          <th>Semester</th>
                           <th>Kelas</th>
-                          <th>Kode MK</th>
-                          <th>Matakuliah</th>
-                          <th>Hari</th>
-                          <th>Jam Mulai</th>
-                          <th>Jam Selesai</th>
-                          <th>Ruangan</th>
-                          <th>Dosen Pengajar</th>
-                          <th>aksi</th>
+                          <th>Status</th>
+                          <th>Detail</th>
                         </tr>
                       </thead>
                       <tfoot>
                         <tr>
-                          <th>id</th>
+                          <th>nim</th>
                           <th>No</th>
+                          <th>Nim</th>
+                          <th>Nama</th>
                           <th>Prodi</th>
-                          <th>Semester</th>
                           <th>Kelas</th>
-                          <th>Kode MK</th>
-                          <th>Matakuliah</th>
-                          <th>Hari</th>
-                          <th>Jam Mulai</th>
-                          <th>Jam Selesai</th>
-                          <th>Ruangan</th>
-                          <th>Dosen Pengajar</th>
-                          <th>aksi</th>
+                          <th>Status</th>
+                          <th>Detail</th>
                         </tr>
                       </tfoot>
                       
                     </table>
                   
-                  </div>
+                </div>
               </div>
             </div>
+
+              <!-- tab-detail -->
+            <div class="tab-pane fade show active " id="v-pills-detail-nobd" role="tabpanel" aria-labelledby="v-pills-home-tab-nobd">
+              <div class="card">
+                <div class="card-header">
+                  <div class="d-flex align-items-center">
+                      <button class="btn btn-info btn-icon btn-round btn-sm mr-3 tggl">
+                        <i class="fas fa-arrow-left"></i>
+                      </button>
+                    <h4 class="card-title flex-1" style="margin-left: -32px;"><center>Detail</center> </h4>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-4" style="margin: auto;">
+                <div class="card card-profile">
+                  <div class="card-header" style="background-image: url('<?=base_url()?>assets/img/blogpost.jpg');
+                  padding: 10px !important;">
+                    <button tabindex="0" class="pull-right btn btn-light btn-icon btn-round btn-sm mr-3 action">
+                        <i class="icon-options-vertical"></i>
+                    </button>
+                    <div class="profile-picture">
+                      <div class="avatar avatar-xl">
+                        <img src="<?=base_url()?>assets/img/profile.jpg" alt="" class="avatar-img rounded-circle" style="border: 2px solid white !important;">
+                        <span  data-toggle="tooltip" data-placement="right" title="Aktif" style="cursor: pointer; position: absolute; bottom: -5px; right: -1px;"><?= sts("Aktif");?></span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card-body">
+                    <div class="user-profile text-center">
+                      <div class="name">Bonaventura P Jemi, 21</div>
+                      <div class="job">1623734335</div>
+                      <div class="desc">Kelas A</div>
+              
+                    </div>
+                  </div>
+                  <div class="card-footer">
+                    <div class="row user-stats text-center">
+                      <div class="col">
+                        <div class="title">Program Studi</div>
+                        <div class="title" style ="font-weight: bold;">Teknik Instalasi Listrik</div>
+                      </div>
+                      <div class="col">
+                        <div class="title">Dosen PA</div>
+                        <div class="title"style ="font-weight: bold;" >Pembimbing Akademik</div>
+                      </div>
+                    </div>
+                   
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+
+            <!-- end tab detail -->
+          </div>
+
+          <!-- end tab -->
         </div>
       </div>
     </div>
@@ -186,18 +237,31 @@
     $('.myselect').select2({
 			theme: "bootstrap"
 		});
+
     $('.jam').datetimepicker({
 			format: 'h:mm', 
+    });
+    $('.action').popover({
+      title:'Aksi',
+      html:true,
+      trigger: 'focus',
+      placement:'bottom',
+      content:'<button class="mr-2 btn btn-warning btn-sm cutikan">Cutikan</button>'+
+              '<button class="btn btn-danger btn-sm">D O</button>',
+
+    });
+    $('.cutikan').click(function(){
+      alert('baka');
     });
 
 
 // ===============end int===============
 
 // ==========get data===============
-    var url="<?php echo site_url('operator/jadwal/get_data')?>";
+    var url="<?php echo site_url('operator/mahasiswa/get_data')?>";
     var dtfilter = (data) => {
       data.kelas = $('#kelas').val();
-      data.semester = $('#semester').val();
+      data.semester = $('#angkatan').val();
   
     }
     table = get(url,dtfilter);
@@ -213,6 +277,23 @@
       table.get.ajax.reload();  //just reload table
     });
 //============end filter=================
+
+// ===========detail data============
+$('tbody').on('click','.tggl', function () { 
+    let data=table.row($(this).parents('tr')).data();
+    $('.tab-pane').toggleClass('active');
+    nim=data[0];
+    $('.nama').html(`KHS : ${data[2]}, Semester ${data[3]}`);
+    
+
+});
+
+$('.tggl').on('click', function () { 
+      
+    $('.tab-pane').toggleClass('active');
+    
+});
+//==============end detail============
 
 //==============add data===========================
 

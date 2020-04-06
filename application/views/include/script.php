@@ -154,6 +154,8 @@
             url  : "<?php echo base_url('ta')?>",
             data : {ta: ta},
             success: function(data){
+                var ta=data*1;
+                $('.TA').html(`TA ${data}/${ ta+1}`);
               swal("Tahun Akademik Diganti", {
                   icon: "success",
                   buttons : {

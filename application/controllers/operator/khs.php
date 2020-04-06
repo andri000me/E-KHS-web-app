@@ -36,9 +36,9 @@ class khs extends CI_Controller {
             $row[]=$key->semester;
             $row[]=$this->M_khs->get_ip($key->semester,$key->nim);
             $row[]=status($key->status);
-            $row[]='
-            <button class="btn btn-icon btn-round btn-info tggl"><i class="fas fa-eye"></i></button>
-            <button class="btn btn-icon btn-round btn-info print"><i class="fas fa-print"></i></button>';
+            $row[]='<div class="d-flex flex-row ">
+            <button class="mr-2 btn btn-icon btn-round btn-secondary tggl"><i class="fas fa-eye"></i></button>
+            <button class="btn btn-icon btn-round btn-info print"><i class="fas fa-print"></i></button></div>';
             $output[]=$row;
         }
         $result=array(
