@@ -24,8 +24,7 @@ class M_jadwal extends CI_Model {
         if($this->input->post('kelas'))
         {
             $this->db->like('P.kelas', $this->input->post('kelas'));
-        }
-       
+        }       
         return $this->db->get()->result();
         
         
