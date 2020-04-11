@@ -11,7 +11,7 @@
 							<div class="card">
 								<div class="card-header">
 									<div class="d-flex align-items-center">
-										<h4 class="card-title">Jadwal Perkuliahan</h4>
+										<h4 class="card-title">Data Mahasiswa</h4>
 										<div class="ml-auto d-flex flex-row">
 											<button class="btn btn-success btn-round btn-sm mr-3" data-toggle="collapse" data-target="#filter"
 												aria-expanded="false" aria-controls="collapseExample">
@@ -61,7 +61,7 @@
 												<th>Prodi</th>
 												<th>Kelas</th>
 												<th>Status</th>
-												<th>Detail</th>
+												<th>Aksi</th>
 											</tr>
 										</thead>
 										<tfoot>
@@ -73,7 +73,7 @@
 												<th>Prodi</th>
 												<th>Kelas</th>
 												<th>Status</th>
-												<th>Detail</th>
+												<th>Aksi</th>
 											</tr>
 										</tfoot>
 
@@ -101,11 +101,33 @@
 
 							<div class="col-md-4" style="margin: auto;">
 								<div class="card card-profile">
-									<div class="card-header" style="background-image: url('<?=base_url()?>assets/img/gg.svg');
+									<div class="card-header hidden-caret" style="background-image: url('<?=base_url()?>assets/img/gg.svg');
                   padding: 10px !important; background-size:cover;">
-										<button tabindex="0" class="pull-right btn btn-light btn-icon btn-round btn-sm mr-3 action">
+										<button tabindex="0"
+											class="pull-right btn btn-light btn-icon btn-round btn-sm mr-3 action dropdown-toggle "
+											data-toggle="dropdown" aria-expanded="false">
 											<i class="icon-options-vertical"></i>
 										</button>
+										<ul class="dropdown-menu dropdown-user animated fadeIn">
+											<div class="dropdown-user-scroll scrollbar-outer">
+												<li>
+													<div class="user-box">
+														<div class="avatar-lg"><img
+																src="<?=base_url()?>assets/images/<?=$this->session->userdata('foto');?>" alt="user"
+																class="avatar-img rounded"></div>
+														<div class="u-text">
+															<h4><?=$this->session->userdata('nama');?></h4>
+															<p class="text-muted"><?=$this->session->userdata('lv');?></p><a href="profile.html"
+																class="btn btn-xs btn-secondary btn-sm">Profile</a>
+														</div>
+													</div>
+												</li>
+												<li>
+													<div class="dropdown-divider"></div>
+													<a class="dropdown-item" href="<?=base_url()?>login/logout">Logout</a>
+												</li>
+											</div>
+										</ul>
 										<div class="profile-picture">
 											<div class="avatar avatar-xl">
 												<img id="dt_foto" src="<?=base_url()?>assets/img/profile.jpg" alt="mahasiswa"
@@ -121,17 +143,13 @@
 											<div class="nim" id="dt_nim">1623734335</div>
 
 										</div>
-										<div class="d-flex flex-row ">
+										<div class="d-flex flex-row justify-content-between">
 											<div class="class" id="dt_kelas">Kelas A</div>
-											<div class="class" id="dt_kelas">TKJ</div>
+											<div class="class" id="dt_prodi">TKJ</div>
 										</div>
 									</div>
 									<div class="card-footer">
 										<div class="row user-stats text-center">
-											<div class="col">
-												<div class="title">Program Studi</div>
-												<div class="title" id="dt_prodi" style="font-weight: bold;">Teknik Instalasi Listrik</div>
-											</div>
 											<div class="col">
 												<div class="title">Dosen PA</div>
 												<div class="title" id="dt_pa" style="font-weight: bold;">Pembimbing Akademik</div>
@@ -232,15 +250,7 @@
 		}).on('dp.change', function () {
 			table.ajax.reload();
 		});
-		$('.action').popover({
-			title: 'Aksi',
-			html: true,
-			trigger: 'focus',
-			placement: 'bottom',
-			content: '<button class="mr-2 btn btn-warning btn-sm cutikan">Cutikan</button>' +
-				'<button class="btn btn-danger btn-sm">D O</button>',
 
-		});
 		$('.cutikan').click(function () {
 			alert('baka');
 		});
@@ -291,9 +301,6 @@
 
 				});
 
-
-
-
 			}
 			set(url, nim, dt_set);
 
@@ -325,22 +332,18 @@
 
 			// proses add
 			$('.add-data').click(function (e) {
-				var url = "<?php echo base_url('operator/jadwal/add')?>";
-				alert("ini add");
+				var url = "<?php echo base_url('operator/mahasiswa/add')?>";
 				e.preventDefault();
 				var data = {
-					jam_mulai: $('#my-modal [name="mulai"]').val(),
-					jam_selesai: $('#my-modal [name="selesai"]').val(),
-					kodemk: $('#my-modal [name="matakuliah"]').val(),
-					hari: $('#my-modal [name="hari"]').val(),
-					nip: $('#my-modal [name="dosen"]').val(),
-					id_ruangan: $('#my-modal [name="ruangan"]').val(),
-					semester: $('#my-modal [name="semeseter"]').val(),
+					nim: $('#my-modal [name="nim"]').val(),
+					nama: $('#my-modal [name="nama"]').val(),
 					kelas: $('#my-modal [name="kelas"]').val(),
+					angkatan: $('#my-modal [name="angkatan"]').val(),
+					dosen: $('#my-modal [name="dosen"]').val(),
 				};
 
 				post(url, data);
-				table.ajax.reload();
+
 				$('#my-modal').modal('hide');
 
 			});
@@ -358,16 +361,15 @@
 
 			let data = table.row($(this).parents('tr')).data();
 			let id = data[0];
-			let url_1 = "<?php echo base_url('operator/jadwal/get_jadwalbyId')?>";
+			let url_1 = "<?php echo base_url('operator/mahasiswa/getmhsbynim')?>";
 			var dt_set = function (data) {
-				$('#my-modal [name="mulai"]').val(data.jam_mulai);
-				$('#my-modal [name="selesai"]').val(data.jam_selesai);
-				$('#my-modal [name="matakuliah"]').val(data.kodemk).trigger('change');
-				$('#my-modal [name="hari"]').val(data.hari).trigger('change');
-				$('#my-modal [name="dosen"]').val(data.nip).trigger('change');
-				$('#my-modal [name="ruangan"]').val(data.id_ruangan).trigger('change');
-				$('#my-modal [name="semeseter"]').val(data.semester).trigger('change');
-				$('#my-modal [name="kelas"]').val(data.kelas).trigger('change');
+				console.log(data);
+
+				$('#my-modal [name="nim"]').val(data[0].nim);
+				$('#my-modal [name="nama"]').val(data[0].nama);
+				$('#my-modal [name="kelas"]').val(data[0].kelas).trigger('change');
+				$('#my-modal [name="angkatan"]').val(data[0].angkatan);
+				$('#my-modal [name="dosen"]').val(data[0].nip).trigger('change');
 			}
 			$('#my-modal').modal({
 				keyboard: false,
@@ -378,18 +380,16 @@
 
 			//proses edit
 			$('.edit-data').click(function (e) {
-				var url = "<?php echo base_url('operator/jadwal/update')?>";
+				var url = "<?php echo base_url('operator/mahasiswa/update')?>";
 				e.preventDefault();
+				var origin_nim = id;
 				var data = {
-					id: id,
-					jam_mulai: $('#my-modal [name="mulai"]').val(),
-					jam_selesai: $('#my-modal [name="selesai"]').val(),
-					kodemk: $('#my-modal [name="matakuliah"]').val(),
-					hari: $('#my-modal [name="hari"]').val(),
-					nip: $('#my-modal [name="dosen"]').val(),
-					id_ruangan: $('#my-modal [name="ruangan"]').val(),
-					semester: $('#my-modal [name="semeseter"]').val(),
+					origin_nim: origin_nim,
+					nim: $('#my-modal [name="nim"]').val(),
+					nama: $('#my-modal [name="nama"]').val(),
 					kelas: $('#my-modal [name="kelas"]').val(),
+					angkatan: $('#my-modal [name="angkatan"]').val(),
+					dosen: $('#my-modal [name="dosen"]').val(),
 				};
 
 				post(url, data);
@@ -405,7 +405,7 @@
 
 		//===============hapus data==============
 		$('tbody').on('click', '.hapus', function () {
-			var url = "<?php echo base_url('operator/jadwal/delete')?>";
+			var url = "<?php echo base_url('operator/mahasiswa/delete')?>";
 			let data = table.row($(this).parents('tr')).data();
 			id = data[0];
 			hapus(url, id);

@@ -38,7 +38,19 @@ class mahasiswa extends CI_Controller {
             $row[]=$key->prodi;
             $row[]=$key->kelas;
             $row[]=stats($key->status);
-            $row[]='<button class="mr-2 btn btn-icon btn-round btn-secondary tggl"><i class="fas fa-eye"></i></button>';
+            $row[]='
+            <div class="d-flex flex-row">
+                <button class="mr-2 btn btn-icon btn-round btn-secondary tggl"><i class="fas fa-eye"></i></button>
+                <div class="dropdown">
+                    <button class="btn btn-icon btn-round btn-primary" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="icon-options-vertical"></i>
+                    </button>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
+                        <a class="dropdown-item edit" href="#"><i class="text-warning fas fas fa-edit"></i> Edit</a>
+                        <a class="dropdown-item hapus" href="#"><i class="text-danger fas fa-trash-alt"></i> Hapus</a>
+                    </ul>
+                </div>
+            </div>';
             $output[]=$row;
         }
         $result=array(
@@ -58,9 +70,11 @@ class mahasiswa extends CI_Controller {
             $row['nama']=$key->nama;
             $row['prodi']=$key->prodi;
             $row['kelas']=$key->kelas;
+            $row['angkatan']=$key->angkatan;
             $row['st']=$key->status;
             $row['status']=sts($key->status);
             $row['dosen']=$key->dosen;
+            $row['nip']=$key->nip;
             $row['foto']=$key->foto;
             $output[]=$row;
             
@@ -71,18 +85,25 @@ class mahasiswa extends CI_Controller {
     // Add a new item
     public function add()
     {
-
+        $data=$this->M_mhs->add();
+        echo json_encode($data);
     }
 
     //Update one item
-    public function update( $id = NULL )
+    public function update( )
     {
-
+        $data=$this->M_mhs->update();
+        echo json_encode($data);
     }
 
     //Delete one item
     public function delete( $id = NULL )
     {
+        $id=$this->input->get('id');
+        $this->db->where('nim', $id);
+        $this->db->delete('mahasiswa');
+
+        echo "ok";
 
     }
 }

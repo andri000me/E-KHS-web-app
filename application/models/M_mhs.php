@@ -22,7 +22,7 @@ class M_mhs extends CI_Model {
         }
         if($this->input->post('angkatan'))
         {
-            $this->db->like('mahasiswa.angkatan', $this->input->post('angkatan'));
+            $this->db->like('mahasiswa.angkatan', $this->input->post('angkatan'),'righ');
         }
         return $this->db->get()->result();
 
@@ -37,5 +37,73 @@ class M_mhs extends CI_Model {
         return $this->db->get()->result();
         
         
+    }
+    public function add()
+    {
+        $cek=$this->db->query("SELECT * from mahasiswa where nim='".$_POST['nim']."'");
+        $this->form_validation->set_rules('nim', 'nim', 'required');
+        $this->form_validation->set_rules('nama', 'nama', 'required');
+        $this->form_validation->set_rules('kelas', 'kelas', 'required');
+        $this->form_validation->set_rules('angkatan', 'angkatan', 'required');
+        if($this->form_validation->run()==FALSE){
+            $message = array(
+                'type' =>'error',
+                'text'=>'Data Gagal Di Tambahkan' );
+            return $message;
+        }
+        elseif ($cek->num_rows() > 0) {
+            $message = array(
+                'type' =>'error',
+                'text'=>'Nim Sudah Ada' );
+            return $message;
+        }
+        else{
+        $data=array(
+
+            "nim"=>$_POST['nim'],
+            "nama"=>$_POST['nama'],
+            "prodi"=>$this->session->userdata('prodiLog'),
+            "kelas"=>$_POST['kelas'],
+            "angkatan"=>$_POST['angkatan'],
+            "nip"=>$_POST['dosen'],
+            "status"=>"Aktif"
+        );
+        $this->db->insert('mahasiswa',$data);
+        $message = array(
+            'type' =>'success',
+            'text'=>'Data Mahasiswa Berhasil DiSimpan');
+        return $message;
+        }
+    }
+
+    public function update()
+    {
+        $this->form_validation->set_rules('nim', 'nim', 'required');
+        $this->form_validation->set_rules('nama', 'nama', 'required');
+        $this->form_validation->set_rules('kelas', 'kelas', 'required');
+        $this->form_validation->set_rules('angkatan', 'angkatan', 'required');
+
+        if($this->form_validation->run()==FALSE){
+            $message = array(
+            'type' =>'error',
+            'text'=>'Data Gagal Di Diedit' );
+            return $message;
+        }
+        else{
+            $data=array(
+
+                "nim"=>$_POST['nim'],
+                "nama"=>$_POST['nama'],
+                "kelas"=>$_POST['kelas'],
+                "angkatan"=>$_POST['angkatan'],
+                "nip"=>$_POST['dosen'],
+            );
+            $this->db->where('nim', $_POST['origin_nim']);
+            $this->db->update('mahasiswa',$data);
+            $message = array(
+                'type' =>'success',
+                'text'=>'Data Mahasiswa Berhasil Diedit');
+            return $message;
+        }
     }
 }

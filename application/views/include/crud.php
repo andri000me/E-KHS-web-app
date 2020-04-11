@@ -40,6 +40,7 @@
 						}
 					},
 				});
+				table.ajax.reload();
 			},
 			error: function (err) {
 				console.log(err);
@@ -75,6 +76,7 @@
 						id: id
 					},
 					success: function (data) {
+
 						swal("Data Seukses Dihapus", {
 							icon: "success",
 							buttons: {
@@ -83,6 +85,7 @@
 								}
 							}
 						});
+						table.ajax.reload();
 					}
 				});
 
