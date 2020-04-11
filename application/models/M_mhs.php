@@ -4,7 +4,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class M_mhs extends CI_Model {
 
-   
     public function __construct()
     {
         parent::__construct();
@@ -28,11 +27,15 @@ class M_mhs extends CI_Model {
         return $this->db->get()->result();
 
     }
-    public function get_mhs()
-    {
-    	$this->db->select('*,prodi.prodi');
-    	$this->db->from('mahasiswa');
+    public function get_mhs(){
+        $this->db->select('mahasiswa.*,prodi.prodi,dosen.nama as dosen');
+        $this->db->from('mahasiswa');
         $this->db->join('prodi', 'mahasiswa.prodi = prodi.kodeprodi','left');
-        $this->db->where('mahasiswa.nim',$this->input->post('nim'));
+        $this->db->join('dosen', 'dosen.nip = mahasiswa.nip', 'left');
+        
+        $this->db->where('mahasiswa.nim',$this->input->get('id'));
+        return $this->db->get()->result();
+        
+        
     }
 }

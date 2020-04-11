@@ -54,7 +54,7 @@ if(!function_exists('stats')){
 if(!function_exists('sts')){
     function sts($val)
     {
-        if ($val== "Aktif") return '<span class="badge bg-success text-success" style="border: 2px solid white !important;">.</span>';
+        if ($val== "Aktif") return '<span class="badge bg-success text-success"style="border: 2px solid white !important;">.</span>';
         else if ($val== "Cuti") return '<span class="text-warning badge bg-warning" style="border: 2px solid white !important;">.</span>';
         else return '<span class="badge bg-danger text-danger" style="border: 2px solid white !important;">.</span>';
     }

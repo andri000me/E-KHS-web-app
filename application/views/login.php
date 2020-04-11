@@ -1,36 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
 
-
-
-
-
-
 <head>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	<title>Login | KHS-Elektro</title>
 	<meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
-	<link rel="icon" href="<?=base_url()?>assets/img/icon.ico" type="image/x-icon"/>
+	<link rel="icon" href="<?=base_url()?>assets/img/icon.ico" type="image/x-icon" />
 
 	<!-- Fonts and icons -->
-	<script src="<?=base_url()?>assets/js/plugin/webfont/webfont.min.js"></script> 
+	<script src="<?=base_url()?>assets/js/plugin/webfont/webfont.min.js"></script>
 	<script>
 		WebFont.load({
-			google: {"families":["Lato:300,400,700,900"]},
-			custom: {"families":["Flaticon", "Font Awesome 5 Solid", "Font Awesome 5 Regular", "Font Awesome 5 Brands", "simple-line-icons"], urls: ['<?=base_url()?>assets/css/fonts.min.css']},
-			active: function() {
+			google: {
+				"families": ["Lato:300,400,700,900"]
+			},
+			custom: {
+				"families": ["Flaticon", "Font Awesome 5 Solid", "Font Awesome 5 Regular", "Font Awesome 5 Brands",
+					"simple-line-icons"
+				],
+				urls: ['<?=base_url()?>assets/css/fonts.min.css']
+			},
+			active: function () {
 				sessionStorage.fonts = true;
 			}
 		});
+
 	</script>
-	
+
 	<!-- CSS Files -->
 	<link rel="stylesheet" href="<?=base_url()?>assets/css/bootstrap.min.css">
 	<link rel="stylesheet" href="<?=base_url()?>assets/css/atlantis.css">
 </head>
+
 <body class="login">
 	<div class="wrapper wrapper-login wrapper-login-full p-0">
-		<div class="login-aside w-50 d-flex flex-column align-items-center justify-content-center text-center bg-secondary-gradient">
+		<div
+			class="login-aside w-50 d-flex flex-column align-items-center justify-content-center text-center bg-secondary-gradient">
+			<img style="width:50%;" src="<?=base_url()?>assets/img/gg.svg" alt="grad">
 			<h1 class="title fw-bold text-white mb-3">KHS - Elektro</h1>
 			<p class="subtitle text-white op-7">Aplikasi Pengilahan Data KHS</p>
 		</div>
@@ -57,7 +63,7 @@
 							<button type="submit" class="btn btn-secondary col-md-5 mt-3 mt-sm-0 fw-bold">Sign In</button>
 						</div>
 					</form>
-					
+
 				</div>
 			</div>
 
@@ -71,30 +77,28 @@
 	<script src="<?=base_url()?>assets/js/plugin/sweetalert/sweetalert.min.js"></script>
 	<script src="<?=base_url()?>assets/js/atlantis.min.js"></script>
 	<script type="text/javascript">
-		$('.lupa').click(function(){
+		$('.lupa').click(function () {
 			swal("Info", "Segera Laporkan Ke Jurusan !", {
-				icon : "info",
-				buttons: {        			
+				icon: "info",
+				buttons: {
 					confirm: {
-						className : 'btn btn-info'
+						className: 'btn btn-info'
 					}
 				},
 			});
 		});
 
-		$(document).ready(function(){
-			let err="<?php echo $this->session->flashdata('Gagal');?>";
+		$(document).ready(function () {
+			let err = "<?php echo $this->session->flashdata('Gagal');?>";
 			if (err != "") {
 				swal(
-				  'Gagal',
-				  'Username  Atau Password Salah',
-				  'error'
-				);	
+					'Gagal',
+					'Username  Atau Password Salah',
+					'error'
+				);
 			}
 		});
 
-
-		
 	</script>
 
 </body>

@@ -142,7 +142,6 @@
 
 						</select>
 					</div>
-
 					<div class="form-group col-12">
 						<label>Hari</label>
 						<select name="hari" class="form-control myselect" style="width:100%;">
@@ -154,6 +153,7 @@
 							<option value="Jumad"> Hari Jumad </option>
 						</select>
 					</div>
+
 					<div class="form-group col-md-6">
 						<label>Jam Mulai</label>
 						<input type="text" class="form-control jam" name="mulai" placeholder="Mulai Jam ?">
@@ -181,7 +181,6 @@
 		</div>
 	</div>
 </div>
-
 
 <?php $this->load->view('include/script');?>
 

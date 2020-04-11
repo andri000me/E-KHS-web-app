@@ -13,13 +13,14 @@ class mahasiswa extends CI_Controller {
     }
 
     // List all your items
-    public function index( $offset = 0 )
+    public function index()
     {
+        $data['dosen']=$this->db->get('dosen')->result();
+        $data['prodi']=$this->db->get('prodi')->result();
         $this->load->view('include/head');
         $this->load->view('include/header');
         $this->load->view('include/sidebar');
-        $this->load->view('operator/mahasiswa');
-        $this->load->view('include/script');
+        $this->load->view('operator/mahasiswa',$data);
         
     }
     public function get_data()
@@ -41,12 +42,30 @@ class mahasiswa extends CI_Controller {
             $output[]=$row;
         }
         $result=array(
-         
             'data'=>$output,
             
         );
         echo json_encode($result);
 
+    }
+    public function getmhsbynim()
+    {
+        $data=$this->M_mhs->get_mhs();
+        $output=array();
+        foreach ($data as $key) {
+            $row=array();
+            $row['nim']=$key->nim;
+            $row['nama']=$key->nama;
+            $row['prodi']=$key->prodi;
+            $row['kelas']=$key->kelas;
+            $row['st']=$key->status;
+            $row['status']=sts($key->status);
+            $row['dosen']=$key->dosen;
+            $row['foto']=$key->foto;
+            $output[]=$row;
+            
+        }
+        echo json_encode($output);
     }
 
     // Add a new item
@@ -69,4 +88,3 @@ class mahasiswa extends CI_Controller {
 }
 
 /* End of file Controllername.php */
-

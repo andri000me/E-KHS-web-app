@@ -27,7 +27,6 @@ if(!function_exists('op_kelas'))
     function op_kelas()
     {
         return  '<option value="" selected disabled>pilih Kelas</option>'
-               
                 .'<option value="A">Kelas A</option>'
                 .'<option value="B">Kelas B</option>'
                 .'<option value="C">Kelas C</option>'
