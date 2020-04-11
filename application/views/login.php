@@ -36,7 +36,7 @@
 	<div class="wrapper wrapper-login wrapper-login-full p-0">
 		<div
 			class="login-aside w-50 d-flex flex-column align-items-center justify-content-center text-center bg-secondary-gradient">
-			<img style="width:50%;" src="<?=base_url()?>assets/img/gg.svg" alt="grad">
+			<img style="width:50%;" src="<?=base_url()?>assets/img/gg.svg" alt="login logo">
 			<h1 class="title fw-bold text-white mb-3">KHS - Elektro</h1>
 			<p class="subtitle text-white op-7">Aplikasi Pengilahan Data KHS</p>
 		</div>
