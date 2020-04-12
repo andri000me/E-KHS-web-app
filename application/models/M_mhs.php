@@ -47,8 +47,8 @@ class M_mhs extends CI_Model {
         $this->form_validation->set_rules('angkatan', 'angkatan', 'required');
         if($this->form_validation->run()==FALSE){
             $message = array(
-                'type' =>'error',
-                'text'=>'Data Gagal Di Tambahkan' );
+                'type'=>'error',
+                'text'=>'Data Gagal Di Tambahkan');
             return $message;
         }
         elseif ($cek->num_rows() > 0) {
@@ -92,7 +92,7 @@ class M_mhs extends CI_Model {
         else{
             $data=array(
 
-                "nim"=>$_POST['nim'],
+                "nim"=>$_POST['nim'], 
                 "nama"=>$_POST['nama'],
                 "kelas"=>$_POST['kelas'],
                 "angkatan"=>$_POST['angkatan'],
@@ -103,6 +103,42 @@ class M_mhs extends CI_Model {
             $message = array(
                 'type' =>'success',
                 'text'=>'Data Mahasiswa Berhasil Diedit');
+            return $message;
+        }
+    }
+    public function updateStatus()
+    {
+        $nim=$this->input->post('id');
+        $this->db->where('nim', $nim);
+        
+        if ($this->input->post('cuti')) {
+            $data = array('status' =>'Cuti');
+            $this->db->update('mahasiswa', $data);
+            $message = array(
+                'type' =>'success',
+                'text'=>'Status Brhasil Diubah Menjadi Cuti');
+            return $message;
+        }
+        else if ($this->input->post('aktif')) {
+            $data = array('status' =>'Aktif');
+            $this->db->update('mahasiswa', $data);
+            $message = array(
+                'type' =>'success',
+                'text'=>'Status Brhasil Diubah Menjadi Aktif Kembali');
+            return $message;
+        }
+        else if ($this->input->post('do')) {
+            $data = array('status' =>'DO');
+            $this->db->update('mahasiswa', $data);
+            $message = array(
+                'type' =>'success',
+                'text'=>'Status Brhasil Diubah Menjadi Drop Out');
+            return $message;
+        }
+        else {
+            $message = array(
+                'type' =>'error',
+                'text'=>'Status Gagal Diubah');
             return $message;
         }
     }

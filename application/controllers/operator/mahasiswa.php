@@ -96,6 +96,12 @@ class mahasiswa extends CI_Controller {
         echo json_encode($data);
     }
 
+    public function updateStatus()
+    {
+        $data=$this->M_mhs->updateStatus();
+        echo json_encode($data);
+    }
+
     //Delete one item
     public function delete( $id = NULL )
     {
@@ -106,6 +112,7 @@ class mahasiswa extends CI_Controller {
         echo "ok";
 
     }
+
 }
 
 /* End of file Controllername.php */

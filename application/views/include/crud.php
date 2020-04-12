@@ -110,4 +110,31 @@
 
 	}
 
+	function changeStatus(text, url, data) {
+		let cs = swal({
+			title: 'Anda Yakin?',
+			icon: "warning",
+			text: "Status Mahasiswa Ini Akan Diubah menjadi " + text,
+			type: 'warning',
+			buttons: {
+				cancel: {
+					visible: true,
+					text: 'Batal!',
+					className: 'btn btn-danger'
+				},
+				confirm: {
+					text: 'Ya, Ubah Status!',
+					className: 'btn btn-success'
+				}
+			}
+		}).then((willChange) => {
+			if (willChange) {
+				post(url, data);
+
+			}
+		});
+		return cs;
+
+	}
+
 </script>

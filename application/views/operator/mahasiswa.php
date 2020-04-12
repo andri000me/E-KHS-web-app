@@ -400,6 +400,39 @@
 			});
 		});
 
+
+		// aktif DO Cuti
+		$('tbody').on('click', '.statusChange', function () {
+			var el = this.classList[2];
+			const url = '<?= base_url()?>operator/mahasiswa/updateStatus';
+			let data = table.row($(this).parents('tr')).data();
+			let id = data[0];
+			console.log(id);
+			switch (el) {
+				case 'aktif':
+
+					changeStatus('Aktif', url, {
+						aktif: 'aktif',
+						id: id,
+					});
+					break;
+				case 'cuti':
+					changeStatus('Cuti', url, {
+						cuti: 'cuti',
+						id: id,
+					});
+					break;
+				case 'do':
+					changeStatus('Drop Out', url, {
+						do: 'do',
+						id: id,
+					});
+					break;
+
+				default:
+					break;
+			}
+		});
 		//============end edit================
 
 

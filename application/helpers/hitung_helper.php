@@ -53,8 +53,9 @@ if(!function_exists('stats')){
             		Aktif
             	</button>
             	<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
-            		<a class="dropdown-item" href="#"><i class="text-warning fas fa-exclamation-circle"></i> Cutika</a>
-            		<a class="dropdown-item" href="#"><i class="text-danger fas fa-times-circle"></i> Drop Out</a>
+            		<a class="dropdown-item statusChange cuti" href="#"><i class="text-warning fas fa-exclamation-circle"></i> Cutika</a>
+            		<a class="dropdown-item statusChange do" href="#"><i class="text-danger fas fa-times-circle"></i> Drop
+            			Out</a>
             	</ul>
             </div>';
         }
@@ -66,8 +67,10 @@ if(!function_exists('stats')){
             		Cuti
             	</button>
             	<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
-            		<a class="dropdown-item" href="#"><i class="text-success fas fa-check-circle"></i> Aktifkan Kembali</a>
-            		<a class="dropdown-item" href="#"><i class="text-danger fas fa-times-circle"></i> Drop Out</a>
+            		<a class="dropdown-item statusChange aktif" href="#"><i class="text-success fas fa-check-circle"></i>
+            			Aktifkan Kembali</a>
+            		<a class="dropdown-item statusChange do" href="#"><i class="text-danger fas fa-times-circle"></i> Drop
+            			Out</a>
             	</ul>
             </div>';
         } 
