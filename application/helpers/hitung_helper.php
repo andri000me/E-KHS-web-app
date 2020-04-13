@@ -74,7 +74,7 @@ if(!function_exists('stats')){
             	</ul>
             </div>';
         } 
-        else return '<a class="btn btn-danger btn-sm ">Drop Out</a>';
+        else return '<a class="btn btn-danger btn-sm btn-round text-light ">Drop Out</a>';
     }
 }
 

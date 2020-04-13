@@ -31,15 +31,7 @@
 			dataType: "JSON",
 			data: data,
 			success: function (data) {
-
-				swal(data.type, data.text, {
-					icon: data.type,
-					buttons: {
-						confirm: {
-							className: 'btn btn-danger'
-						}
-					},
-				});
+				notif(data.type, data.text);
 				table.ajax.reload();
 			},
 			error: function (err) {
@@ -77,14 +69,7 @@
 					},
 					success: function (data) {
 
-						swal("Data Seukses Dihapus", {
-							icon: "success",
-							buttons: {
-								confirm: {
-									className: 'btn btn-success'
-								}
-							}
-						});
+						notif('success', 'Data Sukses Di Hapus');
 						table.ajax.reload();
 					}
 				});
@@ -135,6 +120,39 @@
 		});
 		return cs;
 
+	}
+
+	function notif(judul, text) {
+		let type, icon;
+		if (judul == "success") {
+			type = 'success';
+			icon = 'flaticon-success'
+		} else if (judul == "error") {
+			type = 'danger';
+			icon = 'flaticon-error'
+		}
+		$.notify({
+			// options
+			icon: icon,
+			title: judul,
+			message: text
+		}, {
+			// settings
+			type: type,
+			allow_dismiss: true,
+			newest_on_top: true,
+			placement: {
+				from: "bottom",
+				align: "right"
+			},
+			icon_type: 'class',
+			delay: 3000,
+			timer: 1000,
+			animate: {
+				enter: 'animated fadeInUp',
+				exit: 'animated fadeOutDown'
+			},
+		});
 	}
 
 </script>
