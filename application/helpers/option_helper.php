@@ -15,7 +15,7 @@ if(!function_exists('op_semester'))
                 .'<option value="I">Semester I</option>'
                 .'<option value="II">Semester II</option>'
                 .'<option value="III">Semester III</option>'
-                .'<option value="VI">Semester IV</option>'
+                .'<option value="IV">Semester IV</option>'
                 .'<option value="V">Semester V</option>'
                 .'<option value="VI">Semester VI</option>'
                 .'<option value="VII">Semester VII</option>'

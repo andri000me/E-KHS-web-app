@@ -183,44 +183,44 @@
 					<span aria-hidden="true"><i class="flaticon-cross"></i></span>
 				</button>
 			</div>
-			<div class="modal-body">
-				<form class="row">
-					<div class="form-group col-12 ">
-						<label>Nim</label>
-						<input type="text" class="form-control" name="nim" placeholder="Masukan Nim Mahasiswa">
-					</div>
-					<div class="form-group col-12 ">
-						<label>Nama</label>
-						<input type="text" class="form-control" name="nama" placeholder="Masukan Nama Mahasiswa">
-					</div>
-					<div class="form-group col-md-6">
-						<label>Kelas</label>
-						<select name="kelas" class="form-control myselect" style="width:100%;">
-							<?=op_kelas();?>
-						</select>
-					</div>
-					<div class="form-group col-md-6">
-						<label>Angkatan</label>
-						<input type="text" class="form-control" id="tang" name="angkatan" placeholder="Pilih Angkatan">
-					</div>
-					<div class="form-group col-12">
-						<label>Dosen PA</label>
-						<select name="dosen" class="form-control myselect" style="width:100%;">
-							<option value="" selected disabled>Dosen Pembimbing Akademik</option>
-							<?php foreach ($dosen as $key) :?>
-							<option value="<?=$key->nip?>"><?=$key->nama?></option>
-							<?php endforeach;?>
-						</select>
-					</div>
+			<form id="myform">
 
 
-				</form>
-			</div>
-			<div class="modal-footer">
-				<button class="btn btn-primary btn-border btn-round" data-dismiss="modal">batal</button>
-				<button type="submit" class="btn btn-primary btn-round add-data">Simpan</button>
-				<button type="submit" class="btn btn-success btn-round edit-data">Edit</button>
-			</div>
+				<div class="modal-body">
+					<div class="row">
+						<input type="hidden" name="nimOri" value="">
+						<div class="form-group col-12 ">
+							<label>Nim</label>
+							<input type="text" class="form-control" name="nim" placeholder="Masukan Nim Mahasiswa">
+						</div>
+						<div class="form-group col-12 ">
+							<label>Nama</label>
+							<input type="text" class="form-control" name="nama" placeholder="Masukan Nama Mahasiswa">
+						</div>
+						<div class="form-group col-md-6">
+							<label>Kelas</label>
+							<select name="kelas" class="form-control myselect" style="width:100%;">
+								<?=op_kelas();?>
+							</select>
+						</div>
+						<div class="form-group col-md-6">
+							<label>Angkatan</label>
+							<input type="text" class="form-control" id="tang" name="angkatan" placeholder="Pilih Angkatan">
+						</div>
+						<div class="form-group col-12">
+							<label>Dosen PA</label>
+							<select name="dosen" class="form-control myselect2" style="width:100%;"></select>
+						</div>
+
+
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button class="btn btn-primary btn-border btn-round" data-dismiss="modal">batal</button>
+					<button type="submit" class="btn btn-primary btn-round add-data">Simpan</button>
+					<button type="button" class="btn btn-success btn-round edit-data">Edit</button>
+				</div>
+			</form>
 		</div>
 	</div>
 </div>
@@ -232,9 +232,26 @@
 
 <script>
 	$(document).ready(function () {
+
 		//===============plugin init==================
 		$('.myselect').select2({
 			theme: "bootstrap"
+		});
+
+		$('.myselect2').select2({
+			theme: "bootstrap",
+			ajax: {
+				url: '<?=base_url();?>api/dosen',
+				data: function (q) {
+					return {
+						q: q.term
+					}
+				},
+				dataType: 'JSON',
+				cache: true
+			},
+			minimumInputLength: 1,
+			placeholder: 'Pilih Dosen Pembimbing Akademik',
 		});
 
 		$('#tang').datetimepicker({
@@ -318,8 +335,6 @@
 		//==============add data===========================
 
 		$('.tambah').click(function (e) {
-			$('.myselect , .jam').val(null).trigger('change');
-
 			$('.add-data').show();
 			$('.edit-data').hide();
 
@@ -329,24 +344,22 @@
 
 			});
 
+		});
+		$('.add-data').click(function (e) {
+			e.preventDefault();
+			let url = "<?php echo base_url('operator/mahasiswa/add')?>";
+			let data = {
+				nim: $('#my-modal [name="nim"]').val(),
+				nama: $('#my-modal [name="nama"]').val(),
+				kelas: $('#my-modal [name="kelas"]').val(),
+				angkatan: $('#my-modal [name="angkatan"]').val(),
+				dosen: $('#my-modal [name="dosen"]').val(),
+			};
 
-			// proses add
-			$('.add-data').click(function (e) {
-				var url = "<?php echo base_url('operator/mahasiswa/add')?>";
-				e.preventDefault();
-				var data = {
-					nim: $('#my-modal [name="nim"]').val(),
-					nama: $('#my-modal [name="nama"]').val(),
-					kelas: $('#my-modal [name="kelas"]').val(),
-					angkatan: $('#my-modal [name="angkatan"]').val(),
-					dosen: $('#my-modal [name="dosen"]').val(),
-				};
+			post(url, data);
 
-				post(url, data);
+			$('#my-modal').modal('hide');
 
-				$('#my-modal').modal('hide');
-
-			});
 		});
 
 
@@ -361,15 +374,15 @@
 
 			let data = table.row($(this).parents('tr')).data();
 			let id = data[0];
+			$('#my-modal [name="nimOri"]').val(id);
 			let url_1 = "<?php echo base_url('operator/mahasiswa/getmhsbynim')?>";
 			var dt_set = function (data) {
-				console.log(data);
-
+				var option = new Option(data[0].dosen, data[0].nip, true, true);
+				$('#my-modal [name="dosen"]').append(option).trigger('change');
 				$('#my-modal [name="nim"]').val(data[0].nim);
 				$('#my-modal [name="nama"]').val(data[0].nama);
 				$('#my-modal [name="kelas"]').val(data[0].kelas).trigger('change');
 				$('#my-modal [name="angkatan"]').val(data[0].angkatan);
-				$('#my-modal [name="dosen"]').val(data[0].nip).trigger('change');
 			}
 			$('#my-modal').modal({
 				keyboard: false,
@@ -377,29 +390,22 @@
 			});
 			set(url_1, id, dt_set);
 
-
-			//proses edit
-			$('.edit-data').click(function (e) {
-				var url = "<?php echo base_url('operator/mahasiswa/update')?>";
-				e.preventDefault();
-				var origin_nim = id;
-				var data = {
-					origin_nim: origin_nim,
-					nim: $('#my-modal [name="nim"]').val(),
-					nama: $('#my-modal [name="nama"]').val(),
-					kelas: $('#my-modal [name="kelas"]').val(),
-					angkatan: $('#my-modal [name="angkatan"]').val(),
-					dosen: $('#my-modal [name="dosen"]').val(),
-				};
-
-				post(url, data);
-				table.ajax.reload();
-				$('#my-modal').modal('hide');
-
-
-			});
 		});
-
+		//proses edit
+		$('.edit-data').on('click', function (e) {
+			var url = "<?php echo base_url('operator/mahasiswa/update')?>";
+			var data = {
+				origin_nim: $('#my-modal [name="nimOri"]').val(),
+				nim: $('#my-modal [name="nim"]').val(),
+				nama: $('#my-modal [name="nama"]').val(),
+				kelas: $('#my-modal [name="kelas"]').val(),
+				angkatan: $('#my-modal [name="angkatan"]').val(),
+				dosen: $('#my-modal [name="dosen"]').val(),
+			};
+			post(url, data);
+			table.ajax.reload();
+			$('#my-modal').modal('hide');
+		});
 
 		// aktif DO Cuti
 		$('tbody').on('click', '.statusChange', function () {

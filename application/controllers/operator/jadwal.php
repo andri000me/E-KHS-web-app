@@ -8,18 +8,17 @@ class jadwal extends CI_Controller {
         parent::__construct();
         //Load Dependencies
         $this->load->model('M_jadwal');
+    
     }
 
     // List all your items
-    public function index( $offset = 0 )
+    public function index()
     {
         $data = array(
             'mk' => $this->db->get('matakulah')->result(),
             'dosen'=> $this->db->get('dosen')->result(),
             'ruang'=> $this->db->get('ruangan')->result(),
-            
-
-         );
+        );
         $this->load->view('include/head');
         $this->load->view('include/header');
         $this->load->view('include/sidebar');
@@ -56,7 +55,7 @@ class jadwal extends CI_Controller {
             $output[]=$row;
         }
         $result=array(
-         
+        
             'data'=>$output,
             
         );
@@ -91,10 +90,7 @@ class jadwal extends CI_Controller {
         $this->db->delete('mkprodi');
         
         echo "ok";
-
-
     }
 }
 
 /* End of file Controllername.php */
-

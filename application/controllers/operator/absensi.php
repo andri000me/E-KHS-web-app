@@ -7,6 +7,7 @@ class absensi extends CI_Controller {
     {
         parent::__construct();
         //Load Dependencies
+        $this->load->model('M_absensi');
 
     }
 
@@ -16,30 +17,66 @@ class absensi extends CI_Controller {
         $this->load->view('include/head');
         $this->load->view('include/header');
         $this->load->view('include/sidebar');
-        echo "absen";
-        // $this->load->view('operator/index');
-        $this->load->view('include/script');
-        
+        $this->load->view('operator/absensi');
+    }
+
+    public function get_data()
+    {
+        $data=$this->M_absensi->get_data();
+        $output=array();
+        $no=0;
+        foreach ($data as $key) {
+            $row=array();
+            $no++;
+            $row[]=$key->id;
+            $row[]=$no;
+            $row[]=$key->nim;
+            $row[]=$key->nama;
+            $row[]=$key->kelas;
+            $row[]=$key->semester;
+            $row[]=$key->sakit;
+            $row[]=$key->ijin;
+            $row[]=$key->alpa;
+            $row[]='<div class="d-flex flex-row">
+                <button class="mr-2 btn btn-icon btn-round btn-success edit"><i class="icon-pencil"></i></button>
+                <button class="btn btn-icon btn-round btn-danger hapus"><i class="icon-trash"></i></button>
+            </div>';
+            $output[]=$row;
+        }
+        $result=array('data'=>$output);
+        echo json_encode($result);
+
+    }
+
+    public function get_absenbyId()
+    {
+        $data=$this->M_absensi->get_absenbyId();
+        echo json_encode($data);
     }
 
     // Add a new item
     public function add()
     {
-
+        $data=$this->M_absensi->add();
+        echo json_encode($data);
     }
 
     //Update one item
-    public function update( $id = NULL )
+    public function update()
     {
-
+        $data=$this->M_absensi->update();
+        echo json_encode($data);
     }
 
     //Delete one item
-    public function delete( $id = NULL )
+    public function delete()
     {
+        $id=$this->input->get('id');
+        $this->db->where('id', $id);
+        $this->db->delete('absen');
 
+        echo "ok";
     }
 }
 
 /* End of file Controllername.php */
-

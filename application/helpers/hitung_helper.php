@@ -92,9 +92,9 @@ if(!function_exists('semester')){
     {
         if (($semester=="I" ) or ($semester=="III" )or($semester=="V" ) or ($semester=="VII" ) or ($semester=="XI" ))
 		{
-			$sem="GANJIL";
+			return "GANJIL";
 		}
-		else $sem="GENAP";
+		else return "GENAP";
     }
 }
 

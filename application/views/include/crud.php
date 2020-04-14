@@ -131,7 +131,7 @@
 			type = 'danger';
 			icon = 'flaticon-error'
 		}
-		$.notify({
+		var not = $.notify({
 			// options
 			icon: icon,
 			title: judul,
@@ -147,12 +147,13 @@
 			},
 			icon_type: 'class',
 			delay: 3000,
-			timer: 1000,
+			timer: 2000,
 			animate: {
 				enter: 'animated fadeInUp',
 				exit: 'animated fadeOutDown'
 			},
 		});
+		return not;
 	}
 
 </script>
