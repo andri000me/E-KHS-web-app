@@ -11,6 +11,12 @@ class M_absensi extends CI_Model {
       //Load Dependencies
 
     }
+    public function alpa($semester,$nim)
+    {
+        $this->db->where('semester',$semester);
+        $this->db->where('nim', $nim);
+        return $this->db->get('absen')->row()->alpa;
+    }
     public function get_data()
     {
         $this->db->select('abs.id,abs.nim,abs.semester,mhs.nama,mhs.kelas,abs.sakit,abs.ijin,abs.alpa');

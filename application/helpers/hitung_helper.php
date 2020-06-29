@@ -37,8 +37,8 @@ if(!function_exists('jnilai')){
 if(!function_exists('status')){
     function status($val)
     {
-        if ($val== "1") return '<span class="badge badge-success">Verivied</span>';
-        else return '<span class="badge badge-warning">Not Verivied</span>';
+        if ($val== "1") return '<span style="cursor:pointer;" class="badge badge-success">Verivied</span>';
+        else return '<span style="cursor:pointer;" class="badge okk badge-warning">Not Verivied</span>';
     }
 }
 
@@ -87,6 +87,15 @@ if(!function_exists('sts')){
     }
 }
 
+if(!function_exists('sts2')){
+    function sts2($val)
+    {
+        if ($val== "Aktif") return '<span class="badge bg-success text-light "style="border: 2px solid white !important;">Aktif</span>';
+        else if ($val== "Cuti") return '<span class="text-light badge bg-warning" style="border: 2px solid white !important;">Cuti</span>';
+        else return '<span class="badge bg-danger text-light" style="border: 2px solid white !important;">Drop Out</span>';
+    }
+}
+
 if(!function_exists('semester')){
     function semester($semester = null)
     {
@@ -95,6 +104,35 @@ if(!function_exists('semester')){
 			return "GANJIL";
 		}
 		else return "GENAP";
+    }
+}
+
+if(!function_exists('tgl_indo')){
+    function tgl_indo($tanggal)
+    {
+        $bulan= array(
+        1 =>'January',
+            'February',
+            'Maret',
+            'April',
+            'Mei',
+            'Juni',
+            'Juli',
+            'Agustus',
+            'September',
+            'Oktober',
+            'November',
+            'Desember'
+        );
+        $pecahkan = explode('-', $tanggal);
+        return $pecahkan[2].' '.$bulan[ (int)$pecahkan[1] ].' '.$pecahkan[0];
+    }
+}
+if(!function_exists('nama_depan')){
+    function nama_depan($nama)
+    {
+        $pecahkan = explode(' ', $nama);
+        return $pecahkan[0];
     }
 }
 

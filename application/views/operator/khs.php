@@ -1,4 +1,4 @@
-<div class="main-panel">
+<div class="main-panel scr">
 	<div class="content">
 		<div class="page-inner" style="margin-top: 60px;">
 
@@ -54,7 +54,7 @@
 								</div>
 								<div class="card-body">
 
-									<table id="tb-khs" class="display table table-striped table-hover " style="width:100%;">
+									<table id="tb-khs" class="display table table-striped table-hover "  cellspacing="0" style="width:100%;">
 										<thead>
 											<tr>
 												<th>No</th>
@@ -101,7 +101,7 @@
 
 								<div class="card-body">
 
-									<table id="tb-khs-detail" class="display table table-striped table-hover " style="width:100%;">
+									<table id="tb-khs-detail" class="display table table-striped table-hover " style="width:100%;"  cellspacing="0">
 										<thead>
 											<tr>
 												<th>No</th>
@@ -128,11 +128,13 @@
 		</div>
 	</div>
 </div>
+
 <?php $this->load->view('include/script');?>
 
 
 <script>
 	$(document).ready(function () {
+		
 		var nim, semester;
 
 
@@ -212,6 +214,9 @@
 
 			nim = data[1];
 			semester = data[3];
+
+			$('#pdf').attr('src','<?=base_url()?>operator/report/khs?semester='+semester+'&nim='+nim+'');
+			$('#iframe').hide();
 
 		});
 

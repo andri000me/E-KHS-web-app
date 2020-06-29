@@ -1,72 +1,38 @@
     <!-- Custom template | don't include it in your project! -->
     <div class="custom-template">
-    	<div class="title">Settings</div>
+    	<div class="title">Tahun Akademik</div>
     	<div class="custom-content">
     		<div class="switcher">
     			<div class="switch-block">
-    				<h4>Logo Header</h4>
-    				<div class="btnSwitch">
-    					<button type="button" class="changeLogoHeaderColor" data-color="dark"></button>
-    					<button type="button" class="selected changeLogoHeaderColor" data-color="blue"></button>
-    					<button type="button" class="changeLogoHeaderColor" data-color="purple"></button>
-    					<button type="button" class="changeLogoHeaderColor" data-color="light-blue"></button>
-    					<button type="button" class="changeLogoHeaderColor" data-color="green"></button>
-    					<button type="button" class="changeLogoHeaderColor" data-color="orange"></button>
-    					<button type="button" class="changeLogoHeaderColor" data-color="red"></button>
-    					<button type="button" class="changeLogoHeaderColor" data-color="white"></button>
-    					<br />
-    					<button type="button" class="changeLogoHeaderColor" data-color="dark2"></button>
-    					<button type="button" class="changeLogoHeaderColor" data-color="blue2"></button>
-    					<button type="button" class="changeLogoHeaderColor" data-color="purple2"></button>
-    					<button type="button" class="changeLogoHeaderColor" data-color="light-blue2"></button>
-    					<button type="button" class="changeLogoHeaderColor" data-color="green2"></button>
-    					<button type="button" class="changeLogoHeaderColor" data-color="orange2"></button>
-    					<button type="button" class="changeLogoHeaderColor" data-color="red2"></button>
-    				</div>
-    			</div>
-    			<div class="switch-block">
-    				<h4>Navbar Header</h4>
-    				<div class="btnSwitch">
-    					<button type="button" class="changeTopBarColor" data-color="dark"></button>
-    					<button type="button" class="changeTopBarColor" data-color="blue"></button>
-    					<button type="button" class="changeTopBarColor" data-color="purple"></button>
-    					<button type="button" class="changeTopBarColor" data-color="light-blue"></button>
-    					<button type="button" class="changeTopBarColor" data-color="green"></button>
-    					<button type="button" class="changeTopBarColor" data-color="orange"></button>
-    					<button type="button" class="changeTopBarColor" data-color="red"></button>
-    					<button type="button" class="changeTopBarColor" data-color="white"></button>
-    					<br />
-    					<button type="button" class="changeTopBarColor" data-color="dark2"></button>
-    					<button type="button" class="selected changeTopBarColor" data-color="blue2"></button>
-    					<button type="button" class="changeTopBarColor" data-color="purple2"></button>
-    					<button type="button" class="changeTopBarColor" data-color="light-blue2"></button>
-    					<button type="button" class="changeTopBarColor" data-color="green2"></button>
-    					<button type="button" class="changeTopBarColor" data-color="orange2"></button>
-    					<button type="button" class="changeTopBarColor" data-color="red2"></button>
-    				</div>
-    			</div>
-    			<div class="switch-block">
-    				<h4>Sidebar</h4>
-    				<div class="btnSwitch">
-    					<button type="button" class="selected changeSideBarColor" data-color="white"></button>
-    					<button type="button" class="changeSideBarColor" data-color="dark"></button>
-    					<button type="button" class="changeSideBarColor" data-color="dark2"></button>
-    				</div>
-    			</div>
-    			<div class="switch-block">
-    				<h4>Background</h4>
-    				<div class="btnSwitch">
-    					<button type="button" class="changeBackgroundColor" data-color="bg2"></button>
-    					<button type="button" class="changeBackgroundColor selected" data-color="bg1"></button>
-    					<button type="button" class="changeBackgroundColor" data-color="bg3"></button>
-    					<button type="button" class="changeBackgroundColor" data-color="dark"></button>
-    				</div>
+    				<ol class="activity-feed selectgroup selectgroup-pills">
+    					<?php
+              $tgla=getdate();
+              $warna=['info','warning','danger','success','primary','secondary','info','warning','danger','success'];
+              for ($a=$tgla['year']; $a>= 2015;$a--)
+
+              { $i=substr($a, 3,1);?>
+							<li class="feed-item feed-item-<?=$warna[$i]?>">
+								<time class="date" datetime="9-25">Tahun <?=$a;?></time>
+								<label class="selectgroup-item">
+                    <input type="radio" name="tahunAng" value="<?=$a;?>" class="selectgroup-input">
+                    <span class="selectgroup-button"><?php echo $a; ?>/<?php echo $a+1; ?></span>
+                </label>
+							</li>
+							<?php  } ?>
+
+						</ol>
+
+
+
     			</div>
     		</div>
     	</div>
-    	<div class="custom-toggle">
-    		<i class="flaticon-settings"></i>
+    	<div class="custom-toggle ">
+    		<i class="flaticon-calendar animated swing infinite"></i>
     	</div>
+    </div>
+    <div id="iframe">
+        <iframe id="pdf" src="" width="100%" height="0px"></iframe>
     </div>
     <!-- End Custom template -->
     </div>
@@ -122,6 +88,20 @@
 
 
     <script>
+
+        $(document).ready(function(){
+        		// ta terpilih
+        		let sTa="<?=$this->session->userdata('takademik');?>";
+        		$('[name="tahunAng"][value="'+sTa+'"]').attr('checked',true);
+
+            $('#iframe').hide();
+            $('.scrollbar-inner').scrollbar();
+            $('#printModal').modal({
+                keyboard: true,
+                backdrop: 'static',
+                show:false,
+            });
+        });
     	$(function () {
 
     		var table, current = location.pathname.split("/").slice(-1)[0].replace(/^\/|\/$/g, '');
@@ -140,12 +120,29 @@
     				$('.nav .collapse').parent('li').addClass('active ');
     				$('.nav .collapse').addClass('show');
     				break;
+                case "user":
+                    $('.nav .BARUUU').parent('li').addClass('active ');
+                    $('.nav .BARUUU').addClass('show');
+                    break;
+                case "pejabat":
+                    $('.nav .BARUUU').parent('li').addClass('active ');
+                    $('.nav .BARUUU').addClass('show');
+                    break;
+                case "batas":
+                    $('.nav .BARUUU').parent('li').addClass('active ');
+                    $('.nav .BARUUU').addClass('show');
+                    break;
+
     			default:
     				$('.nav .collapse').parent('li').removeClass('active ');
     				$('.nav .collapse').removeClass('show');
     				break;
     		}
 
+    	});
+
+    	$('input[name="tahunAng"]').on('change', function(){
+    		setTA($(this).val());
     	});
 
     	function setTA(ta) {
@@ -156,9 +153,8 @@
     				ta: ta
     			},
     			success: function (data) {
-    				var ta = data * 1;
-    				$('.TA').html(`TA ${data}/${ ta+1}`);
     				swal("Tahun Akademik Diganti", {
+
     					icon: "success",
     					buttons: {
     						confirm: {
@@ -170,5 +166,58 @@
     			}
     		});
     	}
+        function setProdi(prodi) {
+            $.ajax({
+                type: "GET",
+                url: "<?php echo base_url('ta/prodi')?>",
+                data: {
+                    prodi: prodi
+                },
+                success: function (data) {
+                    
+                    $('.ttp').attr('title', 'Prodi : '+data);
+                    swal( {
+                        title:"Prodi Di ganti",
+                        text:"prodi :"+data,
+                        icon: "success",
+                        buttons: {
+                            confirm: {
+                                className: 'btn btn-success'
+                            }
+                        }
+                    });
+                    table.ajax.reload();
+                }
+            });
+        }
+
+        $('.selectNim').select2({
+            theme: "bootstrap",
+            ajax: {
+                url: '<?=base_url();?>api/mahasiswa',
+                data: function (q) {
+                    return {
+                        q: q.term
+                    }
+                },
+                dataType: 'JSON',
+                cache: true
+            },
+
+            minimumInputLength: 1,
+            placeholder: 'Pilih Mahasiswa',
+        });
+
+        $('#PrintForm').on('submit',  function(e){  
+            e.preventDefault();
+            let nim= $('#PrintForm [name="nimPrint"]').val();
+            let judulTa= $('#PrintForm [name="judulTa"]').val();
+            $('#pdf').attr('src','<?=base_url()?>operator/report/daftarNilai?judulta='+judulTa+'&nim='+nim+'');
+            $('#printModal').modal('hide');
+            $('#PrintForm').trigger("reset");
+            
+            $('#iframe').hide();                             
+                
+        });
 
     </script>

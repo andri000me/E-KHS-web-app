@@ -10,12 +10,15 @@ class M_mhs extends CI_Model {
         //Load Dependencies
 
     }
-    public function get_data()
+    public function get_data($dosen="")
     {
         $this->db->select('nim,nama,kelas,prodi.prodi,status');
         $this->db->from('mahasiswa');
         $this->db->join('prodi', 'mahasiswa.prodi = prodi.kodeprodi', 'left');
-        $this->db->where('mahasiswa.prodi', $this->session->userdata('prodiLog'));
+        if ($dosen=="") {
+            
+            $this->db->where('mahasiswa.prodi', $this->session->userdata('prodiLog'));
+        }
         if($this->input->post('kelas'))
         {
             $this->db->where('mahasiswa.kelas', $this->input->post('kelas'));
@@ -23,6 +26,9 @@ class M_mhs extends CI_Model {
         if($this->input->post('angkatan'))
         {
             $this->db->like('mahasiswa.angkatan', $this->input->post('angkatan'),'righ');
+        }
+        if($dosen !=""){
+         $this->db->like('mahasiswa.nip', $dosen, 'BOTH');   
         }
         return $this->db->get()->result();
 
@@ -76,70 +82,4 @@ class M_mhs extends CI_Model {
         }
     }
 
-    public function update()
-    {
-        $this->form_validation->set_rules('nim', 'nim', 'required');
-        $this->form_validation->set_rules('nama', 'nama', 'required');
-        $this->form_validation->set_rules('kelas', 'kelas', 'required');
-        $this->form_validation->set_rules('angkatan', 'angkatan', 'required');
-
-        if($this->form_validation->run()==FALSE){
-            $message = array(
-            'type' =>'error',
-            'text'=>'Data Gagal Di Diedit' );
-            return $message;
-        }
-        else{
-            $data=array(
-
-                "nim"=>$_POST['nim'], 
-                "nama"=>$_POST['nama'],
-                "kelas"=>$_POST['kelas'],
-                "angkatan"=>$_POST['angkatan'],
-                "nip"=>$_POST['dosen'],
-            );
-            $this->db->where('nim', $_POST['origin_nim']);
-            $this->db->update('mahasiswa',$data);
-            $message = array(
-                'type' =>'success',
-                'text'=>'Data Mahasiswa Berhasil Diedit');
-            return $message;
-        }
-    }
-    public function updateStatus()
-    {
-        $nim=$this->input->post('id');
-        $this->db->where('nim', $nim);
-        
-        if ($this->input->post('cuti')) {
-            $data = array('status' =>'Cuti');
-            $this->db->update('mahasiswa', $data);
-            $message = array(
-                'type' =>'success',
-                'text'=>'Status Brhasil Diubah Menjadi Cuti');
-            return $message;
-        }
-        else if ($this->input->post('aktif')) {
-            $data = array('status' =>'Aktif');
-            $this->db->update('mahasiswa', $data);
-            $message = array(
-                'type' =>'success',
-                'text'=>'Status Brhasil Diubah Menjadi Aktif Kembali');
-            return $message;
-        }
-        else if ($this->input->post('do')) {
-            $data = array('status' =>'DO');
-            $this->db->update('mahasiswa', $data);
-            $message = array(
-                'type' =>'success',
-                'text'=>'Status Brhasil Diubah Menjadi Drop Out');
-            return $message;
-        }
-        else {
-            $message = array(
-                'type' =>'error',
-                'text'=>'Status Gagal Diubah');
-            return $message;
-        }
-    }
 }

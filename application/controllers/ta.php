@@ -22,4 +22,13 @@ class ta extends CI_Controller {
        echo $this->session->userdata('takademik');
        
     }
+    public function prodi()
+    {
+       
+       $prodi=$this->input->get('prodi');
+
+       $this->session->set_userdata('prodiLog',$prodi);
+       $this->db->where('kodeprodi', $prodi);
+       echo $this->db->get('prodi')->row()->prodi;
+    }
 }

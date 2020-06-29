@@ -1,4 +1,4 @@
-<div class="main-panel">
+<div class="main-panel scr">
 	<div class="content">
 		<div class="page-inner" style="margin-top: 60px;">
 
@@ -14,7 +14,7 @@
 										<i class="icon-eyeglass"></i>
 										Filter
 									</button>
-									<a class="btn btn-secondary btn-round btn-sm mr-3 tambah">
+									<a class="btn btn-secondary btn-round btn-sm mr-3 tambah text-light">
 										<i class="icon-note"></i>
 										Tambah Data
 									</a>
@@ -39,9 +39,15 @@
 											<?=op_semester();?>
 										</select>
 									</div>
-									<div class="col-md-2" style="margin-top:40px;">
-										<button type="reset" id="tampil" class="btn btn-primary btn-sm " style="height:40px;"><span
-												class="btn-label"><i class="fas fa-undo-alt"></i></span> Reset</button>
+									<div class="col-md-2 d-flex" style="margin-top:40px;">
+										<button id="prinData" class="mr-5 btn btn-warning btn-sm " style="height:40px;">
+											<span class="btn-label"><i class="fas fa-print"></i></span> Print
+										</button>
+
+										<button type="reset" id="tampil" class="btn btn-primary btn-sm " style="height:40px;">
+											<span class="btn-label"><i class="fas fa-undo-alt"></i></span> Reset
+										</button>
+
 									</div>
 
 								</div>
@@ -49,7 +55,7 @@
 						</div>
 						<div class="card-body">
 
-							<table id="data-tb" class="display table table-striped table-hover " style="width:100%;">
+							<table id="data-tb" class="display table table-striped table-hover "  cellspacing="0" style="width:100%;">
 								<thead>
 									<tr>
 										<th>id</th>
@@ -203,7 +209,6 @@
 		var dtfilter = (data) => {
 			data.kelas = $('#kelas').val();
 			data.semester = $('#semester').val();
-
 		}
 		table = get(url, dtfilter);
 		// ==================end get data===============
@@ -271,6 +276,7 @@
 			let id = data[0];
 			let url_1 = "<?php echo base_url('operator/jadwal/get_jadwalbyId')?>";
 			var dt_set = function (data) {
+				
 				$('#my-modal [name="mulai"]').val(data.jam_mulai);
 				$('#my-modal [name="selesai"]').val(data.jam_selesai);
 				$('#my-modal [name="matakuliah"]').val(data.kodemk).trigger('change');
@@ -324,6 +330,17 @@
 
 		});
 		//=============end hapus================
+
+
+		// Print
+		$('#prinData').on('click',  function(e){  
+        let kelas = $('#kelas').val();
+				let semester = $('#semester').val();
+        $('#pdf').attr('src','<?=base_url()?>operator/report/jadwal?kelas='+kelas+'&semester='+semester+'');
+        
+        $('#iframe').hide();                             
+            
+    });
 
 	});
 

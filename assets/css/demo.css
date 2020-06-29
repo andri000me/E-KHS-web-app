@@ -1,9 +1,14 @@
+.scr{
+	height: 100%; 
+	overflow-y: auto !important;
+}
+
 .custom-template {
 	position: fixed;
 	top: 50%;
 	transform: translateY(-50%);
-	right: -325px;
-	width: 325px;
+	right: -210px;
+	width: 210px;
 	height: max-content;
 	display: block;
 	z-index: 1;
@@ -42,7 +47,6 @@
 
 .custom-template .custom-toggle i {
 	font-size: 20px;
-	animation: 1.3s spin linear infinite;
 }
 
 .custom-template .title{
@@ -299,7 +303,7 @@ body[data-background-color="dark"] .demo-icon .icon-class {
 
 @media screen and (max-width: 400px) {
 	.custom-template {
-		width: 85% !important;
-		right: -85%;
+		width: 50% !important;
+		right: -50%;
 	}
 }

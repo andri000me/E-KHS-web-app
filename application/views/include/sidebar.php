@@ -1,16 +1,26 @@
-
+<?php 
+if ($this->session->userdata('lv')!='Operator')
+{
+    redirect('login');
+}
+if ($this->session->userdata('lv')=='')
+{
+    redirect('login');        
+}
+?>
 <!-- Sidebar -->
 <div class="sidebar sidebar-style-2">			
     <div class="sidebar-wrapper scrollbar scrollbar-inner">
         <div class="sidebar-content">
             <div class="user">
                 <div class="avatar-sm float-left mr-2">
-                    <img src="<?=base_url()?>/assets/images/<?=$this->session->userdata('foto');?>" alt="..." class="avatar-img rounded-circle">
+                    <img src="<?=base_url()?>/assets/images/<?=$this->session->userdata('foto');?>" alt="..." class="avatar-img rounded-circle FotoUser">
                 </div>
                 <div class="info">
                     <a data-toggle="collapse" href="#collapseExample" aria-expanded="true">
                         <span>
-                            <?=$this->session->userdata('nama');?>
+                            <span class="nUser"><?=$this->session->userdata('nama');?></span>
+                            
                             <span class="user-level"><?=$this->session->userdata('lv');?></span>
                             <span class="caret"></span>
                         </span>
@@ -20,7 +30,7 @@
                     <div class="collapse in" id="collapseExample">
                         <ul class="nav">
                             <li>
-                                <a href="#profile">
+                                <a href="<?=base_url()?>operator/profile">
                                     <span class="link-collapse">Profile</span>
                                 </a>
                             </li>
@@ -72,8 +82,14 @@
                 </li>
                 <li class="nav-item ">
                     <a href="<?=base_url()?>operator/mahasiswa">
-                        <i class="fas fa-graduation-cap"></i>
+                        <i class="fas fa-user-graduate"></i>
                         <p>Mahasiswa</p>
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a href="<?=base_url()?>operator/dosen">
+                        <i class="fas fa-user-tie"></i>
+                        <p>Dosen</p>
                     </a>
                 </li>
         
@@ -97,6 +113,13 @@
                             </li>
                         </ul>
                     </div>
+                </li>
+
+                <li class="nav-item">
+                    <a href="<?=base_url()?>operator/Ruangan">
+                        <i class="fas fa-hotel"></i>
+                        <p>Ruangan</p>
+                    </a>
                 </li>
                 
             </ul>

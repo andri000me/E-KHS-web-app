@@ -28,6 +28,7 @@ class M_login extends CI_Model {
     		foreach ($query->result() as $row) {
     			$data = array(
                     'no_hp'=>$row->no_hp,
+                    'id'=>$row->id,
     				'username'=>$row->username,
                     'nama'=>$row->nama,
                     'foto'=>$row->foto,
@@ -58,7 +59,9 @@ class M_login extends CI_Model {
                 foreach ($query->result() as $row) {
                     $sess = array(
                         'nama' =>$row->nama,
-                        'password' =>$row->password ,
+                        'password' =>$row->password,
+                        'foto' =>$row->foto,
+
                         'takademik'=>$takademik,
                         'lv'=>'dosen',
                         'username'=>$row->nip,
@@ -115,7 +118,7 @@ class M_login extends CI_Model {
     		}
     		else if ($this->session->userdata('lv')=='Operator')
     		{
-    			redirect('admin/index');
+    			redirect('operator/index');
     		}
             else if ($this->session->userdata('lv')=='dosen') {
                 redirect('dosen/index');

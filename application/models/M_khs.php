@@ -32,6 +32,7 @@ class M_khs extends CI_Model {
             $this->db->like('mahasiswa.angkatan', $this->input->post('angkatan'));
         }
         $this->db->group_by('khs.semester');
+        $this->db->group_by('khs.nim');
     
         return $this->db->get()->result();
 
@@ -46,6 +47,31 @@ class M_khs extends CI_Model {
         
         return $this->db->get()->result();
     }
+    public function nilaiE($semester,$nim)
+    {
+        $this->db->where('semester',$semester);
+        $this->db->where('nim', $nim);
+        $this->db->where('am<=34');
+        $cekE =$this->db->get('khs');
+        return $cekE->num_rows();
+    }
+    public function nilaiD($semester,$nim)
+    {
+        $this->db->where('semester',$semester);
+        $this->db->where('nim', $nim);
+        $this->db->where('am>=35');
+        $this->db->where('am<=45');
+        $cekD =$this->db->get('khs');
+        return $cekD->num_rows();
+    }
+    public function cekVer($semester,$nim)
+    {
+        $this->db->where('semester',$semester);
+        $this->db->where('nim', $nim);
+        $this->db->where('status != 1');
+        return $this->db->get('khs')->num_rows();
+    }
+
    
     public function get_ip($semester,$nim)
     {
@@ -59,10 +85,38 @@ class M_khs extends CI_Model {
         }
         return round ($jumlah/$jumlahsks,2);
     }
-    public function cetak_khs()
+    public function getIPK($semester,$nim)
     {
-        
-    } 
+        $this->load->helper('hitung');
+        $this->db->select('khs.am,khs.semester, matakulah.kodemk,matakulah.namamk ,matakulah.sks');
+        $this->db->from('khs,matakulah,mahasiswa');
+        $this->db->where('mahasiswa.nim=khs.nim AND matakulah.kodemk=khs.kodemk');
+        $this->db->where("khs.semester BETWEEN 'I' AND '".$semester."' ");
+        $this->db->where('khs.nim', $nim);
+        $data=$this->db->get()->result();
+        $jumlah= 0;
+        $jumlahsks=0; 
+        foreach ($data as $key) {
+            $jumlah += jnilai($key->am,$key->sks);
+            $jumlahsks += (float)$key->sks;
+        }
+        return round ($jumlah/$jumlahsks,2);
+   
+    }
+
+    //select berdasarkan elemen mk
+    public function daftarNilai($nim,$el)
+    {
+        $this->db->select('khs.kodemk,matakulah.namamk,khs.am,matakulah.sks,khs.semester');
+        $this->db->from('khs,matakulah');
+        $this->db->where('khs.kodemk=matakulah.kodemk');
+        $this->db->where('khs.nim', $nim);
+        $this->db->where('matakulah.elemenmk', $el);
+        return $this->db->get()->result();
+    }
+
+
+    
 
     // Add a new item
     public function add()

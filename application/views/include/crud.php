@@ -70,7 +70,10 @@
 					success: function (data) {
 
 						notif('success', 'Data Sukses Di Hapus');
+						
 						table.ajax.reload();
+
+
 					}
 				});
 
@@ -85,6 +88,7 @@
 			type: "GET",
 			url: url,
 			dataType: "JSON",
+			cache: false, 
 			data: {
 				id: id
 			},
@@ -155,5 +159,7 @@
 		});
 		return not;
 	}
+
+
 
 </script>

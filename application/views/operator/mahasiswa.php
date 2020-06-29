@@ -1,4 +1,4 @@
-<div class="main-panel">
+<div class="main-panel scr">
 	<div class="content">
 		<div class="page-inner" style="margin-top: 60px;">
 
@@ -41,9 +41,15 @@
 												<input type="text" class="form-control fill" id="angkatan" name="angkatan"
 													placeholder="Pilih Angkatan">
 											</div>
-											<div class="col-md-2" style="margin-top:40px;">
-												<button type="reset" id="tampil" class="btn btn-primary btn-sm " style="height:40px;"><span
-														class="btn-label"><i class="fas fa-undo-alt"></i></span> Reset</button>
+											<div class="col-md-2 d-flex" style="margin-top:40px;">
+												<button id="prinData" class="mr-5 btn btn-warning btn-sm " style="height:40px;">
+													<span class="btn-label"><i class="fas fa-print"></i></span> Print
+												</button>
+
+												<button type="reset" id="tampil" class="btn btn-primary btn-sm " style="height:40px;">
+													<span class="btn-label"><i class="fas fa-undo-alt"></i></span> Reset
+												</button>
+
 											</div>
 
 										</div>
@@ -51,7 +57,7 @@
 								</div>
 								<div class="card-body">
 
-									<table id="data-tb" class="display table table-striped table-hover " style="width:100%;">
+									<table id="data-tb" class="display table table-striped table-hover "  cellspacing="0" style="width:100%;">
 										<thead>
 											<tr>
 												<th>nim</th>
@@ -103,31 +109,7 @@
 								<div class="card card-profile">
 									<div class="card-header hidden-caret" style="background-image: url('<?=base_url()?>assets/img/gg.svg');
                   padding: 10px !important; background-size:cover;">
-										<button tabindex="0"
-											class="pull-right btn btn-light btn-icon btn-round btn-sm mr-3 action dropdown-toggle "
-											data-toggle="dropdown" aria-expanded="false">
-											<i class="icon-options-vertical"></i>
-										</button>
-										<ul class="dropdown-menu dropdown-user animated fadeIn">
-											<div class="dropdown-user-scroll scrollbar-outer">
-												<li>
-													<div class="user-box">
-														<div class="avatar-lg"><img
-																src="<?=base_url()?>assets/images/<?=$this->session->userdata('foto');?>" alt="user"
-																class="avatar-img rounded"></div>
-														<div class="u-text">
-															<h4><?=$this->session->userdata('nama');?></h4>
-															<p class="text-muted"><?=$this->session->userdata('lv');?></p><a href="profile.html"
-																class="btn btn-xs btn-secondary btn-sm">Profile</a>
-														</div>
-													</div>
-												</li>
-												<li>
-													<div class="dropdown-divider"></div>
-													<a class="dropdown-item" href="<?=base_url()?>login/logout">Logout</a>
-												</li>
-											</div>
-										</ul>
+						
 										<div class="profile-picture">
 											<div class="avatar avatar-xl">
 												<img id="dt_foto" src="<?=base_url()?>assets/img/profile.jpg" alt="mahasiswa"
@@ -139,13 +121,14 @@
 									</div>
 									<div class="card-body">
 										<div class="user-profile text-center">
-											<div class="name"><span id="dt_nama">Bonaventura P Jemi </span>, <span id="dt_age">21</span></div>
+											<div class="name"><span id="dt_nama">Bonaventura P Jemi </span></div>
 											<div class="nim" id="dt_nim">1623734335</div>
+											<div class="class" id="dt_prodi">TKJ</div>
+											<div class="class" id="dt_kelas">Kelas A</div>
 
 										</div>
 										<div class="d-flex flex-row justify-content-between">
-											<div class="class" id="dt_kelas">Kelas A</div>
-											<div class="class" id="dt_prodi">TKJ</div>
+											
 										</div>
 									</div>
 									<div class="card-footer">
@@ -452,6 +435,16 @@
 
 		});
 		//=============end hapus================
+
+		// Print
+		$('#prinData').on('click',  function(e){  
+      	let kelas = $('#kelas').val();
+				let angkatan = $('#angkatan').val();
+        $('#pdf').attr('src','<?=base_url()?>operator/report/mahasiswa?kelas='+kelas+'&angkatan='+angkatan+'');
+        
+        $('#iframe').hide();                             
+            
+    });
 
 	});
 

@@ -1,4 +1,4 @@
-<div class="main-panel">
+<div class="main-panel scr" >
 	<div class="content">
 		<div class="page-inner" style="margin-top: 60px;">
 
@@ -14,7 +14,7 @@
 										<i class="icon-eyeglass"></i>
 										Filter
 									</button>
-									<a class="btn btn-secondary btn-round btn-sm mr-3 tambah">
+									<a class="btn btn-secondary btn-round btn-sm mr-3 tambah text-light">
 										<i class="icon-note"></i>
 										Tambah Data
 									</a>
@@ -39,13 +39,19 @@
 											<?=op_semester();?>
 										</select>
 									</div>
-									<div class="form-group  col-md-3 col-12 mr-2">
+<!-- 									<div class="form-group  col-md-3 col-12 mr-2">
 										<label>Angkatan</label>
 										<input type="text" class="form-control fill" id="angkatan">
-									</div>
-									<div class="col-md-2" style="margin-top:40px;">
-										<button type="reset" id="tampil" class="btn btn-primary btn-sm " style="height:40px;"><span
-												class="btn-label"><i class="fas fa-undo-alt"></i></span> Reset</button>
+									</div> -->
+									<div class="col-md-2 d-flex" style="margin-top:40px;">
+										<button id="prinData" class="mr-5 btn btn-warning btn-sm " style="height:40px;">
+											<span class="btn-label"><i class="fas fa-print"></i></span> Print
+										</button>
+
+										<button type="reset" id="tampil" class="btn btn-primary btn-sm " style="height:40px;">
+											<span class="btn-label"><i class="fas fa-undo-alt"></i></span> Reset
+										</button>
+
 									</div>
 
 								</div>
@@ -53,7 +59,7 @@
 						</div>
 						<div class="card-body">
 
-							<table id="data-tb" class="display table table-striped table-hover " style="width:100%;">
+							<table id="data-tb" class="display table table-striped table-hover "  cellspacing="0" style="width:100%;">
 								<thead>
 									<tr>
 										<th>id</th>
@@ -110,7 +116,6 @@
 					<div class="form-group col-12 ">
 						<label>Mahasiswa</label>
 						<select name="nim" class="form-control myselect2" style="width:100%;">
-
 						</select>
 					</div>
 					<div class="form-group col-md-6">
@@ -212,7 +217,6 @@
 			$('#my-modal').modal({
 				keyboard: false,
 				backdrop: 'static',
-
 			});
 
 
@@ -263,6 +267,7 @@
 			$('#my-modal').modal({
 				keyboard: false,
 				backdrop: 'static',
+				
 			});
 			set(url_1, id, dt_set);
 
@@ -301,6 +306,17 @@
 
 		});
 		//=============end hapus================
+
+
+		// Print
+		$('#prinData').on('click',  function(e){  
+        let kelas = $('#kelas').val();
+				let semester = $('#semester').val();
+        $('#pdf').attr('src','<?=base_url()?>operator/report/absensi?kelas='+kelas+'&semester='+semester+'');
+        
+        $('#iframe').hide();                             
+            
+    });
 
 	});
 
