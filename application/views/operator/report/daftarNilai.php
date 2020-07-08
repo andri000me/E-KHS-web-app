@@ -367,8 +367,8 @@
 
 								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;S SKS&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; <?php echo $tot->jumsks; ?>
 				</th>
-				<th colspan="3" ><?php echo $predikat; ?></th>
-				<th colspan="2">_________ 20</th>
+				<th colspan="3"><?php echo $predikat; ?></th>
+				<th colspan="2"><?=$tgl_lulus?></th>
 			</tr>
 			<tr class="tb11">
 				<th colspan="9" style="text-align: left !important;">

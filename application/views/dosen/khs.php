@@ -27,7 +27,7 @@
 									<div class="card card-body">
 										<div class="row">
 
-											<div class="form-group  col-md-2 col-12 mr-2">
+											<div class="form-group  col-md-2 col-12">
 												<label>Kelas</label>
 												<select class="form-control fill" id="kelas">
 													<option value="" selected="" disabled="">pilih Kelas</option>
@@ -37,7 +37,7 @@
 													<?php endforeach ?>
 												</select>
 											</div>
-											<div class="form-group  col-md-2 col-12 mr-2">
+											<div class="form-group  col-md-2 col-12 ">
 												<label>Semester</label>
 												<select class="form-control fill" id="semester">
 													<option value="" selected="" disabled="">pilih Semester</option>
@@ -47,7 +47,7 @@
 													<?php endforeach ?>
 												</select>
 											</div>
-											<div class="form-group col-md-3 col-12 mr-2">
+											<div class="form-group col-md-3 col-12 ">
 												<label>Matakuliah</label>
 												<select class="form-control fill" id="mk">
 													<option value="" selected="" disabled="">pilih Matakuliah</option>
@@ -57,12 +57,25 @@
 													<?php endforeach ?>
 												</select>
 											</div>
-											<div class="col-md-4" style="margin-top:40px;">
-												<button type="reset" id="tampil" class="btn btn-warning btn-sm " style="height:40px;"><span
-														class="btn-label"><i class="fas fa-undo-alt"></i></span> Reset</button>
-												<button id="tambah" class="ml-5 btn btn-primary btn-sm " style="height:40px;"><span
-														class="btn-label"><i class="fas fa-plus"></i></span> Tambah</button>
+											<div class="form-group col-md-2 col-12 ">
+												<label>Prodi</label>
+												<select class="form-control fill" id="prodi">
+													<option value="" selected="" disabled="">pilih Prodi</option>
+													<?php foreach ($prod as $key): ?>
+														
+														<option value="<?=$key->kodeprodi?>"><?=$key->prodi?></option>
+													<?php endforeach ?>
+												</select>
 											</div>
+											<div class="col-md-2 d-flex" style="margin-top:40px;">
+												<button type="reset" id="tampil" class="mr-2 btn btn-warning btn-sm " style="height:40px;">
+													<span class="btn-label"><i class="fas fa-undo-alt"></i></span> Reset
+												</button>
+												<button id="tambah" class=" btn btn-primary btn-sm " style="height:40px;">
+													<span class="btn-label"><i class="fas fa-plus"></i></span> Tambah
+												</button>
+											</div>
+											
 
 										</div>
 									</div>
@@ -132,6 +145,11 @@
 						<th id="TA">TA <?=$this->session->userdata('takademik');?> /<?php echo  $this->session->userdata('takademik')+1; ?>
 							
 						</th>
+					</tr>
+					<tr>
+						<th>Prodi</th>
+						<th>:</th>
+						<th id="prodiS">TKJ</th>
 					</tr>
 				</table>
 			</div>
@@ -207,6 +225,7 @@
 					data.kelas = $('#kelas').val();
 					data.semester = $('#semester').val();
 					data.matakuliah = $('#mk').val();
+					data.prodi = $('#prodi').val();
 				},
 				
 			},
@@ -234,7 +253,7 @@
 					data.kelas = $('#kelas').val();
 					data.semester = $('#semester').val();
 					data.matakuliah = $('#mk').val();
-					data.prodi = '1';
+					data.prodi = $('#prodi').val();
 				},
 
 			},
@@ -256,10 +275,13 @@
 				let kelas = $('#kelas').val();
 				let semester = $('#semester').val();
 				let matakuliah = $('#mk').val();
+				let pro = $('#prodi').val();
 				let matakuliahq = $('option[value="'+matakuliah+'"]').text();
+				let prdd = $('option[value="'+pro+'"]').text();
 				$('#matKul').text(matakuliahq);
 				$('#semS').text(semester);
 				$('#kelS').text(kelas);
+				$('#prodiS').text(prdd);
 
 				tbInput.ajax.reload();
 				$('#modal-tambah').modal({
@@ -341,6 +363,20 @@
 				notif('error', error);
 		}
 	});
+</script>
+
+<script type="text/javascript">
+	$('#tambah').hide();
+	$('.fill').on('change',function(){
+		let contoh=$('#tb-khs tbody tr td').text();
+		if (contoh =="No data available in table"){
+			$('#tambah').show();
+		}
+		else{
+			$('#tambah').hide();
+		}
+	});
+
 </script>
 </body>
 

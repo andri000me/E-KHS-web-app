@@ -10,6 +10,7 @@ class Login extends CI_Controller {
 		$this->load->model('M_login');
 		$this->M_login->masuk();
 		$this->load->view('login');
+	
 	}
 	public function Cek_Login()
 	{

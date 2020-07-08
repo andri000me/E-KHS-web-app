@@ -73,6 +73,9 @@ if(!function_exists('stats')){
             			Out</a>
             	</ul>
             </div>';
+        }
+        else if ($val== "Alumni") {
+            return '<a class="btn btn-info btn-sm btn-round text-light ">Alumni</a>';
         } 
         else return '<a class="btn btn-danger btn-sm btn-round text-light ">Drop Out</a>';
     }
@@ -83,6 +86,7 @@ if(!function_exists('sts')){
     {
         if ($val== "Aktif") return '<span class="badge bg-success text-success"style="border: 2px solid white !important;">.</span>';
         else if ($val== "Cuti") return '<span class="text-warning badge bg-warning" style="border: 2px solid white !important;">.</span>';
+        else if ($val== "Alumni") return '<span class="text-info badge bg-info" style="border: 2px solid white !important;">.</span>';
         else return '<span class="badge bg-danger text-danger" style="border: 2px solid white !important;">.</span>';
     }
 }
@@ -92,6 +96,7 @@ if(!function_exists('sts2')){
     {
         if ($val== "Aktif") return '<span class="badge bg-success text-light "style="border: 2px solid white !important;">Aktif</span>';
         else if ($val== "Cuti") return '<span class="text-light badge bg-warning" style="border: 2px solid white !important;">Cuti</span>';
+        else if ($val== "Alumni") return '<span class="text-light badge bg-warning" style="border: 2px solid white !important;">Alumni</span>';
         else return '<span class="badge bg-danger text-light" style="border: 2px solid white !important;">Drop Out</span>';
     }
 }

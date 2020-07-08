@@ -19,6 +19,7 @@ class khs extends CI_Controller {
 			'mk' => $this->db->query("SELECT mkprodi.kodemk as kode ,matakulah.namamk as nama FROM mkprodi,matakulah WHERE mkprodi.kodemk=matakulah.kodemk AND mkprodi.nip='".$this->session->userdata('username')."' AND mkprodi.takademik='".$this->session->userdata('takademik')."'")->result(),
 			"sem"=> $this->db->query("SELECT mkprodi.semester FROM mkprodi WHERE mkprodi.nip='".$this->session->userdata('username')."' AND mkprodi.takademik='".$this->session->userdata('takademik')."'")->result(),
 			"kel"=> $this->db->query("SELECT mkprodi.kelas FROM mkprodi WHERE mkprodi.nip='".$this->session->userdata('username')."' AND mkprodi.takademik='".$this->session->userdata('takademik')."'")->result(),
+			"prod"=> $this->db->query("SELECT mkprodi.kodeprodi,prodi.prodi FROM mkprodi, prodi WHERE mkprodi.kodeprodi=prodi.kodeprodi AND  mkprodi.nip='".$this->session->userdata('username')."' AND mkprodi.takademik='".$this->session->userdata('takademik')."'")->result(),
 		];
 		$this->load->view('include/head');
 		$this->load->view('include/header_dosen');
@@ -45,6 +46,10 @@ class khs extends CI_Controller {
 		if($this->input->post('matakuliah'))
 		{
 			$this->db->like('mk.kodemk', $this->input->post('matakuliah'));
+		}
+		if($this->input->post('prodi'))
+		{
+			$this->db->like('mhs.prodi', $this->input->post('prodi'));
 		}
 		
 		$data=$this->db->get()->result();
@@ -109,6 +114,7 @@ class khs extends CI_Controller {
 			$this->db->where('mhs.prodi=mkp.kodeprodi and mhs.kelas=mkp.kelas');
 			$this->db->where('mkp.nip', $this->session->userdata('username'));
 			$this->db->where('mhs.angkatan', $ta);
+			$this->db->where('mhs.status','Aktif');
 			$this->db->where('mhs.kelas', $query);
 			$this->db->where('mhs.prodi', $pr);
 			$this->db->group_by('mhs.nim');

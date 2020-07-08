@@ -69,7 +69,7 @@ class report extends CI_Controller {
             
          );
         if ($cekVer > 0) {
-            echo("ddd");
+            echo("<script>alert('Data Belum Di Verifikasi Oleh Kajur / Sekjur'); </script>");
         }
         else 
             {
@@ -82,7 +82,7 @@ class report extends CI_Controller {
     public function daftarNilai()
     {
         $nim=$_GET['nim'];
-
+        $tugas_akhir=$this->db->query("SELECT * FROM tugas_akhir where nim='$nim'");
         $mhs=$this->db->query("SELECT mahasiswa.nim, mahasiswa.tempat_lahir, mahasiswa.nama, mahasiswa.tgl_lahir, prodi.prodi, prodi.jenjang FROM mahasiswa, prodi WHERE mahasiswa.nim = '".$nim."' and mahasiswa.prodi = prodi.kodeprodi")->row();
         $kajur=$this->db->query("SELECT pejabat.nip, pejabat.nama FROM pejabat WHERE pejabat.kode = '1'")->row();
         $pudir=$this->db->query("SELECT pejabat.nip, pejabat.nama FROM pejabat WHERE pejabat.kode = '2'")->row();
@@ -91,7 +91,12 @@ class report extends CI_Controller {
 
         $ipk= jnilai($tot->nilai,$tot->jumsks)/$tot->jumsks;//round($tot->jnxsks/$tot->jumsks);
 
-        $data= array(
+        
+        if ($tugas_akhir->num_rows() < 1) {
+           echo "<script>alert('Mahasiswa ini Belum Lulus'); </script>";
+        }
+        else{
+            $data= array(
             'tgl'=>tgl_indo(date('Y-m-d')),
             'tgl_lahir'=>tgl_indo($mhs->tgl_lahir),
             'mhs' =>$mhs,
@@ -102,14 +107,17 @@ class report extends CI_Controller {
             'mpb'=>$this->M_khs->daftarNilai($nim,'MPB'),
             'mbb'=>$this->M_khs->daftarNilai($nim,'MBB'),
             'tot'=>$tot,
-            'judul'=>$_GET['judulta'],
+            'judul'=>$tugas_akhir->row()->judul,
+            'tgl_lulus'=>tgl_indo($tugas_akhir->row()->tanggal_lulus),
             'ipk'=>$ipk ,
             'kajur'=>$kajur,
             'pudir'=>$pudir,
             'title'=>"Daftar Nilai - ".$mhs->nama,
 
-         );
-        $this->load->view('operator/report/daftarNilai',$data);
+        );
+            $this->load->view('operator/report/daftarNilai',$data);
+        }
+
          
 
     }

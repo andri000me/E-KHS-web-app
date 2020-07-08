@@ -141,7 +141,7 @@
 
 
 		$('#myform').on('submit',  function(e){  
-	        e.preventDefault();
+	    e.preventDefault();
 			var data ={
 					origin_kodemk: $('#my-modal [name="id"]').val(),
 					elemenmk: $('#my-modal [name="elemenmk"]').val(),
@@ -151,10 +151,10 @@
 				};
 			post(url, data);
 			table.ajax.reload();
-			
-	        $('#myform').trigger("reset");                             
+	    $('#myform').trigger("reset");
+    	$('#my-modal').modal('hide');                             
 	            
-	    });
+	  });
 		// proses add
 
 		//=====end add=========== 

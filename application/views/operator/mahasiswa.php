@@ -401,19 +401,19 @@
 				case 'aktif':
 
 					changeStatus('Aktif', url, {
-						aktif: 'aktif',
+						status: 'Aktif',
 						id: id,
 					});
 					break;
 				case 'cuti':
 					changeStatus('Cuti', url, {
-						cuti: 'cuti',
+						status: 'Cuti',
 						id: id,
 					});
 					break;
 				case 'do':
 					changeStatus('Drop Out', url, {
-						do: 'do',
+						status: 'DO',
 						id: id,
 					});
 					break;

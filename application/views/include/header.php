@@ -13,7 +13,7 @@
 		</button>
 		<button class="topbar-toggler more"><i class="icon-options-vertical"></i></button>
 		<div class="nav-toggle">
-			<button class="btn btn-toggle toggle-sidebar">
+			<button class="btn btn-toggle toggle-sidebar ">
 				<i class="icon-menu"></i>
 			</button>
 		</div>
@@ -117,11 +117,6 @@
 							<label>Mahasiswa</label>
 							<select name="nimPrint" class="form-control selectNim" style="width:100%;">
 							</select>
-						</div>
-						<div class="form-group col-md-12">
-							<label>Judul TA</label>
-							<input type="text" placeholder="Judul Tugas akhir" name="judulTa" class="form-control" style="width:100%;">
-							
 						</div>
 					</div>
 				</div>

@@ -34,4 +34,4 @@
 	<link rel="stylesheet" href="<?=base_url()?>assets/css/demo.css">
 </head>
 <body>
-	<div class="wrapper">
+	<div class="wrapper ">

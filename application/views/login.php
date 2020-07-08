@@ -11,7 +11,7 @@
 	<meta name="msapplication-TileColor" content="#0d59ba" />
 	<meta name="theme-color" content="#ffffff">
 	
-	<link rel="manifest" href="<?=base_url()?>assets/manifest.json" />
+	
 	<meta name="description" content="APP KHS ELEKTRO" />
 	<link rel="apple-touch-icon" href="<?=base_url()?>assets/icn.png" />
 	<!-- Fonts and icons -->

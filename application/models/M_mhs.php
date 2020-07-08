@@ -44,6 +44,26 @@ class M_mhs extends CI_Model {
         
         
     }
+
+    public function updateStatus()
+    {
+        $this->db->where('nim', $this->input->post('id'));
+
+        $ok=$this->db->update('mahasiswa',['status'=>$this->input->post('status')]);
+        if ($ok) {
+            $message = array(
+                'type' =>'success',
+                'text'=>'Data Berhasil Di Ubah Menjadi '.$this->input->post('status'));
+            return $message;
+        } else {
+            $message = array(
+                'type' =>'error',
+                'text'=>'Data Gagal Di Ubah');
+            return $message;
+        }
+        
+    }
+
     public function add()
     {
         $cek=$this->db->query("SELECT * from mahasiswa where nim='".$_POST['nim']."'");

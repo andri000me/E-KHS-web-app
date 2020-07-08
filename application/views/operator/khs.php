@@ -14,10 +14,14 @@
 									<div class="d-flex align-items-center">
 										<h4 class="card-title">KHS</h4>
 										<div class="ml-auto">
-											<button class="btn btn-success btn-round mr-3" data-toggle="collapse" data-target="#filter"
+											<button class="btn btn-outline-success btn-round mr-3" data-toggle="collapse" data-target="#filter"
 												aria-expanded="false" aria-controls="collapseExample">
 												<i class="fas fa-filter"></i>
 												Filter
+											</button>
+											<button class="btn btn-primary btn-round mr-3 tambah">
+												<i class="fas fa-add"></i>
+												Tambah
 											</button>
 
 										</div>
@@ -110,6 +114,8 @@
 												<th>Angka Mutu</th>
 												<th>Nilai</th>
 												<th>SKS</th>
+												<th></th>
+												<th>id</th>
 											</tr>
 										</thead>
 
@@ -129,16 +135,130 @@
 	</div>
 </div>
 
+<!-- Modal add -->
+<div class="modal fade" id="my-modal" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered " role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLongTitle">Tambah Data</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true"><i class="flaticon-cross"></i></span>
+				</button>
+			</div>
+			<form id="myform">
+				<div class="modal-body">
+					<div class="row">
+						<input type="hidden" name="id" value="">
+						<input type="hidden" name="idta" value="">
+						<div class="form-group col-md-12">
+							<label>Mahasiswa</label>
+							<select name="nim" class="form-control myselect2" style="width:100%;">
+							</select>
+						</div>
+						<div class="form-group col-md-12">
+							<label>Matakuliah</label>
+							<select name="Matakuliah" class="form-control">
+								<option value='' disabled="" selected="">pilih Matakuliah</option>
+								<?php foreach ($mk as $key): ?>
+									<option value="<?=$key->kodemk?>"><?=$key->namamk?></option>
+								<?php endforeach ?>
+								
+							</select>
+						</div>
+						<div class="form-group col-md-12">
+							<label>nilai</label>
+							<input type="text" class="form-control txt" name="am" placeholder="masukan Nilai">
+						</div>
+						<div class="form-group col-md-12 judul">
+							<label>Judul TA</label>
+							<textarea class="form-control txt" placeholder="masukan judul TA" name="judul"></textarea>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button class="btn btn-primary btn-border btn-round" data-dismiss="modal">batal</button>
+					<button type="submit" class="btn btn-primary btn-round add-data">Simpan</button>
+					<button type="submit" class="btn btn-success btn-round edit-data">Edit</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
 <?php $this->load->view('include/script');?>
 
 
 <script>
 	$(document).ready(function () {
+		let pos_url="";
+		$('.myselect2').select2({
+			theme: "bootstrap",
+			ajax: {
+				url: '<?=base_url();?>api/mahasiswa',
+				data: function (q) {
+					return {
+						q: q.term
+					}
+				},
+				dataType: 'JSON',
+				cache: true
+			},
+
+			minimumInputLength: 1,
+			placeholder: 'Pilih Mahasiswa',
+		});
+
+		// tambah
+		$('.tambah').click(function (e) {
+			pos_url="<?=base_url();?>operator/khs/add";
+			$('.add-data').show();
+			$('.edit-data').hide();
+			$('.judul').hide();
+			$('#my-modal [name="Matakuliah"]').attr('disabled',false);
+			$('#my-modal [name="nim"]').attr('disabled',false);
+			$('#my-modal [name="nim"]').val('').trigger('change');
+			$('#myform').trigger("reset");
+			$('#my-modal').modal({
+				keyboard: false,
+				backdrop: 'static',
+			});
+		});
+
 		
-		var nim, semester;
+		var nim, semester,nama, detailkhs;
 
+		// edit
+		$('#tb-khs-detail').on('click', '.btn-edit', function () {
+			pos_url="<?=base_url();?>operator/khs/update";
 
-		var detailkhs;
+			$('.add-data').hide();
+			$('.edit-data').show();
+			$('.judul').hide();
+			let data1 = detailkhs.row($(this).parents('tr')).data();
+
+			var option = new Option(nama, nim, true, true);
+			$('#my-modal [name="nim"]').append(option).trigger('change');
+			$('#my-modal [name="Matakuliah"]').val(data1[1]).trigger('change');
+			$('#my-modal [name="am"]').val(data1[3]);
+			$('#my-modal [name="id"]').val(data1[7]);
+			$('#my-modal [name="Matakuliah"]').attr('disabled',true);
+			$('#my-modal [name="nim"]').attr('disabled',true);
+			$('#my-modal').modal({
+				keyboard: false,
+				backdrop: 'static',
+			});
+		});
+
+		// hapus
+		$('#tb-khs-detail').on('click', '.hapus', function () {
+			let data = detailkhs.row($(this).parents('tr')).data();
+			let url="<?=base_url()?>operator/khs/delete";
+			hapus(url, data[7]);
+			$('.tab-pane').toggleClass('active');
+			detailkhs.ajax.reload();
+		});
+
+		//tabel utama
 		table = $('#tb-khs').DataTable({
 			"scrollX": true,
 			"language": {
@@ -158,6 +278,7 @@
 			},
 		});
 
+		//tabel detail
 		detailkhs = $('#tb-khs-detail').DataTable({
 			"scrollX": true,
 			"language": {
@@ -174,6 +295,10 @@
 					data.semester = semester;
 				},
 			},
+			"columnDefs": [{
+				"targets": [7],
+				"visible": false,
+			}]
 		});
 
 		//datatables
@@ -204,8 +329,10 @@
 			$('.tab-pane').toggleClass('active');
 			nim = data[1];
 			semester = data[3];
+			nama = data[2];
 			$('.nama').html(`KHS : ${data[2]}, Semester ${data[3]}`);
 			detailkhs.ajax.reload();
+
 
 		});
 
@@ -214,11 +341,42 @@
 
 			nim = data[1];
 			semester = data[3];
+			
 
 			$('#pdf').attr('src','<?=base_url()?>operator/report/khs?semester='+semester+'&nim='+nim+'');
 			$('#iframe').hide();
 
 		});
+
+
+		//tambah TA
+		$('[name="Matakuliah"]').on('change',function(){
+			
+			let isTa=$('option[value="'+$(this).val()+'"').text(); 
+			if(isTa=='TA'){
+				$('.judul').show();
+			}
+			else{
+				$('.judul').hide();
+			}
+		});
+
+		$('#myform').on('submit',  function(e){  
+	    e.preventDefault();
+			var data ={
+				id_khs: $('#my-modal [name="id"]').val(),
+				id_tugas_akhir: $('#my-modal [name="idta"]').val(),
+				nim: $('#my-modal [name="nim"]').val(),
+				matakuliah: $('#my-modal [name="Matakuliah"]').val(),
+				am: $('#my-modal [name="am"]').val(),
+				judul: $('#my-modal [name="judul"]').val(),
+			};
+			post(pos_url, data);
+			table.ajax.reload();
+	    $('#myform').trigger("reset");
+    	$('#my-modal').modal('hide');
+    	detailkhs.ajax.reload()                                    
+	  });
 
 	});
 

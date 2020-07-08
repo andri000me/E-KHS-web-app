@@ -31,4 +31,16 @@ class ta extends CI_Controller {
        $this->db->where('kodeprodi', $prodi);
        echo $this->db->get('prodi')->row()->prodi;
     }
+    public function setMenu()
+    {
+      // $value=$this->session->userdata('toggle');
+      // if ($value !='') {
+      //   $this->session->set_userdata('toggle','sidebar_minimize');
+      //   echo 'oke';
+      // } else {
+      //   $this->session->set_userdata('toggle','');
+      //   echo 'okk';
+      // }
+      
+    }
 }

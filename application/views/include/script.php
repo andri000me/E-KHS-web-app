@@ -102,6 +102,8 @@
                 show:false,
             });
         });
+
+
     	$(function () {
 
     		var table, current = location.pathname.split("/").slice(-1)[0].replace(/^\/|\/$/g, '');

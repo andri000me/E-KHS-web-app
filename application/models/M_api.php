@@ -14,8 +14,6 @@ class M_api extends CI_Model {
     {
         $this->db->select('nim as id,nama as text');
         $this->db->from('mahasiswa');
-        
-        
         $this->db->where('prodi',$this->session->userdata('prodiLog'));
         $this->db->like('nim', $this->input->get('q'),'both');
         $this->db->or_like('nama',$this->input->get('q'),'both');
