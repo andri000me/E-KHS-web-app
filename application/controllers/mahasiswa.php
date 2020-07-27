@@ -81,32 +81,43 @@ class Mahasiswa extends CI_Controller {
 
 	public function jadwal()
 	{
-		//  $this->db->select('p.id,p.hari,p.jam_mulai,p.jam_selesai, P.kodeprodi, p.kodemk, p.nip, p.kelas, p.semester,d.nama, mk.namamk,prod.prodi,rk.nama_ruangan,rk.id_ruangan');
-		// $this->db->from('mkprodi p');
-  //       $this->db->join('dosen d', 'p.nip=d.nip', 'left');
-  //       $this->db->join('prodi prod', 'p.kodeprodi=prod.kodeprodi', 'left');
-  //       $this->db->join('matakulah mk', 'p.kodemk=mk.kodemk', 'left');
-  //       $this->db->join('ruangan rk', 'rk.id_ruangan=p.id_ruangan', 'left');
-  //       $this->db->where('p.takademik', $this->session->userdata('takademik'));
-  //       $this->db->where('P.semester', $this->input->post('semester'));
-		// $this->db->like('P.kelas', $this->input->post('kelas'));
-		// $this->db->get()->result();
 		$sm="";
 		$semester="";
 		$semester=$this->db->query("SELECT khs.semester FROM khs WHERE khs.nim='".$this->session->userdata('username')."' GROUP BY khs.semester  ORDER BY khs.semester DESC");
 		if ($semester->num_rows()>=1) {
-			$sm=$semester->row()->semester;
+			if ($semester->row()->semester =="I")$sm="II";
+			else if ($semester->row()->semester =="II")$sm="III";
+			else if ($semester->row()->semester =="III")$sm="IV";
+			else if ($semester->row()->semester =="IV")$sm="V";
+			else if ($semester->row()->semester =="V")$sm="VI";
+			else if ($semester->row()->semester =="VI")$sm="VII";
+			else if ($semester->row()->semester =="VII")$sm="VIII";
+
 		}
 		else $sm="I";
 		
+
 		$img=$this->db->query("SELECT * FROM `mahasiswa` where nim='".$this->session->userdata('username')."'")->row();
 		$tgl=getdate();
 		$tahun=$tgl['year']-1;
+
+		$this->db->select('p.id,p.hari,p.jam_mulai,p.jam_selesai, P.kodeprodi, p.kodemk, p.nip, p.kelas, p.semester,d.nama, mk.namamk,prod.prodi,rk.nama_ruangan,rk.id_ruangan');
+		$this->db->from('mkprodi p');
+        $this->db->join('dosen d', 'p.nip=d.nip', 'left');
+        $this->db->join('prodi prod', 'p.kodeprodi=prod.kodeprodi', 'left');
+        $this->db->join('matakulah mk', 'p.kodemk=mk.kodemk', 'left');
+        $this->db->join('ruangan rk', 'rk.id_ruangan=p.id_ruangan', 'left');
+        $this->db->where('p.takademik', $tahun);
+        $this->db->where('P.semester', $sm);
+		$this->db->like('P.kelas', $img->kelas);
+		$sql=$this->db->get()->result();
 		
-		$query="SELECT  p.hari,p.jam_mulai,p.jam_selesai, p.id,P.kodeprodi, p.kodemk, p.nip, p.kelas, p.semester,d.nama, mk.namamk,prod.prodi FROM mkprodi p,dosen d, prodi prod, matakulah mk WHERE p.nip=d.nip AND p.kodemk=mk.kodemk AND p.kodeprodi=prod.kodeprodi AND p.takademik='2016' AND p.semester ='1'AND p.kodeprodi='1'";
-		$sql=$this->db->query($query)->result();
-		$data = array('title' =>"jadwal - Mahasiswa" ,
-						'all'=>$sql,);
+		
+		// $query="SELECT  p.hari,p.jam_mulai,p.jam_selesai, p.id,P.kodeprodi, p.kodemk, p.nip, p.kelas, p.semester,d.nama, mk.namamk,prod.prodi FROM mkprodi p,dosen d, prodi prod, matakulah mk WHERE p.nip=d.nip AND p.kodemk=mk.kodemk AND p.kodeprodi=prod.kodeprodi AND p.takademik='2016' AND p.semester ='I'AND p.kodeprodi='1'";
+		// $sql=$this->db->query($query)->result();
+		$data = array('title' =>"jadwal - Mahasiswa",
+						'all'=>$sql,
+					'Semester'=>$sm);
 		
 
 		$this->load->view('Mahasiswa/include/head',$data);
