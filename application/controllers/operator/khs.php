@@ -15,8 +15,18 @@ class khs extends CI_Controller {
 	// List all your items
 	public function index( $offset = 0 )
 	{
-		$this->db->where_in('namamk', ["TA","PKL"]);
-		$data['mk']=$this->db->get('matakulah')->result();
+		$takademik=$this->session->userdata('takademik');
+		$kodeprodi=$this->session->userdata('prodiLog');
+		$this->db->select('*');
+		$this->db->from('matakulah');
+		$this->db->join('mkprodi', 'matakulah.kodemk = mkprodi.kodemk', 'left');
+		$this->db->where('mkprodi.takademik', $takademik);
+		$this->db->where('mkprodi.kodeprodi', $kodeprodi);
+		$getMk1=$this->db->get();
+		$getMk2=$this->db->query("SELECT * FROM `matakulah` WHERE namamk IN ('TA','PKL')");
+		
+		$data['mk']=$getMk1->result();
+		$data['mk2']=$getMk2->result();
 		$this->load->view('include/head');
 		$this->load->view('include/header');
 		$this->load->view('include/sidebar');   
@@ -69,6 +79,12 @@ class khs extends CI_Controller {
 				</div>';
 			}
 			else if (($jenjang=='D4') && ($sem=='VIII')){
+				$btn ='<div class="d-flex flex-row">
+					<button class="mr-2 btn btn-icon btn-round btn-success btn-edit"><i class="icon-pencil"></i></button>
+					<button class="btn btn-icon btn-round btn-danger hapus"><i class="icon-trash"></i></button>
+				</div>';
+			}
+			else{
 				$btn ='<div class="d-flex flex-row">
 					<button class="mr-2 btn btn-icon btn-round btn-success btn-edit"><i class="icon-pencil"></i></button>
 					<button class="btn btn-icon btn-round btn-danger hapus"><i class="icon-trash"></i></button>

@@ -1,10 +1,8 @@
 <div class="main-panel scr">
 	<div class="content">
 		<div class="page-inner" style="margin-top: 60px;">
-
 			<div class="row">
 				<div class="col-md-12">
-
 					<div class="tab-content" id="v-pills-without-border-tabContent">
 						<!-- tab-home -->
 						<div class="tab-pane fade show active" id="v-pills-home-nobd" role="tabpanel"
@@ -157,14 +155,23 @@
 						</div>
 						<div class="form-group col-md-12">
 							<label>Matakuliah</label>
-							<select name="Matakuliah" class="form-control">
+							<select name="Matakuliah" class="form-control myselect22" style="width:100%;">
 								<option value='' disabled="" selected="">pilih Matakuliah</option>
+								<optgroup label="SEMUA MATAKULIAH">
 								<?php foreach ($mk as $key): ?>
 									<option value="<?=$key->kodemk?>"><?=$key->namamk?></option>
 								<?php endforeach ?>
+								</optgroup>
+									<optgroup label="PKL DAN TA">
+									
+								<?php foreach ($mk2 as $key): ?>
+									<option value="<?=$key->kodemk?>"><?=$key->namamk?></option>
+								<?php endforeach ?>
+								</optgroup>
 								
 							</select>
 						</div>
+				
 						<div class="form-group col-md-12">
 							<label>nilai</label>
 							<input type="text" class="form-control txt" name="am" placeholder="masukan Nilai">
@@ -204,6 +211,12 @@
 				cache: true
 			},
 
+			minimumInputLength: 1,
+			placeholder: 'Pilih Mahasiswa',
+		});
+
+		$('.myselect22').select2({
+			theme: "bootstrap",
 			minimumInputLength: 1,
 			placeholder: 'Pilih Mahasiswa',
 		});
@@ -364,6 +377,7 @@
 		$('#myform').on('submit',  function(e){  
 	    e.preventDefault();
 			var data ={
+				namaMk:$('option[value="'+$('#my-modal [name="Matakuliah"]').val()+'"').text(),
 				id_khs: $('#my-modal [name="id"]').val(),
 				id_tugas_akhir: $('#my-modal [name="idta"]').val(),
 				nim: $('#my-modal [name="nim"]').val(),

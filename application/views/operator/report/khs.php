@@ -224,7 +224,7 @@
 						<?php 
 						foreach ($kajur as $row) {?>
 							<td>
-								
+							<br>
 								Ketua Jurusan,  <br>
 								<br>
 								<br>
@@ -232,7 +232,7 @@
 								Nip. <?php echo $row->nip; ?>
 							</td>
 						<?php } ?>
-						<td style="padding-left: 30px">
+						<td style="padding-left: 200px">
 							Kupang,<?php echo $tgl; ?> <br>
 							Ketua Prodi <?=$prodi->prodi ?> <br>
 							<br>

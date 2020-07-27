@@ -114,25 +114,36 @@ class M_khs extends CI_Model {
 		$this->db->where('matakulah.elemenmk', $el);
 		return $this->db->get()->result();
 	}
-
-
-	
-
 	// Add a new item
+
+
 	public function add()
 	{
 		$semester="";
 		$nim=$_POST['nim'];
 		$this->db->where('nim', $nim);
 		$prodi= $this->db->get('mahasiswa')->row()->prodi;
-		$jenjang=$this->db->query("SELECT * FROM prodi where kodeprodi='$prodi'")->row()->jenjang;
-		if ($jenjang=="D3") {
-			$semester="VI";
-		} else {
-			$semester="VIII";
-		}
 		$kodemk=$_POST['matakuliah'];
+		$namaMk=$_POST['namaMk'];
 		$takademik=$this->session->userdata('takademik');
+		$jenjang=$this->db->query("SELECT * FROM prodi where kodeprodi='$prodi'")->row()->jenjang;
+		if(($namaMk=="PKL") or ($namaMk=="TA")){
+			if ($jenjang=="D3") {
+				$semester="VI";
+			} else {
+				$semester="VIII";
+			}
+		}
+		else {
+			$this->db->where('kodemk', $kodemk);
+			$this->db->where('kodeprodi', $prodi);
+			$this->db->where('takademik', $takademik);
+			$semester=$this->db->get('mkprodi')->row()->semester;
+
+			
+		}
+		
+		
 		$am=$_POST['am'];
 
 		$cek=$this->db->query("SELECT * FROM khs where nim='$nim' and kodemk='$kodemk'");
