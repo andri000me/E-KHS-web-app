@@ -30,14 +30,15 @@ class dosen extends CI_Controller {
         $output='';
         foreach ($data as $key) {
            
-        $output .= '<div class="col-sm-6 col-lg-3 ">
+       $output .= '<div class="col-sm-6 col-lg-3 ">
                 <div class="card">
                     <div class="m-5 m-md-2 m-lg-2"  style=" position: relative;" >
                         <img class="img-thumbnail img-fluid rounded-circle" src="'.base_url().'assets/images/dosen/'.$key->foto.'" alt="'.$key->nama.'">
+
                     </div>
                     <div class="card-body px-3 py-0">
-                        <h4 class="mb-1 fw-bold" style="font-size: 13px;">'.$key->nama.'</h4>
-                        <p class="mb-2">'.$key->nip.'</p>
+                        <h4 class="mb-1 fw-bold" style="font-size: 13px;"><i class="fas fa-user-alt"> </i>  '.$key->nama.'</h4>
+                        <p class="mb-2"> <i class="fas fa-address-card"> </i> '.$key->nip.'</p>
                         <div class="separator-dashed"></div>
                         <p class="text-muted small"><i class="fas fa-phone"> </i> '.$key->no_hp.'</p>
                     </div>

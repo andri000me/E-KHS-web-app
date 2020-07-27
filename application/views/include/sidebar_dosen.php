@@ -59,7 +59,7 @@ if ($this->session->userdata('lv')=='')
                 <li class="nav-item ">
                     <a href="<?=base_url()?>dosen/khs">
                         <i class="fas fa-list-alt"></i>
-                        <p>KHS</p>
+                        <p>Nilai</p>
                     </a>
                 </li>
                 <li class="nav-item ">

@@ -60,6 +60,30 @@ class mahasiswa extends CI_Controller {
         echo json_encode($result);
 
     }
+    public function formTb()
+    {
+        $tbody="";
+        $kelas=$this->input->post('kelas');
+        $Jumlah= $this->input->post('Jumlah');
+        $angkatan=$this->input->post('angkatan');
+        for ($i=1;$i<=(float)$Jumlah;$i++){
+            echo '<tr><td>'.$i.' 
+                <input type="hidden" value="'.$kelas.'" class="tb-form kelas-mul" name="kelas[]" >
+                <input type="hidden" value="'.$angkatan.'" class="tb-form angkatan-mul" name="angkatan[]" >
+            </td>
+            <td>
+                <input type="text" class="tb-form" name="nim[]" placeholder="Masukan Nim">
+            </td>
+            <td><input type="text" class="tb-form"  name="nama[]" placeholder="Masukan Nama"></td>
+            <td>
+                <select name="dosen[]"  class="myselect2" style="width:100%;"></select>
+            </td>
+                <td>
+                    <a class="btn" href="#" onclick="remove(this,'.$i.')"><i class="text-danger flaticon-cross"></i></a>
+                </td>
+            </tr>';
+        }
+    }
     public function getmhsbynim()
     {
         $data=$this->M_mhs->get_mhs();
@@ -88,6 +112,44 @@ class mahasiswa extends CI_Controller {
         $data=$this->M_mhs->add();
         echo json_encode($data);
     }
+    public function addMul()
+    {
+        $nim=$this->input->post('nim');
+        $nama=$this->input->post('nama');
+        $kelas=$this->input->post('kelas');
+        $angkatan=$this->input->post('angkatan');
+        $dosen=$this->input->post('dosen');
+
+        $index=0;
+        $data=array();
+        foreach($nim as $datanim)
+        { 
+            $data[]= array(
+            'nim'=>$datanim,
+            'nama'=>$nama[$index],
+            'angkatan'=>$angkatan[$index], 
+            'kelas'=>$kelas[$index],
+            'nip'=>$dosen[$index],
+            'status'=>'Aktif',
+            'prodi'=>$this->session->userdata('prodiLog'), 
+            );
+            $index++;
+        }
+        $in=$this->db->insert_batch('mahasiswa', $data);
+        if ($in) {
+            $message = array(
+                'type' =>'success',
+                'text'=>'Data Berhasil di Input' );
+            echo json_encode($message);
+        }
+        else{
+            $message = array(
+                'type' =>'error',
+                'text'=>'Data Gagal di Input' );
+            echo json_encode($message);
+        }
+            
+    }
 
     //Update one item
     public function update( )
@@ -112,6 +174,7 @@ class mahasiswa extends CI_Controller {
         echo "ok";
 
     }
+   
 
 }
 

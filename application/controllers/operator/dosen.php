@@ -39,8 +39,8 @@ class dosen extends CI_Controller {
                         </button>
                     </div>
                     <div class="card-body px-3 py-0">
-                        <h4 class="mb-1 fw-bold" style="font-size: 13px;">'.$key->nama.'</h4>
-                        <p class="mb-2">'.$key->nip.'</p>
+                        <h4 class="mb-1 fw-bold" style="font-size: 13px;"><i class="fas fa-user-alt"> </i>  '.$key->nama.'</h4>
+                        <p class="mb-2"> <i class="fas fa-address-card"> </i> '.$key->nip.'</p>
                         <div class="separator-dashed"></div>
                         <p class="text-muted small"><i class="fas fa-phone"> </i> '.$key->no_hp.'</p>
                     </div>

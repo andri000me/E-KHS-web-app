@@ -14,8 +14,11 @@ class M_jadwal extends CI_Model {
     public function get_jadwal($dosen="")
     {
         $this->db->select('p.id,p.hari,p.jam_mulai,p.jam_selesai, P.kodeprodi, p.kodemk, p.nip, p.kelas, p.semester,d.nama, mk.namamk,prod.prodi,rk.nama_ruangan,rk.id_ruangan');
-		$this->db->from('mkprodi p,dosen d, prodi prod, matakulah mk,ruangan rk');
-        $this->db->where("rk.id_ruangan=p.id_ruangan AND p.nip=d.nip AND p.kodemk=mk.kodemk AND p.kodeprodi=prod.kodeprodi");
+		$this->db->from('mkprodi p');
+        $this->db->join('dosen d', 'p.nip=d.nip', 'left');
+        $this->db->join('prodi prod', 'p.kodeprodi=prod.kodeprodi', 'left');
+        $this->db->join('matakulah mk', 'p.kodemk=mk.kodemk', 'left');
+        $this->db->join('ruangan rk', 'rk.id_ruangan=p.id_ruangan', 'left');
         $this->db->where('p.takademik', $this->session->userdata('takademik'));
         if($this->input->post('semester'))
         {
@@ -34,9 +37,12 @@ class M_jadwal extends CI_Model {
     }
     public function get_jadwalbyId()
     {
-        $this->db->select('p.id,p.hari,p.jam_mulai,p.jam_selesai ,P.kodeprodi, p.kodemk, p.nip, p.kelas, p.semester,d.nama, mk.namamk,prod.prodi,rk.nama_ruangan,rk.id_ruangan');
-		$this->db->from('mkprodi p,dosen d, prodi prod, matakulah mk,ruangan rk');
-        $this->db->where("rk.id_ruangan=p.id_ruangan AND p.nip=d.nip AND p.kodemk=mk.kodemk AND p.kodeprodi=prod.kodeprodi");
+        $this->db->select('p.id,p.hari,p.jam_mulai,p.jam_selesai, P.kodeprodi, p.kodemk, p.nip, p.kelas, p.semester,d.nama, mk.namamk,prod.prodi,rk.nama_ruangan,rk.id_ruangan');
+        $this->db->from('mkprodi p');
+        $this->db->join('dosen d', 'p.nip=d.nip', 'left');
+        $this->db->join('prodi prod', 'p.kodeprodi=prod.kodeprodi', 'left');
+        $this->db->join('matakulah mk', 'p.kodemk=mk.kodemk', 'left');
+        $this->db->join('ruangan rk', 'rk.id_ruangan=p.id_ruangan', 'left');
         $this->db->where('P.id', $this->input->get('id'));
         return $this->db->get()->row();
     }

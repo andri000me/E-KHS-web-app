@@ -101,5 +101,45 @@ class M_mhs extends CI_Model {
         return $message;
         }
     }
+    public function update()
+    {
+        $this->form_validation->set_rules('nim', 'nim', 'required');
+        $this->form_validation->set_rules('nama', 'nama', 'required');
+        $this->form_validation->set_rules('kelas', 'kelas', 'required');
+        $this->form_validation->set_rules('angkatan', 'angkatan', 'required');
+        $this->form_validation->set_rules('dosen', 'dosen', 'required');
+        if($this->form_validation->run()==FALSE){
+            $message = array(
+                'type'=>'error',
+                'text'=>'Data Gagal Di Tambahkan');
+            return $message;
+        }
+        
+        else{
+            $data=array(
+
+                "nim"=>$_POST['nim'],
+                "nama"=>$_POST['nama'],
+                "kelas"=>$_POST['kelas'],
+                "angkatan"=>$_POST['angkatan'],
+                "nip"=>$_POST['dosen'],
+            );
+            $this->db->where('nim', $this->input->post('origin_nim'));
+            $update=$this->db->update('mahasiswa',$data);
+            if ($update){
+
+                $message = array(
+                    'type' =>'success',
+                    'text'=>'Data Mahasiswa Berhasil Di update');
+                return $message;
+            }
+            else{
+                $message = array(
+                    'type' =>'success',
+                    'text'=>'Data Mahasiswa Gagal Di update');
+                return $message;
+            }
+        }
+    }
 
 }

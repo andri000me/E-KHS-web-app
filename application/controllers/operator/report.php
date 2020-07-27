@@ -19,6 +19,9 @@ class report extends CI_Controller {
         $sem=$this->input->get('semester');
         $nim=$this->input->get('nim');
         $all=$this->M_khs->get_khs($sem,$nim);
+
+        $kodeProdi=$this->db->query("SELECT prodi FrOM mahasiswa where nim='$nim'")->row()->prodi;
+        $prodi=$this->db->query("SELECT prodi.*, dosen.nama FROM dosen,prodi wherE prodi.kepro=dosen.nip AND kodeprodi='$kodeProdi'")->row();
         // cek niali
         $nilaiE=$this->M_khs->nilaiE($sem,$nim);
         $nilaiD=$this->M_khs->nilaiD($sem,$nim);
@@ -65,6 +68,7 @@ class report extends CI_Controller {
             'tgl'=>tgl_indo(date('Y-m-d')),
             "kajur"=>$this->db->query('SELECT * FROM pejabat WHERE kode=1')->result(),
             "pudir"=>$this->db->query('SELECT * FROM pejabat WHERE kode=2')->result(),
+            "prodi"=>$this->db->query("SELECT prodi.*, dosen.nama FROM dosen,prodi wherE prodi.kepro=dosen.nip AND kodeprodi='$kodeProdi'")->row(),
 
             
          );
@@ -100,7 +104,7 @@ class report extends CI_Controller {
             'tgl'=>tgl_indo(date('Y-m-d')),
             'tgl_lahir'=>tgl_indo($mhs->tgl_lahir),
             'mhs' =>$mhs,
-            'predikat'=>nilai_huruf($tot->nilai),
+            'predikat'=>predikatKelulusan($ipk),
             'mpk'=>$this->M_khs->daftarNilai($nim,'MPK'),
             'mkk'=>$this->M_khs->daftarNilai($nim,'MKK'),
             'mkb'=>$this->M_khs->daftarNilai($nim,'MKB'),
@@ -129,15 +133,21 @@ class report extends CI_Controller {
         $semester=$_GET['semester'];
         $prod=$this->session->userdata('prodiLog');
         $kelas=$_GET['kelas'];
+        $ta1=$this->session->userdata('takademik');
 
-        $this->db->select('p.hari, (SELECT COUNT(hari) FROM mkprodi WHERE hari=p.hari) as jum, p.jam_mulai,p.jam_selesai, p.id,P.kodeprodi, p.kodemk, p.nip, p.kelas, p.semester,d.nama, mk.namamk,prod.prodi,r.nama_ruangan');
+        $this->db->select("p.id_hari,p.hari, (SELECT COUNT(hari) FROM mkprodi WHERE hari=p.hari and 
+            kelas=p.kelas and
+            kodeprodi=p.kodeprodi and
+            takademik=p.takademik and
+            semester=p.semester) as jum, p.jam_mulai,p.jam_selesai, p.id,P.kodeprodi, p.kodemk, p.nip, p.kelas, p.semester,d.nama, mk.namamk,prod.prodi,r.nama_ruangan");
         $this->db->from('ruangan r, mkprodi p,dosen d, prodi prod, matakulah mk');
         $this->db->where('r.id_ruangan=p.id_ruangan AND p.nip=d.nip AND p.kodemk=mk.kodemk AND p.kodeprodi=prod.kodeprodi');
         $this->db->where('p.kelas', $kelas);
         $this->db->where('p.kodeprodi', $prod);
-        $this->db->where('p.takademik', $this->session->userdata('takademik'));
+        $this->db->where('p.takademik', $ta1);
         $this->db->where('p.semester', $semester);
-        $this->db->order_by('p.id_hari,p.jam_mulai', 'desc');
+        $this->db->order_by('p.id_hari,p.jam_mulai', 'asc');
+
         $all=$this->db->get()->result();
 
         $prodi=$this->db->query("SELECT * FROM prodi where kodeprodi='".$prod."'")->row();

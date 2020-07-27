@@ -115,6 +115,7 @@
 			<div class="modal-body">
 				<form class="row">
 					<div class="form-group col-12 ">
+						<input type="hidden" name="id">
 						<label>Matakuliah</label>
 						<select name="matakuliah" class="form-control myselect" style="width:100%;">
 							<option value="" selected disabled>Pilih Matakuliah</option>
@@ -198,7 +199,7 @@
 			theme: "bootstrap"
 		});
 		$('.jam').datetimepicker({
-			format: 'h:mm',
+			format: 'H:mm',
 		});
 
 
@@ -277,6 +278,7 @@
 			let url_1 = "<?php echo base_url('operator/jadwal/get_jadwalbyId')?>";
 			var dt_set = function (data) {
 				
+				$('#my-modal [name="id"]').val(data.id);
 				$('#my-modal [name="mulai"]').val(data.jam_mulai);
 				$('#my-modal [name="selesai"]').val(data.jam_selesai);
 				$('#my-modal [name="matakuliah"]').val(data.kodemk).trigger('change');
@@ -293,28 +295,29 @@
 			set(url_1, id, dt_set);
 
 
-			//proses edit
-			$('.edit-data').click(function (e) {
-				var url = "<?php echo base_url('operator/jadwal/update')?>";
-				e.preventDefault();
-				var data = {
-					id: id,
-					jam_mulai: $('#my-modal [name="mulai"]').val(),
-					jam_selesai: $('#my-modal [name="selesai"]').val(),
-					kodemk: $('#my-modal [name="matakuliah"]').val(),
-					hari: $('#my-modal [name="hari"]').val(),
-					nip: $('#my-modal [name="dosen"]').val(),
-					id_ruangan: $('#my-modal [name="ruangan"]').val(),
-					semester: $('#my-modal [name="semeseter"]').val(),
-					kelas: $('#my-modal [name="kelas"]').val(),
-				};
+			
+		});
+		//proses edit
+		$('.edit-data').click(function (e) {
+			var url = "<?php echo base_url('operator/jadwal/update')?>";
+			e.preventDefault();
+			var data = {
+				id: $('#my-modal [name="id"]').val(),
+				jam_mulai: $('#my-modal [name="mulai"]').val(),
+				jam_selesai: $('#my-modal [name="selesai"]').val(),
+				kodemk: $('#my-modal [name="matakuliah"]').val(),
+				hari: $('#my-modal [name="hari"]').val(),
+				nip: $('#my-modal [name="dosen"]').val(),
+				id_ruangan: $('#my-modal [name="ruangan"]').val(),
+				semester: $('#my-modal [name="semeseter"]').val(),
+				kelas: $('#my-modal [name="kelas"]').val(),
+			};
 
-				post(url, data);
-				table.ajax.reload();
-				$('#my-modal').modal('hide');
+			post(url, data);
+			table.ajax.reload();
+			$('#my-modal').modal('hide');
 
 
-			});
 		});
 
 		//============end edit================

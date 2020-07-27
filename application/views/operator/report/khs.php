@@ -177,15 +177,17 @@
 							
 						</td>
 						<td>
+						<pre style="font-family: calibri; line-height:10px;">
 							Skala Nilai (N):<br>
-							00 - 34  = E  =0,0<br>
-							35 - 45  = D  =1,0<br>
-							46 - 55  = CD =1,5<br>
-							56 - 64  = C  =2,0<br>
-							65 - 69  = BC =2,5<br>
-							70 - 74  = B  =3,0<br>
-							75 - 79  = AB =3,5<br>
-							80 - 100 = A  =4,0
+							00 - 39,99  = E	=0,0<br>
+							40 - 54,99  = D	=1,0<br>
+							55 - 59,99  = CD	=1,5<br>
+							60 - 64,99  = C	=2,0<br>
+							65 - 69,99  = BC	=2,5<br>
+							70 - 74,99  = B	=3,0<br>
+							75 - 79,99  = AB	=3,5<br>
+							80 -   100  = A	=4,0
+						</pre>
 						</td>
 					</tr>
 				</table>
@@ -209,7 +211,7 @@
 						</td>
 					</tr>
 				</table>
-				<table width= "100%" style="border-top: 2px solid black;">
+				<table width= "100%" style="border-top: 2px solid black; padding:30px;">
 					<tr>
 						<td></td>
 						<td></td>
@@ -219,25 +221,36 @@
 						<td></td>
 					</tr>
 					<tr>
-						<?php foreach ($pudir as $row) {?>
+						<?php 
+						foreach ($kajur as $row) {?>
+							<td>
+								
+								Ketua Jurusan,  <br>
+								<br>
+								<br>
+								<u> <?php echo $row->nama; ?></u><br>
+								Nip. <?php echo $row->nip; ?>
+							</td>
+						<?php } ?>
 						<td style="padding-left: 30px">
-							Mengetahui<br>
-							Pemb.Dir.Bid.Akademik <br>
-							<br>
-							<br>
-							<u> <?php echo $row->nama; ?></u><br>
-							Nip. <?php echo $row->nip; ?>
-						</td>
-					<?php } foreach ($kajur as $row) {?>
-						<td>
 							Kupang,<?php echo $tgl; ?> <br>
-							Ketua Jurusan,  <br>
+							Ketua Prodi <?=$prodi->prodi ?> <br>
 							<br>
 							<br>
-							<u> <?php echo $row->nama; ?></u><br>
-							Nip. <?php echo $row->nip; ?>
+							<u> <?php echo $prodi->nama ?></u><br>
+							Nip. <?php echo $prodi->kepro; ?>
 						</td>
-					<?php } ?>
+					</tr>
+					<tr>
+					<?php foreach ($pudir as $row) {?>
+						<td colspan='2' style="text-align:center">
+							Mengetahui,</br>Pembantu Dir. Bid. Akademik
+							<br>
+							<br>
+							<br>
+							<b><?php echo $row->nama; ?></br>NIP:<?php echo $row->nip; ?></b>
+						</td>
+					<?php }?>
 					</tr>
 				</table>
 

@@ -16,11 +16,25 @@ class M_index extends CI_Model {
     }
     public function grafik()
     {
-        return $this->db->query("SELECT COUNT(mhs.nim) as jumlah,p.kodeprodi, p.prodi,p.jenjang,d.nama,d.nip FROM mahasiswa mhs, prodi p,dosen d WHERE d.nip=p.kepro and mhs.prodi=p.kodeprodi GROUP BY p.prodi ORDER BY p.kodeprodi ASC")->result();
+        $this->db->select('COUNT(mhs.nim) as jumlah,p.kodeprodi, p.prodi,p.jenjang,d.nama,d.nip');
+        $this->db->from('prodi p');
+        $this->db->join('mahasiswa mhs', 'mhs.prodi=p.kodeprodi', 'left');
+        $this->db->join('dosen d', 'd.nip=p.kepro', 'left');
+        $this->db->group_by('p.prodi');
+        $this->db->order_by('p.kodeprodi', 'asc');
+        return $this->db->get()->result();
+
     }
     public function prodi()
     {
-        return $this->db->query("SELECT p.kodeprodi, p.prodi,p.jenjang,d.nama,d.nip FROM prodi p,dosen d WHERE d.nip=p.kepro GROUP BY p.prodi ORDER BY p.kodeprodi ASC")->result();
+        $this->db->select('p.kodeprodi, p.prodi,p.jenjang,d.nama,d.nip');
+        $this->db->from('prodi p');
+        $this->db->join('dosen d', 'd.nip=p.kepro', 'left');
+        $this->db->group_by('p.prodi');
+        $this->db->order_by('p.kodeprodi', 'asc');
+        return $this->db->get()->result();
+
+        // return $this->db->query("SELECT p.kodeprodi, p.prodi,p.jenjang,d.nama,d.nip FROM prodi p,dosen d WHERE d.nip=p.kepro GROUP BY p.prodi ORDER BY p.kodeprodi ASC")->result();
     }
 
         

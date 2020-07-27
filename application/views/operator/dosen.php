@@ -127,14 +127,14 @@
 	});
 
 
-	$('.hapus-data').click( async function (e) {
+	$('.hapus-data').click(function (e) {
 
 		var url2 = "<?php echo base_url('operator/dosen/delete')?>";
 		id =$('#my-modal [name="id"]').val();
 		$('#my-modal').modal('hide');
 		
-		await hapus(url2, id);
-		getData();
+		const loadData= "yes";
+		hapus(url2, id,loadData);
 		
 	});
 
@@ -147,8 +147,9 @@
 				nama: $('#my-modal [name="nama"]').val(),
 				no_hp: $('#my-modal [name="no_hp"]').val(),
 			};
-		post(url, data);
-		 getData();
+		const loadData= "yes";
+		post(url, data,loadData);
+		
 		$('#my-modal').modal('hide');
         $('#myform').trigger("reset");                             
             

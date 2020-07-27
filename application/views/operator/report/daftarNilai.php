@@ -123,7 +123,7 @@
 				</th>
 				<th width="50%" >
 				<CENTER>
-					<h6>DEPARTEMEN PENDIDIKAN NASIONAL</h6>
+					<h6>KEMENTRIAN RISET TEKNOLOGI DAN PENDIDIKAN TINGGI</h6>
 					<h5>POLITEKNIK NEGERI KUPANG</h4>
 					<H3>DAFTER NILAI</H2>
 				</CENTER>
@@ -362,10 +362,10 @@
 				
 				<th colspan="4" style="text-align: left !important;"> 
 
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;S(NxSKS) &nbsp; &nbsp;  &nbsp;<?php echo jnilai($tot->nilai,$tot->jumsks); ?><br>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;∑(NxSKS) &nbsp; &nbsp;  &nbsp;<?php echo jnilai($tot->nilai,$tot->jumsks); ?><br>
 							IPK=------------- = ------- =&nbsp;&nbsp;&nbsp;<?php echo $ipk; ?><br>
 
-								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;S SKS&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; <?php echo $tot->jumsks; ?>
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;∑ SKS&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; <?php echo $tot->jumsks; ?>
 				</th>
 				<th colspan="3"><?php echo $predikat; ?></th>
 				<th colspan="2"><?=$tgl_lulus?></th>
@@ -417,23 +417,30 @@
 			<tr class="tb1">
 				
 				<th>SKALA NILAI</th>
+				<th>PrEDIKAT KELULUSAN</th>
 				<th>ARTI SINGKATAN</th>
 				
 			</tr>		
 		</thead>
 		<tbody>
-			<tr class="tb22">
+			<tr class="tb22" height="auto">
 				<td>
-					<pre style="font-family: calibri;">
-							00 - 34  = E  	=	0,0	(Gagal)
-							35 - 45  = D  	=	1,0	(Sangat Kurang)
-							46 - 55  = CD	=	1,5	(Kurang)
-							56 - 64  = C  	=	2,0	(Cukup)
-							65 - 69  = BC 	=	2,5	(Cukup Baik)
-							70 - 74  = B  	=	3,0	(Baik)
-							75 - 79  = AB 	=	3,5	(Memuaskan)
-							80 - 100 = A  	=	4,0	(Sangat Memuaskan)
-					</pre>
+				<pre style="font-family: calibri; line-height:6px;">
+				Skala Nilai (N):<br>
+				00 - 39,99  = E	=0,0 (Gagal)<br>
+				40 - 54,99  = D	=1,0 (Sangat Kurang)<br>
+				55 - 59,99  = CD	=1,5 (Kurang)<br>
+				60 - 64,99  = C	=2,0 (Cukup)<br>
+				65 - 69,99  = BC	=2,5 (Cukup Baik)<br>
+				70 - 74,99  = B	=3,0 (Baik)<br>
+				75 - 79,99  = AB	=3,5 (Memuaskan)<br>
+				80 -   100  = A	=4,0 (Sangat Memuaskan)<br><br>
+			</pre>
+				</td>
+				<td>
+				>= 2.00-3.00 (Memuaskan)</br>
+				>= 3.01-3.50 (Sangat Memuaskan)</br>
+				>= 3.51-4.00 (Dengan Pujian)</br>
 				</td>
 				<td> 
 					<div style="width: 20%; float: left;" >

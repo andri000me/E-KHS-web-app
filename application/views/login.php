@@ -45,7 +45,7 @@
 			class="login-aside w-50 d-flex flex-column align-items-center justify-content-center text-center bg-secondary-gradient">
 			<img style="width:50%;" src="<?=base_url()?>assets/img/gg.svg" alt="login logo">
 			<h1 class="title fw-bold text-white mb-3">KHS - Elektro</h1>
-			<p class="subtitle text-white op-7">Aplikasi Pengilahan Data KHS</p>
+			<p class="subtitle text-white op-7">Aplikasi KHS Jurusan Teknik Elektro</p>
 		</div>
 		<div class="login-aside w-50 d-flex align-items-center justify-content-center bg-white">
 			<div class="container container-login container-transparent animated fadeIn">
@@ -54,13 +54,13 @@
 					<form action="<?= base_url();?>login/Cek_Login" method="post">
 						<div class="form-group">
 							<label for="username" class="placeholder"><b>Username</b></label>
-							<input id="username" name="username" type="text" class="form-control" required>
+							<input id="username" name="username" type="text" class="form-control" required placeholder="masukan username / nip / nim">
 						</div>
 						<div class="form-group">
 							<label for="password" class="placeholder"><b>Password</b></label>
 							<a href="#" class="link float-right lupa">Lupa Password ?</a>
 							<div class="position-relative">
-								<input id="password" name="password" type="password" class="form-control" required>
+								<input id="password" placeholder="Masukan Password" name="password" type="password" class="form-control" required>
 								<div class="show-password">
 									<i class="icon-eye"></i>
 								</div>

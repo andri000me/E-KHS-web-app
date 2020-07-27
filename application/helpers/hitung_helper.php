@@ -4,27 +4,35 @@ if(!function_exists('hitung_nilai'))
 {
     function hitung_nilai($am)
     {
-        if ($am <= 34)  return 0.0;
-        else if(($am >=35) && ($am<=45)) return 1.0;
-        else if (($am>=46) && ($am<=55)) return 1.5;
-        else if (($am >=56) && ($am<=64)) return 2.0;
-        else if (($am >=65) &&($am<=69)) return 2.5;
-        else if (($am >= 70) && ($am<=74)) return 3.0;
-        else if (($am >= 75) && ($am<=79)) return 3.5;
+        if ($am < 40)  return 0.0;
+        else if(($am >=40) && ($am<55)) return 1.0;
+        else if (($am>=55) && ($am<60)) return 1.5;
+        else if (($am >=60) && ($am<65)) return 2.0;
+        else if (($am >=65) &&($am<70)) return 2.5;
+        else if (($am >= 70) && ($am<75)) return 3.0;
+        else if (($am >= 75) && ($am<80)) return 3.5;
         else if ($am >= 80) return 4.0;
     }
 }
 if (!function_exists('nilai_huruf')) {
-    function nilai_huruf($value)
+    function nilai_huruf($am)
     {
-        if ($value <= 34) return "E";
-        else if(($value >=35) && ($value<=45)) return "D";
-        else if (($value>=46) && ($value<=55)) return "CD";
-        else if (($value >=56) && ($value<=64)) return "C";
-        else if (($value >=65) &&($value<=69)) return "BC";
-        else if (($value >= 70) && ($value<=74)) return "B";
-        else if (($value >= 75) && ($value<=79)) return "AB";
-        else if ($value >= 80)return "A";    
+        if ($am < 40)  return "E";
+        else if(($am >=40) && ($am<55)) return "D";
+        else if (($am>=55) && ($am<60)) return "CD";
+        else if (($am >=60) && ($am<65)) return "C";
+        else if (($am >=65) &&($am<70)) return "BC";
+        else if (($am >= 70) && ($am<75)) return "B";
+        else if (($am >= 75) && ($am<80)) return "AB";
+        else if ($am >= 80) return "A";   
+    }
+}
+if (!function_exists('predikatKelulusan')){
+    function predikatKelulusan($ip)
+    {
+        if ($ip<= 3) return "MEMUASKAN";
+        elseif (($ip>3) && ($ip<=3.5)) return "SANGAT MEMUASKAN";
+        elseif ($ip>3.5) return "DENGAN PUJIAN";
     }
 }
 if(!function_exists('jnilai')){

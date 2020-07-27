@@ -1,3 +1,9 @@
+<style type="text/css">
+	.tb-form{
+		background-color: rgba(0 0 0 0); border: none;
+		width:100%;
+	}
+</style>
 <div class="main-panel scr">
 	<div class="content">
 		<div class="page-inner" style="margin-top: 60px;">
@@ -13,15 +19,20 @@
 									<div class="d-flex align-items-center">
 										<h4 class="card-title">Data Mahasiswa</h4>
 										<div class="ml-auto d-flex flex-row">
-											<button class="btn btn-success btn-round btn-sm mr-3" data-toggle="collapse" data-target="#filter"
+											<button class="btn btn-outline-success mr-3" data-toggle="collapse" data-target="#filter"
 												aria-expanded="false" aria-controls="collapseExample">
 												<i class="icon-eyeglass"></i>
 												Filter
 											</button>
-											<button class="btn btn-secondary btn-round btn-sm mr-3 tambah">
-												<i class="icon-note"></i>
-												Tambah Data
-											</button>
+											<div class="btn-group mr-3">
+												<button type="button" class="btn btn-info tambah">Tambah</button>
+												<button type="button" class="btn btn-info dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+													<span class="sr-only">Toggle Dropdown</span>
+												</button>
+												<div class="dropdown-menu">
+													<a class="dropdown-item tambah-mul" href="#">Tambah Per Kelas</a>
+												</div>
+											</div>
 										</div>
 									</div>
 								</div>
@@ -208,6 +219,57 @@
 	</div>
 </div>
 
+<div class="modal fade" id="my-modal-add-mul" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" style="max-width: 90%;" role="document">
+		<div class="modal-content">
+			<div class="modal-header justify-content-start">
+				<div class="form-group col-md-3">
+					<label>Kelas</label>
+					<select id="val-kelas" class="form-control myselect" style="width:100%;">
+						<?=op_kelas();?>
+					</select>
+				</div>
+				<div class="form-group col-md-4">
+					<label>Angkatan</label>
+					<input type="text" class="form-control" id="tang1"  placeholder="Pilih Angkatan">
+				</div>
+				<div class="form-group col-md-3">
+					<label>Jumlah</label>
+					<input type="number" id="value-jumlah" class="form-control" value="20">
+				</div>
+				<div class="col-md-2"  style="margin-top:40px;">
+					<button class="btn btn-outline-primary" id="t-go">Go</button>
+				</div>
+			</div>
+			<form id="form-mul">
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-12">
+							<table class="display table table-bordered" id="tbInput">
+								<thead>
+									<tr>
+										<th>No</th>
+										<th>Nim</th>
+										<th>Nama</th>
+										<th>Dosen PA</th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody id="tbody12">
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button class="btn btn-primary btn-border btn-round" data-dismiss="modal">batal</button>
+					<button type="submit" class="btn btn-primary btn-round">Simpan</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
 
 <?php $this->load->view('include/script');?>
 <script src="<?=base_url()?>assets/js/plugin/jquery.validate/jquery.validate.min.js"></script>
@@ -237,7 +299,7 @@
 			placeholder: 'Pilih Dosen Pembimbing Akademik',
 		});
 
-		$('#tang').datetimepicker({
+		$('#tang , #tang1').datetimepicker({
 			format: 'YYYY',
 			viewMode: 'years'
 
@@ -322,6 +384,16 @@
 			$('.edit-data').hide();
 
 			$('#my-modal').modal({
+				keyboard: false,
+				backdrop: 'static',
+
+			});
+
+		});
+
+		$('.tambah-mul').click(function (e) {
+			
+			$('#my-modal-add-mul').modal({
 				keyboard: false,
 				backdrop: 'static',
 
@@ -448,6 +520,96 @@
 
 	});
 
+</script>
+
+<script type="text/javascript">
+	//MULTIPLE ADD
+
+	$('#t-go').click(function(){
+		let kelas =	$('#val-kelas').val();
+		let Jumlah =	$('#value-jumlah').val();
+		let angkatan=	$('#tang1').val() ;
+		$.ajax({
+			type: "POST",
+			url: "<?=base_url()?>operator/mahasiswa/formTb",
+			data:{
+				kelas:kelas,
+				Jumlah:Jumlah,
+				angkatan:angkatan,
+			},
+			success: function (data) {
+				$('#tbody12').html(data);
+				$('.myselect2').select2({
+				theme: "bootstrap",
+				ajax: {
+					url: '<?=base_url();?>api/dosen',
+					data: function (q) {
+						return {
+							q: q.term
+						}
+					},
+					dataType: 'JSON',
+					cache: true
+				},
+				minimumInputLength: 1,
+				placeholder: 'Pilih Dosen Pembimbing Akademik',
+			});
+			},
+			error: function (err) {
+				console.log(err);
+			}
+		});
+	});
+
+	$('#form-mul').on('submit',function(e){
+		e.preventDefault();
+		$.ajax({  
+         url:"<?php echo site_url('operator/mahasiswa/addMul')?>",
+         method:"POST",  
+         data:new FormData(this),
+         contentType: false,
+         dataType: "JSON", 
+         cache: false,  
+         processData:false,  
+         success:function(data)  
+         {  
+         	notif(data.type, data.text);
+					table.ajax.reload();
+					$('#tbody12').html("");
+         },
+         error:function(err){
+         	notif('error', 'data Gagal Ditambahkan');
+         }   
+      });
+    $('#my-modal-add-mul').modal('hide');
+
+	});
+	function remove(i,nomor) {
+		
+		let data = $(i).closest('tr').index()+1;
+		console.log(data);
+		swal({
+			title: 'Anda Yakin?',
+			icon: "warning",
+			text: "Anda Akan Menghapus Baris Ini ("+nomor+") !",
+			type: 'warning',
+			buttons: {
+				cancel: {
+					visible: true,
+					text: 'Batal!',
+					className: 'btn btn-danger'
+				},
+				confirm: {
+					text: 'Ya, Hapus !',
+					className: 'btn btn-success'
+				}
+			}
+		}).then((willDelete) => {
+			if (willDelete) {
+				document.getElementById('tbInput').deleteRow(data);
+			}
+		});
+	}
 </script>
 </body>
 

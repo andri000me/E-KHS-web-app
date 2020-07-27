@@ -7,7 +7,7 @@
 					<div class="card">
 						<div class="card-header">
 							<div class="d-flex align-items-center">
-								<h4 class="card-title">Elemen Kompetensi</h4>
+								<h4 class="card-title">Matakuliah</h4>
 								<div class="ml-auto d-flex flex-row">
 									<a class="btn btn-secondary btn-round btn-sm mr-3 tambah text-light">
 										<i class="icon-note"></i>

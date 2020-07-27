@@ -23,7 +23,7 @@
 
 	}
 
-	function post(url, data) {
+	function post(url, data, refres=null) {
 
 		var post_dt = $.ajax({
 			type: "POST",
@@ -32,16 +32,22 @@
 			data: data,
 			success: function (data) {
 				notif(data.type, data.text);
-				table.ajax.reload();
+				if(refres!=null){
+					getData('');
+				}
+				else{
+					table.ajax.reload();
+				}
 			},
 			error: function (err) {
 				console.log(err);
+				notif('error', err.statusText);
 			}
 		});
 		return post_dt;
 	}
 
-	function hapus(url, id) {
+	function hapus(url, id,refres=null) {
 
 		let del = swal({
 			title: 'Anda Yakin?',
@@ -68,12 +74,17 @@
 						id: id
 					},
 					success: function (data) {
-
 						notif('success', 'Data Sukses Di Hapus');
-						
-						table.ajax.reload();
-
-
+						if(refres!=null){
+							getData('');
+						}
+						else{
+							table.ajax.reload();
+						}
+					},
+					error: function (err) {
+						console.log(err);
+						notif('error', err.statusText);
 					}
 				});
 
@@ -93,6 +104,11 @@
 				id: id
 			},
 			success: data,
+			error: function (err) {
+				console.log(err);
+				notif('error', err.statusText);
+			}
+
 		});
 		return set;
 
