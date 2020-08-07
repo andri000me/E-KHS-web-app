@@ -14,7 +14,7 @@ class M_khs extends CI_Model {
 	}
 
 	// List all your items
-	public function getdata()
+	public function getdata($prodi=NULL)
 	{
 		$this->db->select('khs.nim,mahasiswa.nama,khs.semester,khs.status');
 		$this->db->from('khs,matakulah,mahasiswa');
@@ -32,7 +32,10 @@ class M_khs extends CI_Model {
 		{
 			$this->db->like('mahasiswa.angkatan', $this->input->post('angkatan'));
 		}
-	//	$this->db->order_by('khs.status','ASC');
+		if($prodi){
+			$this->db->like('mahasiswa.prodi', $prodi);
+		}
+
 		$this->db->group_by('khs.semester');
 		$this->db->group_by('khs.nim');
 	

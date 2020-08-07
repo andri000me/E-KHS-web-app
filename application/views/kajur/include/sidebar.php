@@ -1,3 +1,7 @@
+<?php
+    $badge=$this->db->query("SELECT COUNT(status) as jumlah from khs WHERE status != '1' GROUP BY semester, nim")->num_rows();
+?>
+
 
 <!-- Sidebar -->
 <div class="sidebar sidebar-style-2">			
@@ -51,6 +55,8 @@
                     <a href="<?=base_url()?>kajur/khs">
                         <i class="fas fa-list-alt"></i>
                         <p>KHS</p>
+                       
+                        <?php if ($badge > 0)  echo ' <span class="badge badge-danger">'.$badge.'</span>';?>
                     </a>
                 </li>
                 <li class="nav-item ">

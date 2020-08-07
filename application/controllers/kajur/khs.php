@@ -23,8 +23,8 @@ class khs extends CI_Controller {
    
     public function data_khs()
     {
-        
-        $data=$this->M_khs->getdata();
+        $prodi=$this->session->userdata('prodiLog');
+        $data=$this->M_khs->getdata($prodi);
         $output=array();
         $no=0;
         foreach ($data as $key) {
