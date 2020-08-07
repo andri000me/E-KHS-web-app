@@ -80,6 +80,7 @@
 						}
 						else{
 							table.ajax.reload();
+							detailkhs.ajax.reload();
 						}
 					},
 					error: function (err) {

@@ -23,9 +23,10 @@ class khs extends CI_Controller {
 		$this->db->where('mkprodi.takademik', $takademik);
 		$this->db->where('mkprodi.kodeprodi', $kodeprodi);
 		$getMk1=$this->db->get();
-		$getMk2=$this->db->query("SELECT * FROM `matakulah` WHERE namamk IN ('TA','PKL')");
+		$getMk2=$this->db->query("SELECT * FROM `matakulah` WHERE namamk IN ('Project Akhir','Praktek Kerja Lapangan')");
 		
-		$data['mk']=$getMk1->result();
+		$data['mk']=$this->db->get("matakulah")->result();
+		//$getMk1->result();
 		$data['mk2']=$getMk2->result();
 		$this->load->view('include/head');
 		$this->load->view('include/header');
@@ -102,7 +103,7 @@ class khs extends CI_Controller {
 			$row[]=$key->kodemk;
 			$row[]=$key->namamk;
 			$row[]=$key->am;
-			$row[]=hitung_nilai($key->am);
+			$row[]=number_format (hitung_nilai($key->am),1);
 			$row[]=$key->sks;
 			$row[]=$btn;
 			$row[]=$key->id;
@@ -153,7 +154,7 @@ class khs extends CI_Controller {
 		
     $this->db->where('id', $id);
     $khs=$this->db->delete('khs');
-		if ($mk=="TA") {
+		if ($mk=="Project Akhir") {
 	    $this->db->where('nim', $nim);
 	    $ta=$this->db->delete('tugas_akhir');
 

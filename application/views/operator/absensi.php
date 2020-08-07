@@ -237,6 +237,8 @@
 
 			post(url, data);
 			table.ajax.reload();
+			var option3 = new Option("Mahasiswa", "", true, true);
+			$('#my-modal [name="nim"]').append(option3).trigger('change');
 			$('#my-modal').modal('hide');
 
 		});

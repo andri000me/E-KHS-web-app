@@ -5,13 +5,13 @@ if(!function_exists('hitung_nilai'))
     function hitung_nilai($am)
     {
         if ($am < 40)  return 0.0;
-        else if(($am >=40) && ($am<55)) return 1.0;
-        else if (($am>=55) && ($am<60)) return 1.5;
-        else if (($am >=60) && ($am<65)) return 2.0;
-        else if (($am >=65) &&($am<70)) return 2.5;
-        else if (($am >= 70) && ($am<75)) return 3.0;
-        else if (($am >= 75) && ($am<80)) return 3.5;
-        else if ($am >= 80) return 4.0;
+        else if(($am >=40) && ($am<55)) return 1.00;
+        else if (($am>=55) && ($am<60)) return 1.50;
+        else if (($am >=60) && ($am<65)) return 2.00;
+        else if (($am >=65) &&($am<70)) return 2.50;
+        else if (($am >= 70) && ($am<75)) return 3.00;
+        else if (($am >= 75) && ($am<80)) return 3.50;
+        else if ($am >= 80) return 4.00;
     }
 }
 if (!function_exists('nilai_huruf')) {
@@ -45,7 +45,7 @@ if(!function_exists('jnilai')){
 if(!function_exists('status')){
     function status($val)
     {
-        if ($val== "1") return '<span style="cursor:pointer;" class="badge badge-success">Verivied</span>';
+        if ($val== "1") return '<span style="cursor:pointer;" class="okk badge badge-success">Verivied</span>';
         else return '<span style="cursor:pointer;" class="badge okk badge-warning">Not Verivied</span>';
     }
 }
@@ -146,6 +146,23 @@ if(!function_exists('nama_depan')){
     {
         $pecahkan = explode(' ', $nama);
         return $pecahkan[0];
+    }
+}
+
+if (!function_exists('getSemester')){
+    function getSemester($semester)
+    {
+        $romawi= array(
+            1 =>'I',
+                'II',
+                'III',
+                'IV',
+                'V',
+                'VI',
+                'VII',
+                'VIII'
+            );
+        return $romawi[(int)$semester];
     }
 }
 

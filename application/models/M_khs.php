@@ -9,6 +9,7 @@ class M_khs extends CI_Model {
 	{
 		parent::__construct();
 		//Load Dependencies
+		$this->load->helper('hitung');
 
 	}
 
@@ -31,6 +32,7 @@ class M_khs extends CI_Model {
 		{
 			$this->db->like('mahasiswa.angkatan', $this->input->post('angkatan'));
 		}
+	//	$this->db->order_by('khs.status','ASC');
 		$this->db->group_by('khs.semester');
 		$this->db->group_by('khs.nim');
 	
@@ -83,11 +85,11 @@ class M_khs extends CI_Model {
 			$jumlah += jnilai($key->am,$key->sks);
 			$jumlahsks += (float)$key->sks;
 		}
-		return round ($jumlah/$jumlahsks,2);
+		return number_format($jumlah/$jumlahsks,2);
 	}
 	public function getIPK($semester,$nim)
 	{
-		$this->load->helper('hitung');
+		
 		$this->db->select('khs.am,khs.semester, matakulah.kodemk,matakulah.namamk ,matakulah.sks');
 		$this->db->from('khs,matakulah,mahasiswa');
 		$this->db->where('mahasiswa.nim=khs.nim AND matakulah.kodemk=khs.kodemk');
@@ -100,7 +102,7 @@ class M_khs extends CI_Model {
 			$jumlah += jnilai($key->am,$key->sks);
 			$jumlahsks += (float)$key->sks;
 		}
-		return round ($jumlah/$jumlahsks,2);
+		return number_format ($jumlah/$jumlahsks,2);
    
 	}
 
@@ -119,7 +121,7 @@ class M_khs extends CI_Model {
 
 	public function add()
 	{
-		$semester="";
+		
 		$nim=$_POST['nim'];
 		$this->db->where('nim', $nim);
 		$prodi= $this->db->get('mahasiswa')->row()->prodi;
@@ -127,25 +129,8 @@ class M_khs extends CI_Model {
 		$namaMk=$_POST['namaMk'];
 		$takademik=$this->session->userdata('takademik');
 		$jenjang=$this->db->query("SELECT * FROM prodi where kodeprodi='$prodi'")->row()->jenjang;
-		if(($namaMk=="PKL") or ($namaMk=="TA")){
-			if ($jenjang=="D3") {
-				$semester="VI";
-			} else {
-				$semester="VIII";
-			}
-		}
-		else {
-			$this->db->where('kodemk', $kodemk);
-			$this->db->where('kodeprodi', $prodi);
-			$this->db->where('takademik', $takademik);
-			$semester=$this->db->get('mkprodi')->row()->semester;
-
-			
-		}
-		
-		
+		$semester=getSemester(substr($kodemk,3,1));
 		$am=$_POST['am'];
-
 		$cek=$this->db->query("SELECT * FROM khs where nim='$nim' and kodemk='$kodemk'");
 		if ($cek->num_rows() > 0) {
 			$message = array(

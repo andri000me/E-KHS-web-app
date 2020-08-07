@@ -93,7 +93,7 @@ class report extends CI_Controller {
 
         $tot=$this->db->query("SELECT SUM(matakulah.sks)as jumsks,SUM(khs.am)/COUNT(khs.am) as nilai FROM khs, matakulah WHERE khs.kodemk = matakulah.kodemk AND khs.nim = '$nim'")->row();
 
-        $ipk= jnilai($tot->nilai,$tot->jumsks)/$tot->jumsks;//round($tot->jnxsks/$tot->jumsks);
+        $ipk= number_format (jnilai($tot->nilai,$tot->jumsks)/$tot->jumsks,2);//round($tot->jnxsks/$tot->jumsks);
 
         
         if ($tugas_akhir->num_rows() < 1) {
@@ -105,11 +105,10 @@ class report extends CI_Controller {
             'tgl_lahir'=>tgl_indo($mhs->tgl_lahir),
             'mhs' =>$mhs,
             'predikat'=>predikatKelulusan($ipk),
-            'mpk'=>$this->M_khs->daftarNilai($nim,'MPK'),
-            'mkk'=>$this->M_khs->daftarNilai($nim,'MKK'),
-            'mkb'=>$this->M_khs->daftarNilai($nim,'MKB'),
-            'mpb'=>$this->M_khs->daftarNilai($nim,'MPB'),
-            'mbb'=>$this->M_khs->daftarNilai($nim,'MBB'),
+            'mpk'=>$this->M_khs->daftarNilai($nim,'MHR'),
+            'mkk'=>$this->M_khs->daftarNilai($nim,'MSD'),
+            'mkb'=>$this->M_khs->daftarNilai($nim,'MSK'),
+            'mpb'=>$this->M_khs->daftarNilai($nim,'MST'),
             'tot'=>$tot,
             'judul'=>$tugas_akhir->row()->judul,
             'tgl_lulus'=>tgl_indo($tugas_akhir->row()->tanggal_lulus),

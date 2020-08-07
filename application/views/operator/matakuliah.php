@@ -88,11 +88,11 @@
 						</div>
 						<div class="form-group col-md-12">
 							<label>Nama Mk</label>
-							<input type="text" class="form-control txt" name="namamk" placeholder="Masukan Nama Elemen">
+							<input type="text" class="form-control txt" name="namamk" placeholder="Masukan Nama Matakuliah">
 						</div>
 						<div class="form-group col-md-12">
 							<label>SKS</label>
-							<input type="number" class="form-control txt" name="sks" placeholder="Masukan Nama Elemen">
+							<input type="number" class="form-control txt" name="sks" placeholder="Masukan Jumlah SKS">
 						</div>
 					</div>
 				</div>

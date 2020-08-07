@@ -159,7 +159,7 @@
 								<option value='' disabled="" selected="">pilih Matakuliah</option>
 								<optgroup label="SEMUA MATAKULIAH">
 								<?php foreach ($mk as $key): ?>
-									<option value="<?=$key->kodemk?>"><?=$key->namamk?></option>
+									<option value="<?= $key->kodemk?>"><?=$key->namamk?></option>
 								<?php endforeach ?>
 								</optgroup>
 									<optgroup label="PKL DAN TA">
@@ -208,7 +208,7 @@
 					}
 				},
 				dataType: 'JSON',
-				cache: true
+				cache: false
 			},
 
 			minimumInputLength: 1,
@@ -218,7 +218,7 @@
 		$('.myselect22').select2({
 			theme: "bootstrap",
 			minimumInputLength: 1,
-			placeholder: 'Pilih Mahasiswa',
+			placeholder: 'Pilih Matakuliah',
 		});
 
 		// tambah
@@ -250,8 +250,9 @@
 			let data1 = detailkhs.row($(this).parents('tr')).data();
 
 			var option = new Option(nama, nim, true, true);
+			var option2 = new Option(data1[2], data1[1], true, true);
 			$('#my-modal [name="nim"]').append(option).trigger('change');
-			$('#my-modal [name="Matakuliah"]').val(data1[1]).trigger('change');
+			$('#my-modal [name="Matakuliah"]').append(option2).trigger('change');
 			$('#my-modal [name="am"]').val(data1[3]);
 			$('#my-modal [name="id"]').val(data1[7]);
 			$('#my-modal [name="Matakuliah"]').attr('disabled',true);
@@ -260,6 +261,13 @@
 				keyboard: false,
 				backdrop: 'static',
 			});
+			let isTa=data1[2]; 
+			if(isTa=='Project Akhir'){
+				$('.judul').show();
+			}
+			else{
+				$('.judul').hide();
+			}
 		});
 
 		// hapus
@@ -267,8 +275,8 @@
 			let data = detailkhs.row($(this).parents('tr')).data();
 			let url="<?=base_url()?>operator/khs/delete";
 			hapus(url, data[7]);
-			$('.tab-pane').toggleClass('active');
 			detailkhs.ajax.reload();
+			table.ajax.reload();
 		});
 
 		//tabel utama
@@ -366,7 +374,7 @@
 		$('[name="Matakuliah"]').on('change',function(){
 			
 			let isTa=$('option[value="'+$(this).val()+'"').text(); 
-			if(isTa=='TA'){
+			if(isTa=='Project Akhir'){
 				$('.judul').show();
 			}
 			else{
@@ -388,8 +396,10 @@
 			post(pos_url, data);
 			table.ajax.reload();
 	    $('#myform').trigger("reset");
+		var option3 = new Option("Mahasiswa", "", true, true);
+		$('#my-modal [name="nim"]').append(option3).trigger('change');
     	$('#my-modal').modal('hide');
-    	detailkhs.ajax.reload()                                    
+    	detailkhs.ajax.reload();                                    
 	  });
 
 	});

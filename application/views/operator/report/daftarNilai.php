@@ -4,6 +4,7 @@
 	<title>
 		<?php echo $title;
 			$no=1;
+			$jtot=0;
 		 ?>
 	</title>
 
@@ -57,7 +58,7 @@
 			border-left: 0px;
 			border-right: 0px;
 			border-top: 0px;
-			border-style: dotted;
+			border-style:groove;
 		}
 		.tb1 th{
 			
@@ -189,7 +190,7 @@
 			<tr class="tb2">
 				<td><div class="bord">&nbsp; </div></td>
 				<td><div class="bord"> &nbsp;</div></td>
-				<td><div class="bord"><b>I.&nbsp; Matakuliah Pengembangan Kepribadian (MPK)</b></div></td>
+				<td><div class="bord"><b>I.&nbsp; Mata Kuliah Humaniora (MHR)</b></div></td>
 				<td><div class="bord"> &nbsp;</div></td>
 				<td><div class="bord">&nbsp; </div></td>
 				<td><div class="bord">&nbsp; </div></td>
@@ -212,13 +213,13 @@
 				<td align="center"><div class="bord"><?php echo jnilai($key->am,$key->sks); ?></div></td>
 				<td align="center"><div class="bord"><?php echo $key->semester; ?></div></td>
 			</tr>
-			<?php $no++; endforeach; ?>
+			<?php $no++; $jtot +=jnilai($key->am,$key->sks);  endforeach; ?>
 
 			<!-- 2 -->
 			<tr class="tb2">
 				<td><div class="bord">&nbsp; </div></td>
 				<td><div class="bord"> &nbsp;</div></td>
-				<td><div class="bord"><b>II.&nbsp; Matakuliah Keilmuan Dan Keterampilan (MKK)</b></div></td>
+				<td><div class="bord"><b>II.&nbsp; Mata Kuliah Sains Dasar (MSD)</b></div></td>
 				<td><div class="bord"> &nbsp;</div></td>
 				<td><div class="bord">&nbsp; </div></td>
 				<td><div class="bord">&nbsp; </div></td>
@@ -241,14 +242,14 @@
 				<td align="center"><div class="bord"><?php echo jnilai($key->am,$key->sks); ?></div></td>
 				<td align="center"><div class="bord"><?php echo $key->semester; ?></div></td>
 			</tr>
-			<?php $no++; endforeach; ?>
+			<?php $no++; $jtot +=jnilai($key->am,$key->sks); endforeach; ?>
 
 
 			<!-- 3 -->
 			<tr class="tb2">
 				<td><div class="bord">&nbsp; </div></td>
 				<td><div class="bord"> &nbsp;</div></td>
-				<td><div class="bord"><b>III.&nbsp; Matakuliah Keahlian Berkarya (MKB)</b></div></td>
+				<td><div class="bord"><b>III.&nbsp; Mata Kuliah Sains Keteknikan (MSK)</b></div></td>
 				<td><div class="bord"> &nbsp;</div></td>
 				<td><div class="bord">&nbsp; </div></td>
 				<td><div class="bord">&nbsp; </div></td>
@@ -271,14 +272,14 @@
 				<td align="center"><div class="bord"><?php echo jnilai($key->am,$key->sks); ?></div></td>
 				<td align="center"><div class="bord"><?php echo $key->semester; ?></div></td>
 			</tr>
-			<?php $no++; endforeach; ?>
+			<?php $no++; $jtot +=jnilai($key->am,$key->sks); endforeach; ?>
 
 			<!-- 4 -->
 
 			<tr class="tb2">
 				<td><div class="bord">&nbsp; </div></td>
 				<td><div class="bord"> &nbsp;</div></td>
-				<td><div class="bord"><b>IV.&nbsp; Matakuliah Perilaku Berkarya (MPB)</b></div></td>
+				<td><div class="bord"><b>IV.&nbsp; Mata Kuliah Sains Terapan (MST)</b></div></td>
 				<td><div class="bord"> &nbsp;</div></td>
 				<td><div class="bord">&nbsp; </div></td>
 				<td><div class="bord">&nbsp; </div></td>
@@ -301,36 +302,7 @@
 				<td align="center"><div class="bord"><?php echo jnilai($key->am,$key->sks); ?></div></td>
 				<td align="center"><div class="bord"><?php echo $key->semester; ?></div></td>
 			</tr>
-			<?php $no++; endforeach; ?>
-
-			<!-- 5 -->
-			<tr class="tb2">
-				<td><div class="bord">&nbsp; </div></td>
-				<td><div class="bord"> &nbsp;</div></td>
-				<td><div class="bord"><b>V.&nbsp; Matakuliah Berkehidupan Bermasyarakat (MBB)</b></div></td>
-				<td><div class="bord"> &nbsp;</div></td>
-				<td><div class="bord">&nbsp; </div></td>
-				<td><div class="bord">&nbsp; </div></td>
-				<td><div class="bord">&nbsp; </div></td>
-				<td><div class="bord">&nbsp; </div></td>
-				<td><div class="bord">&nbsp; </div></td>
-			</tr>
-
-			<?php foreach ($mbb as $key): ?>				
-			<tr class="tb2">
-				<td>
-					<div class="bord"><?php echo $no; ?></div>
-				</td>
-				<td><div class="bord"><?php echo $key->kodemk; ?></div></td>
-				<td><div class="bord"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $key->namamk; ?></div></td>
-				<td align="center"><div class="bord"><?php echo $key->am; ?></div></td>
-				<td align="center"><div class="bord"><?php echo $key->sks; ?></div></td>
-				<td align="center"><div class="bord"><?php echo nilai_huruf($key->am); ?></div></td>
-				<td align="center"><div class="bord"><?php echo hitung_nilai($key->am); ?></div></td>
-				<td align="center"><div class="bord"><?php echo jnilai($key->am,$key->sks); ?></div></td>
-				<td align="center"><div class="bord"><?php echo $key->semester; ?></div></td>
-			</tr>
-			<?php $no++; endforeach ?>
+			<?php $no++; $jtot +=jnilai($key->am,$key->sks); endforeach; ?>
 			<tr class="tb2">
 				<td> &nbsp;</td>
 				<td> &nbsp;</td>
@@ -350,7 +322,7 @@
 				<th></th>
 				<th></th>
 				<th><?php echo $tot->jumsks; ?></th>
-				<th colspan="4"><?php echo jnilai($tot->nilai,$tot->jumsks); ?></th>
+				<th colspan="4"><?php echo  $jtot;//jnilai($tot->nilai,$tot->jumsks); ?></th>
 			</tr>
 			<tr class="tb11">
 				
@@ -362,12 +334,12 @@
 				
 				<th colspan="4" style="text-align: left !important;"> 
 
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;∑(NxSKS) &nbsp; &nbsp;  &nbsp;<?php echo jnilai($tot->nilai,$tot->jumsks); ?><br>
-							IPK=------------- = ------- =&nbsp;&nbsp;&nbsp;<?php echo $ipk; ?><br>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;∑(NxSKS) &nbsp; &nbsp;  &nbsp;<?php echo $jtot; //jnilai($tot->nilai,$tot->jumsks); ?><br>
+							IPK=------------- = ------- =&nbsp;&nbsp;&nbsp;<?php echo number_format ($jtot/$tot->jumsks,2); ?><br>
 
 								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;∑ SKS&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; <?php echo $tot->jumsks; ?>
 				</th>
-				<th colspan="3"><?php echo $predikat; ?></th>
+				<th colspan="3"><?php echo predikatKelulusan(number_format ($jtot/$tot->jumsks,2)) ?></th>
 				<th colspan="2"><?=$tgl_lulus?></th>
 			</tr>
 			<tr class="tb11">
@@ -434,13 +406,13 @@
 				65 - 69,99  = BC	=2,5 (Cukup Baik)<br>
 				70 - 74,99  = B	=3,0 (Baik)<br>
 				75 - 79,99  = AB	=3,5 (Memuaskan)<br>
-				80 -   100  = A	=4,0 (Sangat Memuaskan)<br><br>
+				80 -   100  = A	=4,0 (Sangat Memuaskan)<br>
 			</pre>
 				</td>
 				<td>
 				>= 2.00-3.00 (Memuaskan)</br>
 				>= 3.01-3.50 (Sangat Memuaskan)</br>
-				>= 3.51-4.00 (Dengan Pujian)</br>
+				>= 3.51-4.00 (Dengan Pujian)
 				</td>
 				<td> 
 					<div style="width: 20%; float: left;" >
@@ -455,7 +427,7 @@
 						: Satuan Kredit Semester<br>
 						: Nilai<br>
 						: Semester<br>
-						: Indeks Prestasi Komulatif<br>
+						: Indeks Prestasi Komulatif
 					</div>
 				</td>
 				
