@@ -70,9 +70,9 @@
 			<th>No</th>
 			<th>Nim</th>
 			<th>Nama</th>
-			<th>Sakit(jam)</th>
-			<th>Ijin(jam)</th>
-			<th>Alpa(jam)</th>
+			<th>Sakit (jam)</th>
+			<th>Ijin (jam)</th>
+			<th>Alpa (jam)</th>
 			
 		</tr>
 	</thead>
@@ -83,9 +83,9 @@
 	  	<td style="text-align: center;"><?php echo $no; ?></td>
 	    <td style="text-align: center;"><?php echo $row->nim; ?></td>
 	    <td style="text-align: left;"><?php echo $row->nama; ?></td>
-		<td style="text-align: left;"><?php echo $row->sakit; ?></td>
-		<td style="text-align: left;"><?php echo $row->ijin; ?></td>
-		<td style="text-align: left;"><?php echo $row->alpa; ?></td>
+		<td style="text-align: center;"><?php echo $row->sakit; ?></td>
+		<td style="text-align: center;"><?php echo $row->ijin; ?></td>
+		<td style="text-align: center;"><?php echo $row->alpa; ?></td>
 	    
 	  <?php $no++; endforeach; ?>
   </tbody>

@@ -70,6 +70,7 @@
 			<th>No</th>
 			<th>Nim</th>
 			<th>Nama</th>
+			<th>Status</th>
 			
 		</tr>
 	</thead>
@@ -80,6 +81,7 @@
 	  	<td style="text-align: center;"><?php echo $no; ?></td>
 	    <td style="text-align: center;"><?php echo $row->nim; ?></td>
 	    <td style="text-align: left;"><?php echo $row->nama; ?></td>
+	    <td style="text-align: center;"><?php echo $row->status; ?></td>
 	    
 	  <?php $no++; endforeach; ?>
   </tbody>
