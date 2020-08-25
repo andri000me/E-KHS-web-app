@@ -2,12 +2,6 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-
-
-
-
-
-
 class M_login extends CI_Model {
 
 	public function get_data($username,$password)
@@ -45,7 +39,7 @@ class M_login extends CI_Model {
     		}
     		else if ($this->session->userdata('lv')=='Operator')
     		{
-    			redirect('Operator/index');
+    			redirect('operator/index');
     		}
     	}
     	else
@@ -61,7 +55,6 @@ class M_login extends CI_Model {
                         'nama' =>$row->nama,
                         'password' =>$row->password,
                         'foto' =>$row->foto,
-
                         'takademik'=>$takademik,
                         'lv'=>'dosen',
                         'username'=>$row->nip,

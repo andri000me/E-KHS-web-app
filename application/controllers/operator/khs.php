@@ -11,9 +11,7 @@ class khs extends CI_Controller {
 		$this->load->helper('hitung');
 		
 	}
-
-	// List all your items
-	public function index( $offset = 0 )
+	public function index()
 	{
 		$takademik=$this->session->userdata('takademik');
 		$kodeprodi=$this->session->userdata('prodiLog');
