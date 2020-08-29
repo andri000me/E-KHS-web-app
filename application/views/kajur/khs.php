@@ -12,7 +12,7 @@
 							<div class="card">
 								<div class="card-header">
 									<div class="d-flex align-items-center">
-										<h4 class="card-title">KHS</h4>
+										<h4 class="card-title">Nilai KHS</h4>
 										<div class="ml-auto">
 											<button class="btn btn-success btn-round mr-3" data-toggle="collapse" data-target="#filter"
 												aria-expanded="false" aria-controls="collapseExample">

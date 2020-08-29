@@ -54,9 +54,9 @@
                 <li class="nav-item ">
                     <a href="<?=base_url()?>kajur/khs">
                         <i class="fas fa-list-alt"></i>
-                        <p>KHS</p>
+                        <p>Nilai</p>
                        
-                        <?php if ($badge > 0)  echo ' <span class="badge badge-danger">'.$badge.'</span>';?>
+                        <?php if ($badge > 0)  echo ' <span class="badge badge-warning">'.$badge.'</span>';?>
                     </a>
                 </li>
                 <li class="nav-item ">

@@ -178,11 +178,21 @@ class khs extends CI_Controller {
 				);
 				$index++;
 			}
-			$this->db->insert_batch('khs', $data);
-			$message = array(
-	        'type' =>'success',
-	        'text'=>'Data Berhasil di Input' );
-	    echo json_encode($message);
+			$input=$this->db->insert_batch('khs', $data);
+			if($input){
+				$message = array(
+					'type' =>'success',
+					'text'=>'Data Berhasil di Input' );
+				echo json_encode($message);
+			}
+			else{
+				$message = array(
+					'type' =>'Gagal',
+					'text'=>'Data Sudah Ada');
+				echo json_encode($message);
+			}
+			
+	   
   	//}
 	}
 

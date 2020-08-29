@@ -10,7 +10,7 @@
 							<div class="card">
 								<div class="card-header">
 									<div class="d-flex align-items-center">
-										<h4 class="card-title">KHS</h4>
+										<h4 class="card-title">Nilai KHS</h4>
 										<div class="ml-auto">
 											<button class="btn btn-outline-success btn-round mr-3" data-toggle="collapse" data-target="#filter"
 												aria-expanded="false" aria-controls="collapseExample">
@@ -230,7 +230,7 @@
 			$('#my-modal [name="Matakuliah"]').attr('disabled',false);
 			$('#my-modal [name="nim"]').attr('disabled',false);
 			$('#my-modal [name="nim"]').val('').trigger('change');
-			$('#myform').trigger("reset");
+			
 			$('#my-modal').modal({
 				keyboard: false,
 				backdrop: 'static',

@@ -12,21 +12,55 @@
 							<div class="card">
 								<div class="card-header">
 									<div class="d-flex align-items-center">
-										<h4 class="card-title">KHS</h4>
+										<h4 class="card-title">Nilai KHS</h4>
 										<div class="ml-auto">
 											<button class="btn btn-success btn-round mr-3" data-toggle="collapse" data-target="#filter"
 												aria-expanded="false" aria-controls="collapseExample">
 												<i class="fas fa-filter"></i>
 												Filter
 											</button>
-
+											<button class="btn btn-info btn-round mr-3" data-toggle="collapse" data-target="#jadwal"
+												aria-expanded="false" aria-controls="collapseExample">
+												<i class="icon-note"></i>
+												Input Nilai
+											</button>
+										</div>
+									</div>
+								</div>
+								<div class="collapse" id="jadwal">
+									<div class="card card-body">
+										<div class="row">
+											<div class="col-12 ">
+												<table id="data-tb" class="display table table-hover "  cellspacing="0" style="width:100%;">
+													<thead>
+														<tr>
+															<!-- <th>No</th> -->
+															<th>Prodi</th>
+															<th>Semester</th>
+															<th>Kelas</th>
+															<th>Kode MK</th>
+															<th>Matakuliah</th>
+															<th></th>
+														</tr>
+													</thead>
+												</table>
+											</div>
 										</div>
 									</div>
 								</div>
 								<div class="collapse" id="filter">
 									<div class="card card-body">
 										<div class="row">
-
+											<div class="form-group col-md-2 col-12 ">
+												<label>Prodi</label>
+												<select class="form-control fill" id="prodi">
+													<option value="" selected="" disabled="">pilih Prodi</option>
+													<?php foreach ($prod as $key): ?>
+														
+														<option value="<?=$key->kodeprodi?>"><?=$key->prodi?></option>
+													<?php endforeach ?>
+												</select>
+											</div>
 											<div class="form-group  col-md-2 col-12">
 												<label>Kelas</label>
 												<select class="form-control fill" id="kelas">
@@ -57,23 +91,12 @@
 													<?php endforeach ?>
 												</select>
 											</div>
-											<div class="form-group col-md-2 col-12 ">
-												<label>Prodi</label>
-												<select class="form-control fill" id="prodi">
-													<option value="" selected="" disabled="">pilih Prodi</option>
-													<?php foreach ($prod as $key): ?>
-														
-														<option value="<?=$key->kodeprodi?>"><?=$key->prodi?></option>
-													<?php endforeach ?>
-												</select>
-											</div>
+											
 											<div class="col-md-2 d-flex" style="margin-top:40px;">
 												<button type="reset" id="tampil" class="mr-2 btn btn-warning btn-sm " style="height:40px;">
 													<span class="btn-label"><i class="fas fa-undo-alt"></i></span> Reset
 												</button>
-												<button id="tambah" class=" btn btn-primary btn-sm " style="height:40px;">
-													<span class="btn-label"><i class="fas fa-plus"></i></span> Tambah
-												</button>
+											
 											</div>
 											
 
@@ -208,8 +231,6 @@
 
 <script>
 	$(document).ready(function () {
-		
-
 		table = $('#tb-khs').DataTable({
 			"scrollX": true,
 			"language": {
@@ -259,6 +280,55 @@
 			},
 		});
 
+		tbjadwal =$('#data-tb').DataTable({
+			
+			"language": {
+				"url": "//cdn.datatables.net/plug-ins/1.10.20/i18n/Indonesian.json"
+			},
+
+			"processing": true,
+			"searching":false,
+			"paging":false,
+			"ordering":false,
+			"deferRender": true,
+			"ajax": {
+				"url": "<?php echo site_url('dosen/jadwal/jdwl')?>",
+				"type": "GET",
+			},
+			"columnDefs": [{
+				"targets": [5],
+				"visible": false,
+			}]
+			
+		});
+
+		$('#data-tb tbody').on('click','td', function () {
+			let data = tbjadwal.row($(this).parents('tr')).data();
+			console.log(data);
+			let kelas =data[2];
+			let semester = data[1];
+			let matakuliah = data[3];
+			let pro = data[5];
+			let matakuliahq = data[4];
+			let prdd = data[0];
+			$('#matKul').text(matakuliahq);
+			$('#semS').text(semester);
+			$('#kelS').text(kelas);
+			$('#prodiS').text(prdd);
+
+			$('#kelas').val(kelas).trigger('change');
+			$('#semester').val(semester).trigger('change');
+			$('#mk').val(matakuliah).trigger('change');
+			$('#prodi').val(pro).trigger('change');
+
+			tbInput.ajax.reload();
+			$('#modal-tambah').modal({
+				keyboard: false,
+				backdrop: 'static',
+			});
+
+		});
+
 		//datatables
 		$('.fill').on('change', function () { //button filter event click
 			table.ajax.reload(); //just reload table
@@ -268,26 +338,6 @@
 
 			table.ajax.reload(); //just reload table
 			 //just reload table
-		});
-
-		// tamabah Modal
-		$('#tambah').click(function(){
-				let kelas = $('#kelas').val();
-				let semester = $('#semester').val();
-				let matakuliah = $('#mk').val();
-				let pro = $('#prodi').val();
-				let matakuliahq = $('option[value="'+matakuliah+'"]').text();
-				let prdd = $('option[value="'+pro+'"]').text();
-				$('#matKul').text(matakuliahq);
-				$('#semS').text(semester);
-				$('#kelS').text(kelas);
-				$('#prodiS').text(prdd);
-
-				tbInput.ajax.reload();
-				$('#modal-tambah').modal({
-					keyboard: false,
-					backdrop: 'static',
-				});
 		});
 
 

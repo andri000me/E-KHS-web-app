@@ -104,7 +104,7 @@ if(!function_exists('sts2')){
     {
         if ($val== "Aktif") return '<span class="badge bg-success text-light "style="border: 2px solid white !important;">Aktif</span>';
         else if ($val== "Cuti") return '<span class="text-light badge bg-warning" style="border: 2px solid white !important;">Cuti</span>';
-        else if ($val== "Alumni") return '<span class="text-light badge bg-warning" style="border: 2px solid white !important;">Alumni</span>';
+        else if ($val== "Alumni") return '<span class="text-light badge bg-info" style="border: 2px solid white !important;">Alumni</span>';
         else return '<span class="badge bg-danger text-light" style="border: 2px solid white !important;">Drop Out</span>';
     }
 }
