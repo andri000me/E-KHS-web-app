@@ -95,6 +95,20 @@ class khs extends CI_Controller {
 
         echo json_encode($message);
     }
+    public function veriviAll()
+    {
+        $data=[
+            "status"=>'1'
+        ];
+        $this->db->not_like('status', '1');
+        $this->db->update('khs', $data);
+
+        $message = array(
+        'type' =>'success',
+        'text'=>'Verifikasi Brhasil');
+
+        redirect('kajur/khs');
+    }
 }
 
 /* End of file Controllername.php */

@@ -223,3 +223,25 @@
         });
 
     </script>
+    <script>
+    $('#pop').popover({
+        title:"Verivikasi Nilai",
+        placement:"bottom",
+        trigger:'hover',
+        html:true,
+        content:'Nilai Yang Belum Diverifikasi <br> <a href="<?=base_url()?>kajur/khs/veriviAll">verifikasi Semua</a>',
+        delay:{
+            'show':60,
+            'hide':3000
+        },
+        template:'<div class="popover " role="tooltip"><div class="arrow"></div><h3 class="popover-header text-warning"></h3><div class="popover-body"></div></div>'
+    });
+    setTimeout(() => {
+        $('#pop').popover('show');
+    }, 300);
+    
+
+    setTimeout(() => {
+        $('#pop').popover('hide');
+    }, 4000);
+    </script>
