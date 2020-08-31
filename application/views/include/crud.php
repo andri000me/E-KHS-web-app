@@ -1,23 +1,24 @@
 <script>
-	function get(url, data) {
+	function get (url, data,{...rest}={}) {
 
 		var tb = $('#data-tb').DataTable({
-			"scrollX": true,
-			"language": {
-				"url": "//cdn.datatables.net/plug-ins/1.10.20/i18n/Indonesian.json"
+			scrollX: true,
+			language: {
+				url: "//cdn.datatables.net/plug-ins/1.10.20/i18n/Indonesian.json"
 			},
-
-			"processing": true,
-			"deferRender": true,
-			"ajax": {
-				"url": url,
-				"type": "POST",
-				"data": data,
+			processing: true,
+			...rest,
+			deferRender: true,
+			ajax: {
+				url: url,
+				type: "POST",
+				data: data,
 			},
-			"columnDefs": [{
-				"targets": [0],
-				"visible": false,
-			}]
+			columnDefs: [{
+				targets: [0],
+				visible: false,
+			}],
+			
 		});
 		return tb;
 

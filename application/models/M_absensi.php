@@ -35,7 +35,8 @@ class M_absensi extends CI_Model {
         if($this->input->post('angkatan'))
         {
             $this->db->like('mhs.angkatan', $this->input->post('angkatan'));
-        }       
+        }
+        $this->db->order_by('abs.semester','asc');     
         return $this->db->get()->result();
 
     }
