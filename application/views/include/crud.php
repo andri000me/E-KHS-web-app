@@ -1,5 +1,7 @@
 <script>
-	function get (url, data,{...rest}={}) {
+	function get(url, data, {
+		...rest
+	} = {}) {
 
 		var tb = $('#data-tb').DataTable({
 			scrollX: true,
@@ -18,29 +20,28 @@
 				targets: [0],
 				visible: false,
 			}],
-			
+
 		});
 		return tb;
 
 	}
 
-	function post(url, data, refres=null) {
+	function post(url, data, refres = null) {
 
 		var post_dt = $.ajax({
 			type: "POST",
 			url: url,
 			dataType: "JSON",
 			data: data,
-			success: function (data) {
+			success: function(data) {
 				notif(data.type, data.text);
-				if(refres!=null){
+				if (refres != null) {
 					getData('');
-				}
-				else{
+				} else {
 					table.ajax.reload();
 				}
 			},
-			error: function (err) {
+			error: function(err) {
 				console.log(err);
 				notif('error', err.statusText);
 			}
@@ -48,7 +49,7 @@
 		return post_dt;
 	}
 
-	function hapus(url, id,refres=null) {
+	function hapus(url, id, refres = null) {
 
 		let del = swal({
 			title: 'Anda Yakin?',
@@ -74,17 +75,16 @@
 					data: {
 						id: id
 					},
-					success: function (data) {
+					success: function(data) {
 						notif('success', 'Data Sukses Di Hapus');
-						if(refres!=null){
+						if (refres != null) {
 							getData('');
-						}
-						else{
+						} else {
 							table.ajax.reload();
 							detailkhs.ajax.reload();
 						}
 					},
-					error: function (err) {
+					error: function(err) {
 						console.log(err);
 						notif('error', err.statusText);
 					}
@@ -101,12 +101,12 @@
 			type: "GET",
 			url: url,
 			dataType: "JSON",
-			cache: false, 
+			cache: false,
 			data: {
 				id: id
 			},
 			success: data,
-			error: function (err) {
+			error: function(err) {
 				console.log(err);
 				notif('error', err.statusText);
 			}
@@ -177,7 +177,4 @@
 		});
 		return not;
 	}
-
-
-
 </script>

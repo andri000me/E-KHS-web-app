@@ -1,6 +1,6 @@
 {
-	"description": "The CodeIgniter framework",
-	"name": "codeigniter/framework",
+	"description": "App KHS Elektro",
+	"name": "Bry/App-KHS",
 	"type": "project",
 	"homepage": "https://codeigniter.com",
 	"license": "MIT",
