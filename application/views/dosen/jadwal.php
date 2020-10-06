@@ -37,7 +37,7 @@
 										</select>
 									</div>
 									<div class="col-md-2 d-flex" style="margin-top:40px;">
-								>
+								
 
 										<button type="reset" id="tampil" class="btn btn-primary btn-sm " style="height:40px;">
 											<span class="btn-label"><i class="fas fa-undo-alt"></i></span> Reset
@@ -64,8 +64,6 @@
 										<th>Jam Mulai</th>
 										<th>Jam Selesai</th>
 										<th>Ruangan</th>
-										<th>Dosen Pengajar</th>
-
 									</tr>
 								</thead>
 								<tfoot>
@@ -81,8 +79,6 @@
 										<th>Jam Mulai</th>
 										<th>Jam Selesai</th>
 										<th>Ruangan</th>
-										<th>Dosen Pengajar</th>
-
 									</tr>
 								</tfoot>
 

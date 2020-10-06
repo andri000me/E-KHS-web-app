@@ -16,10 +16,11 @@ class khs extends CI_Controller {
 	public function index( $offset = 0 )
 	{
 		$data=[
-			'mk' => $this->db->query("SELECT mkprodi.kodemk as kode ,matakulah.namamk as nama FROM mkprodi,matakulah WHERE mkprodi.kodemk=matakulah.kodemk AND mkprodi.nip='".$this->session->userdata('username')."' AND mkprodi.takademik='".$this->session->userdata('takademik')."'")->result(),
-			"sem"=> $this->db->query("SELECT mkprodi.semester FROM mkprodi WHERE mkprodi.nip='".$this->session->userdata('username')."' AND mkprodi.takademik='".$this->session->userdata('takademik')."'")->result(),
-			"kel"=> $this->db->query("SELECT mkprodi.kelas FROM mkprodi WHERE mkprodi.nip='".$this->session->userdata('username')."' AND mkprodi.takademik='".$this->session->userdata('takademik')."'")->result(),
-			"prod"=> $this->db->query("SELECT mkprodi.kodeprodi,prodi.prodi FROM mkprodi, prodi WHERE mkprodi.kodeprodi=prodi.kodeprodi AND  mkprodi.nip='".$this->session->userdata('username')."' AND mkprodi.takademik='".$this->session->userdata('takademik')."'")->result(),
+			'mk' => $this->db->query("SELECT mkprodi.kodemk as kode ,matakulah.namamk as nama FROM mkprodi,matakulah WHERE mkprodi.kodemk=matakulah.kodemk AND mkprodi.nip='".$this->session->userdata('username')."' AND mkprodi.takademik='".$this->session->userdata('takademik')."' group by mkprodi.kodemk")->result(),
+			"sem"=> $this->db->query("SELECT mkprodi.semester FROM mkprodi WHERE mkprodi.nip='".$this->session->userdata('username')."' AND mkprodi.takademik='".$this->session->userdata('takademik')."' group by mkprodi.semester")->result(),
+			"kel"=> $this->db->query("SELECT mkprodi.kelas FROM mkprodi WHERE mkprodi.nip='".$this->session->userdata('username')."' AND mkprodi.takademik='".$this->session->userdata('takademik')."' group by mkprodi.kelas")->result(),
+
+			"prod"=> $this->db->query("SELECT mkprodi.kodeprodi,prodi.prodi FROM mkprodi, prodi WHERE mkprodi.kodeprodi=prodi.kodeprodi AND  mkprodi.nip='".$this->session->userdata('username')."' AND mkprodi.takademik='".$this->session->userdata('takademik')."' group by mkprodi.kodeprodi ")->result(),
 		];
 		$this->load->view('include/head');
 		$this->load->view('include/header_dosen');

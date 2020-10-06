@@ -45,7 +45,6 @@ class jadwal extends CI_Controller {
             $row[]=$key->jam_mulai;
             $row[]=$key->jam_selesai;
             $row[]=$key->nama_ruangan;
-            $row[]=$key->nama;
            
             
             $output[]=$row;
