@@ -32,6 +32,12 @@
 
 	<!-- CSS Just for demo purpose, don't include it in your project -->
 	<link rel="stylesheet" href="<?=base_url()?>assets/css/demo.css">
+	<style type="text/css">
+	table .group{
+		background-color:#54545445 !important;
+	}
+
+	</style>
 </head>
 <body>
 	<div class="wrapper ">

@@ -139,7 +139,6 @@
 				</table>
 				<br>
 				<br>
-				<br>
 				<table width= "100%">
 					<tr>
 						<td><center>
@@ -155,7 +154,6 @@
 						</td>
 					</tr>
 				</table>
-				<br>
 				<br>
 				<br>
 				<table width= "100%">

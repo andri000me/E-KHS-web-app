@@ -281,14 +281,22 @@
 
 		//tabel utama
 		table = $('#tb-khs').DataTable({
-			"scrollX": true,
-			"language": {
+			scrollX: true,
+			language: {
 				"url": "//cdn.datatables.net/plug-ins/1.10.20/i18n/Indonesian.json"
 			},
+			order:[[3,"asc"]],
 
-			"processing": true,
-			"deferRender": true,
-			"ajax": {
+			drawCallback:function(a){
+            	var t=this.api(),
+           		e=t.rows({page:"current"}).nodes(),
+            	n=null;
+            	t.column(3,{page:"current"}).data()
+            	.each(function(a,t){n!==a&&($(e).eq(t)
+            	.before('<tr class="group"><td colspan="7"><center> Semester '+a+"</center></td></tr>"),n=a)})},
+			processing: true,
+			deferRender: true,
+			ajax: {
 				"url": "<?php echo site_url('operator/khs/data_khs')?>",
 				"type": "POST",
 				"data": function (data) {

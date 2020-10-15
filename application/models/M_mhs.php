@@ -107,7 +107,6 @@ class M_mhs extends CI_Model {
         $this->form_validation->set_rules('nama', 'nama', 'required');
         $this->form_validation->set_rules('kelas', 'kelas', 'required');
         $this->form_validation->set_rules('angkatan', 'angkatan', 'required');
-        $this->form_validation->set_rules('dosen', 'dosen', 'required');
         if($this->form_validation->run()==FALSE){
             $message = array(
                 'type'=>'error',

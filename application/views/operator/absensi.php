@@ -192,7 +192,17 @@
 			data.angkatan = $('#angkatan').val();
 
 		}
-		table = get(url, dtfilter);
+		table = get(url, dtfilter,{
+			order:[[5,"asc"]],
+			drawCallback:function(a){
+            var t=this.api(),
+            e=t.rows({page:"current"}).nodes(),
+            n=null;
+            t.column(5,{page:"current"}).data()
+            .each(function(a,t){n!==a&&($(e).eq(t)
+            .before('<tr class="group"><td colspan="10"><center> Semester '+a+"</center></td></tr>"),n=a)})},
+			
+		});
 		// ==================end get data===============
 
 		// =============filter data==================

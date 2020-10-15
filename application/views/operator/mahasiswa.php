@@ -201,7 +201,7 @@
 							<label>Angkatan</label>
 							<input type="text" class="form-control" id="tang" name="angkatan" placeholder="Pilih Angkatan">
 						</div>
-						<div class="form-group col-12">
+						<div class="form-group col-12" id="popdos">
 							<label>Dosen PA</label>
 							<select name="dosen" class="form-control myselect2" style="width:100%;"></select>
 						</div>
@@ -438,6 +438,24 @@
 				$('#my-modal [name="nama"]').val(data[0].nama);
 				$('#my-modal [name="kelas"]').val(data[0].kelas).trigger('change');
 				$('#my-modal [name="angkatan"]').val(data[0].angkatan);
+				if((data[0].nip=='') | (data[0].nip==null)){
+					$('#popdos').popover({
+		        title:'<div class="text-warning"> Perhatian !!</div>',
+		        placement:"bottom",
+		        trigger:'hover',
+		        offset:"-100",
+		        html:true,
+		        content:'<div>Tentukan Dosen Pembimbing Untuk Mahasiswa Ini !</div>',
+		        delay:{
+		            'show':60,
+		            'hide':100
+		        },
+		        
+		    	});
+		    	setTimeout(() => {
+			      $('#popdos').popover('show');
+			    }, 300);
+				}
 			}
 			$('#my-modal').modal({
 				keyboard: false,

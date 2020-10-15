@@ -14,6 +14,7 @@ class M_dosen extends CI_Model {
     public function get_data()
     {
 
+        $this->db->where("nip != ''");
         if ($this->input->get('q')){
          $this->db->like('nip', $_GET['q'], 'BOTH'); 
          $this->db->or_like('nama', $_GET['q'], 'BOTH');  
