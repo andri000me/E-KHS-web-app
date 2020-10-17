@@ -149,7 +149,7 @@
 			<tr>
 				<td>Nama</td>
 				<td>:</td>
-				<td><?php echo $mhs->nama; ?></td>
+				<td><?php echo ucwords(strtolower($mhs->nama)); ?></td>
 				<td>lahir Di</td>
 				<td>:</td>
 				<td> <?php echo $mhs->tempat_lahir; ?></td>
@@ -204,7 +204,7 @@
 				<td>
 					<div class="bord"><?php echo $no; ?></div>
 				</td>
-				<td><div class="bord"><?php echo $key->kodemk; ?></div></td>
+				<td><div class="bord" style="text-align: center;"><?php echo $key->kodemk; ?></div></td>
 				<td><div class="bord"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $key->namamk; ?></div></td>
 				<td align="center"><div class="bord"><?php echo $key->am; ?></div></td>
 				<td align="center"><div class="bord"><?php echo $key->sks; ?></div></td>
@@ -233,7 +233,7 @@
 				<td>
 					<div class="bord"><?php echo $no; ?></div>
 				</td>
-				<td><div class="bord"><?php echo $key->kodemk; ?></div></td>
+				<td><div class="bord" style="text-align: center;"><?php echo $key->kodemk; ?></div></td>
 				<td><div class="bord"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $key->namamk; ?></div></td>
 				<td align="center"><div class="bord"><?php echo $key->am; ?></div></td>
 				<td align="center"><div class="bord"><?php echo $key->sks; ?></div></td>
@@ -263,7 +263,7 @@
 				<td>
 					<div class="bord"><?php echo $no; ?></div>
 				</td>
-				<td><div class="bord"><?php echo $key->kodemk; ?></div></td>
+				<td><div class="bord" style="text-align: center;"><?php echo $key->kodemk; ?></div></td>
 				<td><div class="bord"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $key->namamk; ?></div></td>
 				<td align="center"><div class="bord"><?php echo $key->am; ?></div></td>
 				<td align="center"><div class="bord"><?php echo $key->sks; ?></div></td>
@@ -293,7 +293,7 @@
 				<td>
 					<div class="bord"><?php echo $no; ?></div>
 				</td>
-				<td><div class="bord"><?php echo $key->kodemk; ?></div></td>
+				<td><div class="bord" style="text-align: center;"><?php echo $key->kodemk; ?></div></td>
 				<td><div class="bord"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $key->namamk; ?></div></td>
 				<td align="center"><div class="bord"><?php echo $key->am; ?></div></td>
 				<td align="center"><div class="bord"><?php echo $key->sks; ?></div></td>

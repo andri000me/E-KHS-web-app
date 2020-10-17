@@ -81,7 +81,7 @@
 				</td>
 				<?php foreach ($mhs as $key) {?>
 				<td><b>
-					: <?php echo $key->nama; ?><br>
+					: <?php echo ucwords(strtolower($key->nama)); ?><br>
 					: <?php echo $key->nim; ?><br>
 					: <?php echo $smt; ?>/<?php echo $key->kelas; ?><br>
 					: <?php echo $key->prodi; ?></b>

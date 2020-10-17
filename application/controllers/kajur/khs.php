@@ -32,7 +32,7 @@ class khs extends CI_Controller {
             $no++;
             $row[] = $no;
             $row[]=$key->nim;
-            $row[]=$key->nama;
+            $row[]=ucwords(strtolower($key->nama));
             $row[]=$key->semester;
             $row[]=$this->M_khs->get_ip($key->semester,$key->nim);
             $row[]=status($key->status);

@@ -82,7 +82,7 @@
 	  <tr >
 	  	<td style="text-align: center;"><?php echo $no; ?></td>
 	    <td style="text-align: center;"><?php echo $row->nim; ?></td>
-	    <td style="text-align: left;"><?php echo $row->nama; ?></td>
+	    <td style="text-align: left;"><?php echo ucwords(strtolower($row->nama)); ?></td>
 		<td style="text-align: center;"><?php echo $row->sakit; ?></td>
 		<td style="text-align: center;"><?php echo $row->ijin; ?></td>
 		<td style="text-align: center;"><?php echo $row->alpa; ?></td>

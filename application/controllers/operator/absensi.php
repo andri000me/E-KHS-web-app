@@ -31,7 +31,7 @@ class absensi extends CI_Controller {
             $row[]=$key->id;
             $row[]=$no;
             $row[]=$key->nim;
-            $row[]=$key->nama;
+            $row[]=ucwords(strtolower($key->nama));
             $row[]=$key->kelas;
             $row[]=$key->semester;
             $row[]=$key->sakit;
