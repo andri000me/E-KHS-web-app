@@ -52,7 +52,10 @@ class Mahasiswa extends CI_Controller {
 	public function Profile()
 	{
 		$data = array(	'title' =>"Profile - Mahasiswa" ,
-						'mhs'=>$this->db->query("SELECT * FROM  mahasiswa LEFT JOIN prodi ON prodi.kodeprodi=mahasiswa.prodi where mahasiswa.nim='".$this->session->userdata('username')."'")->row(),
+						'mhs'=>$this->db->query("SELECT mahasiswa.*,dosen.nama as dosen,prodi.prodi FROM  mahasiswa 
+							LEFT JOIN prodi ON prodi.kodeprodi=mahasiswa.prodi
+							LEFT JOIN dosen ON mahasiswa.nip=dosen.nip 
+							where mahasiswa.nim='".$this->session->userdata('username')."'")->row(),
 						'dosen'=> $this->db->query("SELECT dosen.*  FROM dosen, mahasiswa WHERE Mahasiswa.nip=dosen.nip AND mahasiswa.nim='".$this->session->userdata('username')."'")->row(), );
 
 		$this->load->view('Mahasiswa/include/head',$data);

@@ -76,7 +76,7 @@
                         <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-6-desktop">
                           
                           <div class="mdc-text-field mdc-text-field--outlined">
-                            <input class="mdc-text-field__input frm" id="text-field-hero-input13 " name="tgl_lahir" value="<?=$mhs->tgl_lahir?>"readonly>
+                            <input type="date" class="mdc-text-field__input frm" id="text-field-hero-input13 " name="tgl_lahir" value="<?=$mhs->tgl_lahir?>"readonly>
                             <div class="mdc-notched-outline">
                               <div class="mdc-notched-outline__leading"></div>
                               <div class="mdc-notched-outline__notch">
@@ -90,11 +90,11 @@
                         <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-6-desktop">
                           
                           <div class="mdc-text-field mdc-text-field--outlined">
-                            <input class="mdc-text-field__input" id="text-field-hero-input12" value="<?= $dosen->nama;?>"readonly>
+                            <input class="mdc-text-field__input" id="text-field-hero-input12" value="<?= $mhs->dosen;?>"readonly>
                             <div class="mdc-notched-outline">
                               <div class="mdc-notched-outline__leading"></div>
                               <div class="mdc-notched-outline__notch">
-                                <label for="text-field-hero-input12" class="mdc-floating-label">Dosen Pembimbing</label>
+                                <label for="text-field-hero-input12" class="mdc-floating-label">Dosen PA</label>
                               </div>
                               <div class="mdc-notched-outline__trailing"></div>
                             </div>

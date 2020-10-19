@@ -60,7 +60,7 @@ class jadwal extends CI_Controller {
 
     public function jdwl()
     {
-        $data=$this->M_jadwal->get_jadwal($this->session->userdata('username'));
+        $data=$this->M_jadwal->get_jadwal($this->session->userdata('username'),"kodemk");
         $output=array();
         $no=0;
         foreach ($data as $key) {

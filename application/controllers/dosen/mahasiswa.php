@@ -34,7 +34,7 @@ class mahasiswa extends CI_Controller {
             $row[]=$key->nim;
             $row[]=$no;
             $row[]=$key->nim;
-            $row[]=ucwords(strtolower($key->nama);
+            $row[]=ucwords(strtolower($key->nama));
             $row[]=$key->prodi;
             $row[]=$key->kelas;
             $row[]=sts2($key->status);
@@ -58,7 +58,7 @@ class mahasiswa extends CI_Controller {
         foreach ($data as $key) {
             $row=array();
             $row['nim']=$key->nim;
-            $row['nama']=ucwords(strtolower($key->nama);
+            $row['nama']=ucwords(strtolower($key->nama));
             $row['prodi']=$key->prodi;
             $row['kelas']=$key->kelas;
             $row['angkatan']=$key->angkatan;

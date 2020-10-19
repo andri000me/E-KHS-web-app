@@ -123,6 +123,30 @@
     </script>
     <?php } ?>
 
+    <script>
+      let newlog="<?=$this->session->flashdata('pertama'); ?>";
+      if (newlog!=""){
+        $(function(){
+          swal({
+            title: 'Selamat Datang !',
+            text: newlog,
+            closeOnClickOutside:false,
+            icon: 'success',
+            button: {
+              text: "OK",
+              value: true,
+              visible: true,
+              className: "mdc-button mdc-button--raised"
+            }
+          })
+          .then((ok)=>{
+              const dl=new mdc.dialog.MDCDialog(document.querySelector('#mdc-dialog-default'));
+              dl.open();
+          });
+        });
+      }
+    </script>
+   
 
 
 </body>

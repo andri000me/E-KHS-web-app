@@ -177,5 +177,28 @@ var myDoughnutChart = new Chart(doughnutChart, {
 });
 
 	console.log(myDoughnutChart.data.datasets[0].backgroundColor);
+	let newlog="<?=$this->session->flashdata('pertama'); ?>";
+	const wrapper = document.createElement('h4');
+	wrapper.innerHTML = newlog;
+	if(newlog!=""){
+		swal({
+			title: 'Selamat Datang',
+			icon: "success",
+			content:wrapper,
+			type: 'success',
+			closeOnClickOutside:false,
+			buttons: {
+				confirm: {
+					text: 'OK',
+					className: 'btn btn-success'
+				}
+			}
+		}).then((willChange) => {
+			if (willChange) {
+				window.location.href = "<?=base_url()?>dosen/profile#settings";
+			}
+		});
+	}
+	
 
 </script>

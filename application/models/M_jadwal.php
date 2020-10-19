@@ -11,7 +11,7 @@ class M_jadwal extends CI_Model {
         //Load Dependencies
 
     }
-    public function get_jadwal($dosen="")
+    public function get_jadwal($dosen="",$group="")
     {
         $this->db->select('p.id,p.hari,p.jam_mulai,p.jam_selesai, P.kodeprodi, p.kodemk, p.nip, p.kelas, p.semester,d.nama, mk.namamk,prod.prodi,rk.nama_ruangan,rk.id_ruangan');
 		$this->db->from('mkprodi p');
@@ -30,6 +30,9 @@ class M_jadwal extends CI_Model {
         }
         if($dosen!=""){
             $this->db->like('p.nip', $dosen, 'BOTH');
+        }
+        if($group!=""){
+            $this->db->group_by('p.kodemk');
         }      
         return $this->db->get()->result();
         

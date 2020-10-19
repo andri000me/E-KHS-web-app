@@ -63,6 +63,9 @@ class M_login extends CI_Model {
                      );
                 }
                 $this->session->set_userdata($sess);
+                if($password=="202cb962ac59075b964b07152d234b70"){
+                    $this->session->set_flashdata('pertama',"<center>Silahkan Ubah Password Anda Terlebih dahulu Di Menu<b style='color:orange;'> Ubah Password</b></center>");
+                }
                 redirect('dosen/index');
                 
             }
@@ -85,7 +88,12 @@ class M_login extends CI_Model {
                          );
                     }
                     $this->session->set_userdata($sess);
-                    $this->session->set_flashdata('sukses',"Selamat Datang");
+                    if($password=="d41d8cd98f00b204e9800998ecf8427e"){
+                        $this->session->set_flashdata('pertama',"Silahkan Ubah Password Anda");
+                    }
+                    else{
+                        $this->session->set_flashdata('sukses',"Selamat Datang");
+                    }
                     redirect('mahasiswa/index');
                     
                 }

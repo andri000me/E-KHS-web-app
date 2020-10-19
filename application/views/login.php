@@ -60,7 +60,7 @@
 							<label for="password" class="placeholder"><b>Password</b></label>
 							<a href="#" class="link float-right lupa">Lupa Password ?</a>
 							<div class="position-relative">
-								<input id="password" placeholder="Masukan Password" name="password" type="password" class="form-control" required>
+								<input id="password" placeholder="Masukan Password" name="password" type="password" class="form-control">
 								<div class="show-password">
 									<i class="icon-eye"></i>
 								</div>
