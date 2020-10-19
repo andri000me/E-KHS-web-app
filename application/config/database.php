@@ -75,10 +75,10 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'sql211.epizy.com',
-	'username' => 'epiz_26713014',
-	'password' => '91vMurJwiay0wB',
-	'database' => 'epiz_26713014_khs_elk',
+	'hostname' => 'remotemysql.com',
+	'username' => 'QJdp32zSb3',
+	'password' => 'rjJtr6nmy9',
+	'database' => 'QJdp32zSb3',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
