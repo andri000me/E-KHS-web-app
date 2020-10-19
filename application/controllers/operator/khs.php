@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class khs extends CI_Controller {
+class Khs extends CI_Controller {
 
 	public function __construct()
 	{
