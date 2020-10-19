@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class absensi extends CI_Controller {
+class Absensi extends CI_Controller {
 
     public function __construct()
     {
