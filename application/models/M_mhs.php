@@ -25,8 +25,9 @@ class M_mhs extends CI_Model {
         }
         if($this->input->post('angkatan'))
         {
-            $this->db->like('mahasiswa.angkatan', $this->input->post('angkatan'),'righ');
+            $this->db->like('mahasiswa.nim', substr($this->input->post('angkatan'),-2),'after');
         }
+
         if($dosen !=""){
          $this->db->like('mahasiswa.nip', $dosen, 'BOTH');   
         }
@@ -47,9 +48,12 @@ class M_mhs extends CI_Model {
 
     public function updateStatus()
     {
+        $nim=$this->input->post('id');
+        $angkatan=$this->db->query("select * from mahasiswa where nim='$nim'")->row()->angkatan;
         $this->db->where('nim', $this->input->post('id'));
+        $status=$this->input->post('status');
 
-        $ok=$this->db->update('mahasiswa',['status'=>$this->input->post('status')]);
+        $ok=$this->db->update('mahasiswa',['status'=>$status]);
         if ($ok) {
             $message = array(
                 'type' =>'success',

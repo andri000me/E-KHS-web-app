@@ -30,7 +30,7 @@ class M_khs extends CI_Model {
 		}
 		if($this->input->post('angkatan'))
 		{
-			$this->db->like('mahasiswa.angkatan', $this->input->post('angkatan'));
+			$this->db->like('mahasiswa.nim', substr($this->input->post('angkatan'),-2),'after');
 		}
 		if($prodi){
 			$this->db->like('mahasiswa.prodi', $prodi);
