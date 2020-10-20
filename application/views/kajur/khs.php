@@ -204,7 +204,7 @@
 			$('.tab-pane').toggleClass('active');
 			nim = data[1];
 			semester = data[3];
-			$('.nama').html(`KHS : ${data[2]}, Semester ${data[3]}`);
+			$('.nama').html(`Nilai KHS : ${data[2]}, Semester ${data[3]}`);
 			detailkhs.ajax.reload();
 
 		});

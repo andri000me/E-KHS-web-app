@@ -13,7 +13,7 @@ class M_jadwal extends CI_Model {
     }
     public function get_jadwal($dosen="",$group="")
     {
-        $this->db->select('p.id,p.hari,p.jam_mulai,p.jam_selesai, P.kodeprodi, p.kodemk, p.nip, p.kelas, p.semester,d.nama, mk.namamk,prod.prodi,rk.nama_ruangan,rk.id_ruangan');
+        $this->db->select('p.id,p.hari,p.jam_mulai,p.jam_selesai, p.kodeprodi, p.kodemk, p.nip, p.kelas, p.semester,d.nama, mk.namamk,prod.prodi,rk.nama_ruangan,rk.id_ruangan');
 		$this->db->from('mkprodi p');
         $this->db->join('dosen d', 'p.nip=d.nip', 'left');
         $this->db->join('prodi prod', 'p.kodeprodi=prod.kodeprodi', 'left');
@@ -22,11 +22,11 @@ class M_jadwal extends CI_Model {
         $this->db->where('p.takademik', $this->session->userdata('takademik'));
         if($this->input->post('semester'))
         {
-            $this->db->where('P.semester', $this->input->post('semester'));
+            $this->db->where('p.semester', $this->input->post('semester'));
         }
         if($this->input->post('kelas'))
         {
-            $this->db->like('P.kelas', $this->input->post('kelas'));
+            $this->db->like('p.kelas', $this->input->post('kelas'));
         }
         if($dosen!=""){
             $this->db->like('p.nip', $dosen, 'BOTH');
@@ -40,7 +40,7 @@ class M_jadwal extends CI_Model {
     }
     public function get_jadwalbyId()
     {
-        $this->db->select('p.id,p.hari,p.jam_mulai,p.jam_selesai, P.kodeprodi, p.kodemk, p.nip, p.kelas, p.semester,d.nama, mk.namamk,prod.prodi,rk.nama_ruangan,rk.id_ruangan');
+        $this->db->select('p.id,p.hari,p.jam_mulai,p.jam_selesai, p.kodeprodi, p.kodemk, p.nip, p.kelas, p.semester,d.nama, mk.namamk,prod.prodi,rk.nama_ruangan,rk.id_ruangan');
         $this->db->from('mkprodi p');
         $this->db->join('dosen d', 'p.nip=d.nip', 'left');
         $this->db->join('prodi prod', 'p.kodeprodi=prod.kodeprodi', 'left');

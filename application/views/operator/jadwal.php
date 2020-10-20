@@ -232,6 +232,7 @@
 
 			$('.add-data').show();
 			$('.edit-data').hide();
+			$('.modal-header #exampleModalLongTitle').html('Tambah Data');
 
 			$('#my-modal').modal({
 				keyboard: false,
@@ -275,6 +276,7 @@
 
 			let data = table.row($(this).parents('tr')).data();
 			let id = data[0];
+			$('.modal-header #exampleModalLongTitle').html('Edit Data');
 			let url_1 = "<?php echo base_url('operator/jadwal/get_jadwalbyId')?>";
 			var dt_set = function (data) {
 				

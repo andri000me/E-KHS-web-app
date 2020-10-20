@@ -69,7 +69,6 @@ class Report extends CI_Controller {
             "kajur"=>$this->db->query('SELECT * FROM pejabat WHERE kode=1')->result(),
             "pudir"=>$this->db->query('SELECT * FROM pejabat WHERE kode=2')->result(),
             "prodi"=>$this->db->query("SELECT prodi.*, dosen.nama FROM dosen,prodi wherE prodi.kepro=dosen.nip AND kodeprodi='$kodeProdi'")->row(),
-
             
          );
         if ($cekVer > 0) {

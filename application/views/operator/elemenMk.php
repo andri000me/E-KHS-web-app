@@ -63,11 +63,11 @@
 			<div class="modal-body">
 				<form class="row">
 					<input type="hidden" name="id" value="">
-					<div class="form-group col-md-6">
+					<div class="form-group col-md-12">
 						<label>Kode</label>
 						<input type="text" class="form-control txt" name="kode" placeholder="Masukan Kode Elemen">
 					</div>
-					<div class="form-group col-md-6">
+					<div class="form-group col-md-12">
 						<label>Nama</label>
 						<input type="text" class="form-control txt" name="nama" placeholder="Masukan Nama Elemen">
 					</div>
@@ -102,7 +102,7 @@
 			$('.add-data').show();
 			$('.edit-data').hide();
 			$('.txt').val(null);
-			
+			$('.modal-header #exampleModalLongTitle').html('Tambah Data');
 
 			$('#my-modal').modal({
 				keyboard: false,
@@ -136,7 +136,7 @@
 		$('tbody').on('click', '.edit', function () {
 			$('.add-data').hide();
 			$('.edit-data').show();
-
+			$('.modal-header #exampleModalLongTitle').html('Edit Data');
 			let data = table.row($(this).parents('tr')).data();
 			let id = data[0];
 			$('#my-modal [name="id"]').val(id);

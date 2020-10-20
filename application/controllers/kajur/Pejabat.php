@@ -40,7 +40,7 @@ class Pejabat extends CI_Controller {
             );
             if(!empty($_FILES["foto"]["name"])){
               $config['upload_path']          = './assets/images/pejabat/';
-              $config['allowed_types']        = 'gif|jpg|png';
+              $config['allowed_types']        = 'gif|jpg|png|jpeg';
               $config['file_name']            = $this->input->post('id');
               $config['overwrite']            = true;
               $config['max_size']             = 1024 * 10; // 1MB

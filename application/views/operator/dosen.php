@@ -84,6 +84,7 @@
 		}
 		set(url_1, nip, dt_set);
 		$('.edit-data').show();
+		$('.modal-header #exampleModalLongTitle').html('Edit Data');
 		$('.hapus-data').show();
 		$('.add-data').hide();
 		$('#my-modal').modal({
@@ -119,6 +120,7 @@
 		$('.hapus-data').hide();
 		$('.edit-data').hide();
 		$('.txt').val(null);
+		$('.modal-header #exampleModalLongTitle').html('Tambah Data');
 		url = "<?php echo base_url('operator/dosen/add')?>";
 		$('#my-modal').modal({
 			keyboard: false,

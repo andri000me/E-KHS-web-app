@@ -27,6 +27,17 @@ if (!function_exists('nilai_huruf')) {
         else if ($am >= 80) return "A";   
     }
 }
+if(!function_exists('nilai_kurang')){
+    function nilai_kurang($am)
+    {
+        if($am<55){
+            return "1";
+        }
+        else{
+            return "0";
+        }
+    }
+}
 if (!function_exists('predikatKelulusan')){
     function predikatKelulusan($ip)
     {

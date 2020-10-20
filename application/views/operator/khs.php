@@ -138,7 +138,7 @@
 	<div class="modal-dialog modal-dialog-centered " role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLongTitle">Tambah Data</h5>
+				<h5 class="modal-title" id="exampleModalLongTitle"></h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true"><i class="flaticon-cross"></i></span>
 				</button>
@@ -227,6 +227,7 @@
 			$('.add-data').show();
 			$('.edit-data').hide();
 			$('.judul').hide();
+			$('.modal-header #exampleModalLongTitle').html('Tambah Data');
 			$('#my-modal [name="Matakuliah"]').attr('disabled',false);
 			$('#my-modal [name="nim"]').attr('disabled',false);
 			$('#my-modal [name="nim"]').val('').trigger('change');
@@ -246,6 +247,7 @@
 
 			$('.add-data').hide();
 			$('.edit-data').show();
+			$('.modal-header #exampleModalLongTitle').html('Edit Data');
 			$('.judul').hide();
 			let data1 = detailkhs.row($(this).parents('tr')).data();
 
@@ -359,7 +361,7 @@
 			nim = data[1];
 			semester = data[3];
 			nama = data[2];
-			$('.nama').html(`KHS : ${data[2]}, Semester ${data[3]}`);
+			$('.nama').html(`Nilai KHS : ${data[2]}, Semester ${data[3]}`);
 			detailkhs.ajax.reload();
 
 

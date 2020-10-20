@@ -223,7 +223,7 @@
 
 			$('.add-data').show();
 			$('.edit-data').hide();
-
+			$('.modal-header #exampleModalLongTitle').html('Tambah Data');
 			$('#my-modal').modal({
 				keyboard: false,
 				backdrop: 'static',
@@ -262,7 +262,7 @@
 		$('tbody').on('click', '.edit', function () {
 			$('.add-data').hide();
 			$('.edit-data').show();
-
+			$('.modal-header #exampleModalLongTitle').html('Edit Data');
 			let data = table.row($(this).parents('tr')).data();
 			let id = data[0];
 			let nama = data[3];

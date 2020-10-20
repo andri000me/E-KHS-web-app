@@ -92,7 +92,7 @@
 		//==============add data===========================
 
 		$('.tambah').click(function (e) {
-
+			$('.modal-header #exampleModalLongTitle').html('Tambah Data');
 			$('.add-data').show();
 			$('.edit-data').hide();
 			$('.txt').val(null);
@@ -129,7 +129,7 @@
 		$('tbody').on('click', '.edit', function () {
 			$('.add-data').hide();
 			$('.edit-data').show();
-
+			$('.modal-header #exampleModalLongTitle').html('Edit Data');
 			let data = table.row($(this).parents('tr')).data();
 			let id = data[0];
 			let nama = data[2];

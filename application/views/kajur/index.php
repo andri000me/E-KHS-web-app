@@ -246,6 +246,7 @@ let url="";
 
 		$('.add-data').show();
 		$('.edit-data').hide();
+		$('.modal-header #exampleModalLongTitle').html('Tambah Prodi');
 		$('.txt').val(null);
 		$('#myform').attr('action',"<?php echo base_url('kajur/index/add')?>");
 		$('#my-modal').modal({
@@ -261,6 +262,7 @@ let url="";
 		let jenjang =$(this).attr('data-jenjang');
 		let nip =$(this).attr('data-nip');
 		let kepro =$(this).attr('data-kepro');
+		$('.modal-header #exampleModalLongTitle').html('Edit Prodi');
 		var option = new Option(kepro, nip, true, true);
 		$('#my-modal [name="kepro"]').append(option).trigger('change');
 		$('#my-modal [name="jenjang"][value="'+jenjang+'"]').attr('checked',true);

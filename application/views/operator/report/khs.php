@@ -116,7 +116,7 @@
 									<td><center><?php echo $row->sks; ?></center></td>
 									<td><center><?php echo hitung_nilai($row->am); ?></center></td>
 									<td><center><?php echo jnilai($row->am,$row->sks) ?></center></td>
-									<td><center><?php echo "0"; ?></center></td>
+									<td><center><?php echo nilai_kurang($row->am); ?></center></td>
 									<?php 
 										$jsks += $row->sks;
 										$jnsks +=(float)jnilai($row->am,$row->sks);

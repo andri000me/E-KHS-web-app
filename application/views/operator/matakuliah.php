@@ -130,7 +130,7 @@
 			$('.add-data').show();
 			$('.edit-data').hide();
 			$('.txt').val(null);
-			
+			$('.modal-header #exampleModalLongTitle').html('Tambah Data');
 			$('#my-modal').modal({
 				keyboard: false,
 				backdrop: 'static',
@@ -165,6 +165,7 @@
 		$('tbody').on('click', '.edit', function () {
 			$('.add-data').hide();
 			$('.edit-data').show();
+			$('.modal-header #exampleModalLongTitle').html('Edit Data');
 			url="<?php echo site_url('operator/matakuliah/update')?>";
 			let data = table.row($(this).parents('tr')).data();
 			let id = data[0];
