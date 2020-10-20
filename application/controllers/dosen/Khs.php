@@ -197,6 +197,13 @@ class Khs extends CI_Controller {
   	//}
 	}
 
+	// Add a new item
+	public function add_one()
+	{
+			$data=$this->M_khs->add();
+			echo json_encode($data);
+	}
+
 	//Update one item
 	public function update()
 	{

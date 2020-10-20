@@ -19,11 +19,19 @@
 												<i class="fas fa-filter"></i>
 												Filter
 											</button>
-											<button class="btn btn-info btn-round mr-3" data-toggle="collapse" data-target="#jadwal"
-												aria-expanded="false" aria-controls="collapseExample">
-												<i class="icon-note"></i>
-												Input Nilai
-											</button>
+											<div class="btn-group mr-3">
+												<button type="button" class="btn btn-info tambah"
+														data-toggle="collapse" data-target="#jadwal"
+														aria-expanded="false" aria-controls="collapseExample">
+													Tambah
+												</button>
+												<button type="button" class="btn btn-info dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+													<span class="sr-only">Toggle Dropdown</span>
+												</button>
+												<div class="dropdown-menu">
+													<a class="dropdown-item tambah-satu" href="#">Tambah Per Mahasiswa</a>
+												</div>
+											</div>
 										</div>
 									</div>
 								</div>
@@ -226,11 +234,123 @@
 	</div>
 </div>
 
+<!-- Modal add 1 mhs-->
+<div class="modal fade" id="my-modal" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered " role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLongTitle"></h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true"><i class="flaticon-cross"></i></span>
+				</button>
+			</div>
+			<form id="myform">
+				<div class="modal-body">
+					<div class="row">
+						<input type="hidden" name="id" value="">
+						<input type="hidden" name="idta" value="">
+						<div class="form-group col-md-12">
+							<label>Mahasiswa</label>
+							<select name="nim" class="form-control myselect5" style="width:100%;">
+							</select>
+						</div>
+						<div class="form-group col-md-12">
+							<label>Matakuliah</label>
+							<select name="Matakuliah" class="form-control myselect22" style="width:100%;">
+								<option value='' disabled="" selected="">pilih Matakuliah</option>
+								<?php foreach ($mk as $key): ?>
+									<option value="<?=$key->kode?>"><?=$key->nama?></option>
+								<?php endforeach ?>
+							</select>
+						</div>
+				
+						<div class="form-group col-md-12">
+							<label>nilai</label>
+							<input type="text" class="form-control txt" name="am" placeholder="masukan Nilai">
+						</div>
+						<div class="form-group col-md-12 judul">
+							<label>Judul TA</label>
+							<textarea class="form-control txt" placeholder="masukan judul TA" name="judul"></textarea>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button class="btn btn-primary btn-border btn-round" data-dismiss="modal">batal</button>
+					<button type="submit" class="btn btn-primary btn-round add-data">Simpan</button>
+					<button type="submit" class="btn btn-success btn-round edit-data">Edit</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
 <?php $this->load->view('include/script');?>
 
 
 <script>
 	$(document).ready(function () {
+		$('.myselect5').select2({
+			theme: "bootstrap",
+			ajax: {
+				url: '<?=base_url();?>Api/mhs_dos',
+				data: function (q) {
+					return {
+						q: q.term
+					}
+				},
+				dataType: 'JSON',
+				cache: false
+			},
+
+			minimumInputLength: 1,
+			placeholder: 'Pilih Mahasiswa',
+		});
+
+		$('.myselect22').select2({
+			theme: "bootstrap",
+			minimumInputLength: 1,
+			placeholder: 'Pilih Matakuliah',
+		});
+
+		$('#myform').on('submit',  function(e){  
+		    e.preventDefault();
+		    pos_url="<?=base_url();?>dosen/Khs/add_one";
+			var data ={
+				namaMk:$('option[value="'+$('#my-modal [name="Matakuliah"]').val()+'"').text(),
+				id_khs: $('#my-modal [name="id"]').val(),
+				id_tugas_akhir: $('#my-modal [name="idta"]').val(),
+				nim: $('#my-modal [name="nim"]').val(),
+				matakuliah: $('#my-modal [name="Matakuliah"]').val(),
+				am: $('#my-modal [name="am"]').val(),
+				judul: $('#my-modal [name="judul"]').val(),
+			};
+			post(pos_url, data);
+			table.ajax.reload();
+
+		    $('#myform').trigger("reset");
+			var option3 = new Option("Mahasiswa", "", true, true);
+			$('#my-modal [name="nim"]').append(option3).trigger('change');
+	    	$('#my-modal').modal('hide');
+	    	detailkhs.ajax.reload();                                    
+		  });
+
+		// tambah satu
+		$('.tambah-satu').click(function (e) {
+			pos_url="<?=base_url();?>operator/khs/add";
+			$('.add-data').show();
+			$('.edit-data').hide();
+			$('.judul').hide();
+			$('.modal-header #exampleModalLongTitle').html('Tambah Data');
+			$('#my-modal [name="Matakuliah"]').attr('disabled',false);
+			$('#my-modal [name="nim"]').attr('disabled',false);
+			$('#my-modal [name="nim"]').val('').trigger('change');
+			
+			$('#my-modal').modal({
+				keyboard: false,
+				backdrop: 'static',
+			});
+		});
+
 		table = $('#tb-khs').DataTable({
 			"scrollX": true,
 			"language": {

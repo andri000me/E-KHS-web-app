@@ -15,6 +15,10 @@ class Api extends CI_Controller {
     echo json_encode(array('results' =>$this->api->mhs()));
     
   }
+  public function mhs_dos()
+  {
+    echo json_encode(array('results' =>$this->api->mhs_dos()));
+  }
   public function dosen ()
   {
     echo json_encode(array('results' =>$this->api->dosen()));

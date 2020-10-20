@@ -21,6 +21,18 @@ class M_api extends CI_Model {
         return $this->db->get('', 20)->result_array();
         
     }
+
+    public function mhs_dos()
+    {
+        $this->db->select('nim as id,nama as text');
+        $this->db->from('mahasiswa');
+        $this->db->where('prodi',$this->session->userdata('prodiLog'));
+        $this->db->like('nim', $this->input->get('q'),'both');
+        $this->db->or_like('nama',$this->input->get('q'),'both');
+        return $this->db->get('', 20)->result_array();
+        
+    }
+
     public function dosen()
     {
         $this->db->select('nip as id,nama as text');
