@@ -177,6 +177,39 @@ if (!function_exists('getSemester')){
     }
 }
 
+if (!function_exists('getjadwalsem')){
+    function getjadwalsem($angkatan)
+    {
+        $tgl=getdate();
+        $tahun=$tgl['year'];
+        $sisa=$tahun-(int)$angkatan;
+
+        $bulan=date('m');
+        if ($bulan>=1 && $bulan<8){
+            $semester= array(
+            0 =>'II',
+                'IV',
+                'VI',
+                'VIII'
+            );
+            return $semester[(int)$sisa];
+
+        }
+        else{
+            $semester= array(
+            0 =>'I',
+                'III',
+                'V',
+                'VII'
+            );
+            return $semester[(int)$sisa];
+            
+
+        }
+        
+    }
+}
+
 
 
 ?>

@@ -86,23 +86,24 @@ class Mahasiswa extends CI_Controller {
 	{
 		$sm="";
 		$semester="";
-		$semester=$this->db->query("SELECT khs.semester FROM khs WHERE khs.nim='".$this->session->userdata('username')."' GROUP BY khs.semester  ORDER BY khs.semester DESC");
-		if ($semester->num_rows()>=1) {
-			if ($semester->row()->semester =="I")$sm="II";
-			else if ($semester->row()->semester =="II")$sm="III";
-			else if ($semester->row()->semester =="III")$sm="IV";
-			else if ($semester->row()->semester =="IV")$sm="V";
-			else if ($semester->row()->semester =="V")$sm="VI";
-			else if ($semester->row()->semester =="VI")$sm="VII";
-			else if ($semester->row()->semester =="VII")$sm="VIII";
-
-		}
-		else $sm="I";
-		
-
 		$img=$this->db->query("SELECT * FROM `mahasiswa` where nim='".$this->session->userdata('username')."'")->row();
+		// $semester=$this->db->query("SELECT khs.semester FROM khs WHERE khs.nim='".$this->session->userdata('username')."' GROUP BY khs.semester  ORDER BY khs.semester DESC");
+		// if ($semester->num_rows()>=1) {
+		// 	if ($semester->row()->semester =="I")$sm="II";
+		// 	else if ($semester->row()->semester =="II")$sm="III";
+		// 	else if ($semester->row()->semester =="III")$sm="IV";
+		// 	else if ($semester->row()->semester =="IV")$sm="V";
+		// 	else if ($semester->row()->semester =="V")$sm="VI";
+		// 	else if ($semester->row()->semester =="VI")$sm="VII";
+		// 	else if ($semester->row()->semester =="VII")$sm="VIII";
+
+		// }
+		
+		
+		$sm=getjadwalsem($img->angkatan);
+		
 		$tgl=getdate();
-		$tahun=$tgl['year']-1;
+		$tahun=$tgl['year'];
 
 		$this->db->select('p.id,p.hari,p.jam_mulai,p.jam_selesai, P.kodeprodi, p.kodemk, p.nip, p.kelas, p.semester,d.nama, mk.namamk,prod.prodi,rk.nama_ruangan,rk.id_ruangan');
 		$this->db->from('mkprodi p');
@@ -111,7 +112,7 @@ class Mahasiswa extends CI_Controller {
         $this->db->join('matakulah mk', 'p.kodemk=mk.kodemk', 'left');
         $this->db->join('ruangan rk', 'rk.id_ruangan=p.id_ruangan', 'left');
         $this->db->where('p.takademik', $tahun);
-        $this->db->where('P.semester', $sm);
+        $this->db->where('P.semester', getjadwalsem($img->angkatan));
 		$this->db->like('P.kelas', $img->kelas);
 		$sql=$this->db->get()->result();
 		

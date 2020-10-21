@@ -145,7 +145,7 @@
               },
 
               {
-                label:"Injin",
+                label:"Ijin",
                 data: [<?=$i?>],
                 backgroundColor: gradient3,
                 borderColor: [
@@ -185,9 +185,9 @@
               yAxes: [{
                 ticks: {
                   fontColor: "#4c4c4c",
-                  stepSize: 20,
-                  min: 0,
-                  max: 100
+                  beginAtZero: true,
+                  maxTicksLimit: 5,
+                  padding: 10
                 },
                 gridLines: {
                   drawBorder: false,
