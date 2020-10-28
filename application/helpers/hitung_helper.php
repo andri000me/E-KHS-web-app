@@ -4,27 +4,24 @@ if(!function_exists('hitung_nilai'))
 {
     function hitung_nilai($am)
     {
-        if ($am < 40)  return 0.0;
-        else if(($am >=40) && ($am<55)) return 1.00;
-        else if (($am>=55) && ($am<60)) return 1.50;
-        else if (($am >=60) && ($am<65)) return 2.00;
-        else if (($am >=65) &&($am<70)) return 2.50;
-        else if (($am >= 70) && ($am<75)) return 3.00;
-        else if (($am >= 75) && ($am<80)) return 3.50;
-        else if ($am >= 80) return 4.00;
+        $CI =& get_instance();
+        $CI->load->model('M_setting','setting');
+        $skala=$CI->setting->getSkala();
+        foreach ($skala as $key ){
+            if ($am >= $key->am) return $key->nilai;
+        }
     }
 }
 if (!function_exists('nilai_huruf')) {
     function nilai_huruf($am)
     {
-        if ($am < 40)  return "E";
-        else if(($am >=40) && ($am<55)) return "D";
-        else if (($am>=55) && ($am<60)) return "CD";
-        else if (($am >=60) && ($am<65)) return "C";
-        else if (($am >=65) &&($am<70)) return "BC";
-        else if (($am >= 70) && ($am<75)) return "B";
-        else if (($am >= 75) && ($am<80)) return "AB";
-        else if ($am >= 80) return "A";   
+        $CI =& get_instance();
+        $CI->load->model('M_setting','setting');
+        $skala=$CI->setting->getSkala();
+        foreach ($skala as $key ){
+            if ($am >= $key->am) return $key->huruf;
+        }
+        
     }
 }
 if(!function_exists('nilai_kurang')){
@@ -58,6 +55,14 @@ if(!function_exists('status')){
     {
         if ($val== "1") return '<span style="cursor:pointer;" class="okk badge badge-success">Verivied</span>';
         else return '<span style="cursor:pointer;" class="badge okk badge-warning">Not Verivied</span>';
+    }
+}
+
+if(!function_exists('btnEdit')){
+    function btnEdit($val)
+    {
+        if ($val== "1") return '<div class="d-flex flex-row "><button disabled="disabled" class="btn btn-icon btn-round btn-info"><i class="fas fa-pen"></i></button></div>';
+        else return '<div class="d-flex flex-row "><button class="btn btn-icon btn-round btn-info edit"><i class="fas fa-pen"></i></button></div>';
     }
 }
 
@@ -183,29 +188,31 @@ if (!function_exists('getjadwalsem')){
         $tgl=getdate();
         $tahun=$tgl['year'];
         $sisa=$tahun-(int)$angkatan;
+        if($sisa < 4){
+            $bulan=date('m');
+            if ($bulan>=1 && $bulan<8){
+                $semester= array(
+                0 =>'II',
+                    'IV',
+                    'VI',
+                    'VIII'
+                );
+                return $semester[(int)$sisa];
 
-        $bulan=date('m');
-        if ($bulan>=1 && $bulan<8){
-            $semester= array(
-            0 =>'II',
-                'IV',
-                'VI',
-                'VIII'
-            );
-            return $semester[(int)$sisa];
-
+            }
+            else{
+                $semester= array(
+                0 =>'I',
+                    'III',
+                    'V',
+                    'VII'
+                );
+                return $semester[(int)$sisa];
+                
+            }
         }
         else{
-            $semester= array(
-            0 =>'I',
-                'III',
-                'V',
-                'VII'
-            );
-            return $semester[(int)$sisa];
-            
-
-        }
+            return 'Akhir (Tidak Ada Jadwal)';        }
         
     }
 }

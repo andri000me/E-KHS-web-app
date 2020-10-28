@@ -183,6 +183,10 @@ class M_khs extends CI_Model {
 				];
 				$this->db->where('nim', $this->input->post('nim'));
 				$this->db->update('tugas_akhir', $data1);
+
+				$dt=["status"=>"Alumni"];
+				$this->db->where('nim', $this->input->post('nim'));
+				$this->db->update('mahasiswa', $dt);
 			}
 			$message = array(
 				'type' =>'success',

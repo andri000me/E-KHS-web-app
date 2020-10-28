@@ -68,9 +68,7 @@ class Khs extends CI_Controller {
 			$row[]=$key->namamk;
 			$row[]=$key->am;
 			$row[]=status($key->status);
-			$row[]='<div class="d-flex flex-row ">
-			
-			<button class="btn btn-icon btn-round btn-info edit"><i class="fas fa-pen"></i></button></div>';
+			$row[]=btnEdit($key->status);
 			$output[]=$row;
 		}
 		$result=array(

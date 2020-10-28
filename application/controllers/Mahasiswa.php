@@ -12,6 +12,7 @@ class Mahasiswa extends CI_Controller {
     {
         parent::__construct();
         $this->load->model('m_login');
+        $this->load->helper('badge');
         if ($this->session->userdata('lv')!='mahasiswa')
         {
             redirect(base_url());        
@@ -27,6 +28,7 @@ class Mahasiswa extends CI_Controller {
 		
 		$this->session->set_userdata('foto',$img->row()->foto);
 		$this->session->set_userdata('nama',$img->row()->nama);
+		$this->session->set_userdata('status',$img->row()->status);
 		if ($this->session->userdata('foto') ==''){
 
 		$this->session->set_userdata('foto','user.jpg');
@@ -39,7 +41,7 @@ class Mahasiswa extends CI_Controller {
 	public function index()
 	{
 		$data = array(	'title' =>"Mahasiswa - Home" ,
-						 );
+						'status'=>$this->session->userdata('status'));
 
 		$this->load->view('Mahasiswa/include/head',$data);
 		$this->load->view('Mahasiswa/include/sidebar',$data);
@@ -52,6 +54,7 @@ class Mahasiswa extends CI_Controller {
 	public function Profile()
 	{
 		$data = array(	'title' =>"Profile - Mahasiswa" ,
+						'status'=>$this->session->userdata('status'),
 						'mhs'=>$this->db->query("SELECT mahasiswa.*,dosen.nama as dosen,prodi.prodi FROM  mahasiswa 
 							LEFT JOIN prodi ON prodi.kodeprodi=mahasiswa.prodi
 							LEFT JOIN dosen ON mahasiswa.nip=dosen.nip 

@@ -18,8 +18,8 @@
 												Filter
 											</button>
 											<button class="btn btn-primary btn-round mr-3 tambah">
-												<i class="fas fa-add"></i>
-												Tambah
+												<i class="fas fa-plus"></i>
+												Nilai Semester Akhir
 											</button>
 
 										</div>
@@ -157,13 +157,7 @@
 							<label>Matakuliah</label>
 							<select name="Matakuliah" class="form-control myselect22" style="width:100%;">
 								<option value='' disabled="" selected="">pilih Matakuliah</option>
-								<optgroup label="SEMUA MATAKULIAH">
-								<?php foreach ($mk as $key): ?>
-									<option value="<?= $key->kodemk?>"><?=$key->namamk?></option>
-								<?php endforeach ?>
-								</optgroup>
 									<optgroup label="PKL DAN TA">
-									
 								<?php foreach ($mk2 as $key): ?>
 									<option value="<?=$key->kodemk?>"><?=$key->namamk?></option>
 								<?php endforeach ?>
@@ -217,7 +211,7 @@
 
 		$('.myselect22').select2({
 			theme: "bootstrap",
-			minimumInputLength: 1,
+			minimumInputLength: 0,
 			placeholder: 'Pilih Matakuliah',
 		});
 
@@ -266,19 +260,24 @@
 			let isTa=data1[2]; 
 			if(isTa=='Project Akhir'){
 				$('.judul').show();
+				set('<?=base_url() ?>operator/khs/getJudul',nim,function(data){
+					$('#my-modal [name="judul"]').val(data[0].judul);
+				});
 			}
 			else{
 				$('.judul').hide();
+				$('#my-modal [name="judul"]').val('');
 			}
 		});
 
 		// hapus
-		$('#tb-khs-detail').on('click', '.hapus', function () {
+		$('#tb-khs-detail').on('click', '.hapus',async function () {
 			let data = detailkhs.row($(this).parents('tr')).data();
 			let url="<?=base_url()?>operator/khs/delete";
-			hapus(url, data[7]);
+			await hapus(url, data[7]);
 			detailkhs.ajax.reload();
 			table.ajax.reload();
+
 		});
 
 		//tabel utama

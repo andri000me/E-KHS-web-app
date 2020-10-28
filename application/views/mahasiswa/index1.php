@@ -6,10 +6,13 @@
                 <div class="">
                   
                   <img src="<?php echo base_url(); ?>assets/foto/<?=$this->session->userdata('foto')?>" alt="user" class="user-home">
+                  
                 </div>
 
                 <h2><?=$this->session->userdata('nama')?></h2>
                 <h4 class="mdc-typography--overline"><?=$this->session->userdata('username')?></h4>
+                <?=statMhs($status); ?>
+
           </div>
         
          

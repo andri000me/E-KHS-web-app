@@ -22,8 +22,6 @@ class Khs extends CI_Controller {
 		$this->db->where('mkprodi.kodeprodi', $kodeprodi);
 		$getMk1=$this->db->get();
 		$getMk2=$this->db->query("SELECT * FROM `matakulah` WHERE namamk IN ('Project Akhir','Praktek Kerja Lapangan')");
-		
-		$data['mk']=$this->db->get("matakulah")->result();
 		//$getMk1->result();
 		$data['mk2']=$getMk2->result();
 		$this->load->view('include/head');
@@ -83,12 +81,7 @@ class Khs extends CI_Controller {
 					<button class="btn btn-icon btn-round btn-danger hapus"><i class="icon-trash"></i></button>
 				</div>';
 			}
-			else{
-				$btn ='<div class="d-flex flex-row">
-					<button class="mr-2 btn btn-icon btn-round btn-success btn-edit"><i class="icon-pencil"></i></button>
-					<button class="btn btn-icon btn-round btn-danger hapus"><i class="icon-trash"></i></button>
-				</div>';
-			}
+
 		}
 		
 		$data=$this->M_khs->get_khs($sem,$nim);
@@ -123,8 +116,8 @@ class Khs extends CI_Controller {
 	// Add a new item
 	public function add()
 	{
-			$data=$this->M_khs->add();
-			echo json_encode($data);
+		$data=$this->M_khs->add();
+		echo json_encode($data);
 	}
 
 	//Update one item
@@ -161,6 +154,14 @@ class Khs extends CI_Controller {
 			$this->db->update('mahasiswa', $dt);
 		}
     echo "ok";
+	}
+
+	public function getJudul()
+	{
+		$nim=$this->input->get('id');
+		$this->db->where('nim', $nim);
+		$dt=$this->db->get('tugas_akhir',1)->result();
+		echo json_encode($dt);
 	}
 }
 

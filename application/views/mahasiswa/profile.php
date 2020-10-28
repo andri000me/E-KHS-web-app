@@ -21,7 +21,8 @@
                  
                   <div class="chart-container mt-2 justify-content-center text-center">
                     <h5><?=$this->session->userdata('nama')?></h5>
-                    <h6 class="mdc-typography--overline"><?=$this->session->userdata('username')?></h6>
+                    <h6 class="mdc-typography--overline"><?=$this->session->userdata('username')?></h6> 
+                     <?=statMhs($status); ?>
 
                     <h6 class="mt-5">Teknik Elektro | <?=$mhs->prodi?></h6>
 

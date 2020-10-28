@@ -136,13 +136,12 @@
                             </li>
                             <li>
                                 <a href="<?=base_url()?>kajur/batas_Waktu">
-                                    <span class="sub-item">Batas Input Nilai</span>
+                                    <span class="sub-item">Penilaian</span>
                                 </a>
                             </li>
                         </ul>
                     </div>
                 </li>
-                
             </ul>
         </div>
     </div>

@@ -210,7 +210,7 @@
             },
             elements: {
                 line: {
-                    tension: 0
+                    tension: 0.5
                 }
             },
             
