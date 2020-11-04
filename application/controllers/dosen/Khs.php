@@ -15,7 +15,13 @@ class Khs extends CI_Controller {
 	// List all your items
 	public function index( $offset = 0 )
 	{
+		$batas=$this->db->get('setting')->row()->value;
+		// var_dump(strtotime(date('11/13/2020')));
+		// die();
 		$data=[
+			'stateBatas'=>$this->db->get('setting')->row()->state,
+			'Batas'=>$this->db->get('setting')->row()->value,
+			'timeLeft'=>strtotime($batas)-strtotime(date('m/d/Y')),
 			'mk' => $this->db->query("SELECT mkprodi.kodemk as kode ,matakulah.namamk as nama FROM mkprodi,matakulah WHERE mkprodi.kodemk=matakulah.kodemk AND mkprodi.nip='".$this->session->userdata('username')."' AND mkprodi.takademik='".$this->session->userdata('takademik')."' group by mkprodi.kodemk")->result(),
 			"sem"=> $this->db->query("SELECT mkprodi.semester FROM mkprodi WHERE mkprodi.nip='".$this->session->userdata('username')."' AND mkprodi.takademik='".$this->session->userdata('takademik')."' group by mkprodi.semester")->result(),
 			"kel"=> $this->db->query("SELECT mkprodi.kelas FROM mkprodi WHERE mkprodi.nip='".$this->session->userdata('username')."' AND mkprodi.takademik='".$this->session->userdata('takademik')."' group by mkprodi.kelas")->result(),

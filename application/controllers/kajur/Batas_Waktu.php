@@ -17,12 +17,36 @@ class Batas_Waktu extends CI_Controller {
         $skala=$this->db->get('skala')->result();
     	$data=[
     		"batas"=>$this->db->get('setting')->row(),
-            "skala"=>$skala
+            "skala"=>$skala,
     	];
     	$this->load->view('include/head');
         $this->load->view('kajur/include/header');
         $this->load->view('kajur/include/sidebar');
         $this->load->view('kajur/batas-waktu',$data);
+    }
+    public function changeState()
+    {
+        $data=[
+            "state"=>$this->input->post('state')
+        ];
+        $this->db->where('id', '1');
+        $this->db->update('setting', $data);
+        if ($data['state']=='1') {
+            $message = array(
+                'type' =>'success',
+                'text'=>'Batas Waktu Diaktifkan' );
+
+            echo json_encode($message);
+        } else {
+            $message = array(
+                'type' =>'success',
+                'text'=>'Batas Waktu Dimatikan' );
+
+            echo json_encode($message);
+        }
+        
+        
+
     }
     public function update()
     {

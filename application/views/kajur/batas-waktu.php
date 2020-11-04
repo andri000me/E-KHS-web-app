@@ -21,20 +21,26 @@
 			<div class="row ">
 				<div class="col-md-12">
 					<div class="card ">
-						<h5 class="card-header">Atur Batas Waktu Penginputan Nilai</h5>
-						<div class="card-body row">
+						<div class="card-header row px-5">
+							<div class="card-title">Batas Waktu Penginputan Nilai</div>
+							<div class="ml-auto">
+								<input type="checkbox" id="switch-batas" <?= ($batas->state==1) ? 'checked' : '' ; ?>  value="<?=$batas->state?>" data-toggle="toggle" data-onstyle="secondary" data-style="btn-round">
+							</div>
+						</div>
+						<div class="card-body row" id="panel-batas">
 							<div class="form-group col-md-6">
-								<label for="inlineinput" class="col-md-3 col-form-label">Batas Waktu Penginputan Nilai</label>
-								<div class="col-md-9 ">
-									<input type="text" value="<?= $batas->value?>" class="col-md-4 form-control  input-solid" id="batas" name="">
+								<label for="inlineinput" class="col-md-3 col-form-label">Tanggal (MM/DD/YYYY)</label>
+								<div class="col-md-12">
+									<input type="text" <?= ($batas->state!=1) ? 'readonly' : '' ; ?> value="<?= $batas->value?>" class="col-md-4 mr-4 form-control  input-solid" id="batas" name="">
+									
 								</div>
 							</div>
 							<div class="form-group">
-								<label for="inlineinput" class="col-md-3 col-form-label">Nilai Default</label>
+								<label for="inlineinput11" class="col-md-3 col-form-label">Nilai Default</label>
 								<div class="input-group">
-									<input type="text" id="nilai-default" readonly="" class="form-control input-solid" placeholder="" value="70">
+									<input type="text" id="nilai-default"readonly="" class="form-control input-solid" placeholder="" value="70">
 									<div class="input-group-append">
-										<button class="btn btn-primary ubah-ndefault" type="button">Edit</button>
+										<button class="btn btn-primary ubah-ndefault" <?= ($batas->state!=1) ? 'disabled' : '' ; ?> type="button">Edit</button>
 									</div>
 								</div>
 							</div>
@@ -93,12 +99,13 @@
 </div>
 <?php $this->load->view('include/script'); ?>
 <script src="<?=base_url()?>assets/js/plugin/jquery.validate/jquery.validate.min.js"></script>
+<script src="<?=base_url()?>assets/js/plugin/bootstrap-toggle/bootstrap-toggle.min.js"></script>
 <script>
 	$('.action-skala').hide();
 	$('.simpan-ndefault').hide();
 
 	$('#batas').datetimepicker({
-		format: 'DD/MM/YYYY',
+		format: 'M/DD/YYYY',
 	}).on('dp.change', function () {
 		var url = "<?php echo base_url('kajur/batas_Waktu/update')?>";
 		var data = {
@@ -127,12 +134,6 @@
 		
 	});
 
-	//simpan perubahan n default
-	$('.simpan-ndefault').click(function(event) {
-		$('.ubah-ndefault').show();
-		$(this).hide();
-		$('#nilai-default').attr('readonly',true);
-	});
 
 
 	//ubah skala nilai
@@ -159,5 +160,27 @@
 	if (message){
 		notif('success', message);
 	}
+
+	//switch batas
+	$('#switch-batas').change(function(event) {
+		if($(this).val()=="0"){
+			$(this).val("1");
+			$('#panel-batas #batas').attr('readonly',false);
+			$('#panel-batas .ubah-ndefault').attr('disabled',false);
+
+		}
+		else{
+			$('#panel-batas #batas').attr('readonly',true);
+			$('#panel-batas .ubah-ndefault').attr('disabled',true);
+			$(this).val("0");
+		}
+		let url = "<?php echo base_url('kajur/batas_Waktu/changeState')?>";
+		let data = {
+			state: $(this).val()
+		};
+		post(url, data);
+	});
+
+
 	
 </script>

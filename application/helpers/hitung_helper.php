@@ -172,6 +172,29 @@ if(!function_exists('tgl_indo')){
         return $pecahkan[2].' '.$bulan[ (int)$pecahkan[1] ].' '.$pecahkan[0];
     }
 }
+
+if(!function_exists('tgl_indo2')){
+    function tgl_indo2($tanggal)
+    {
+        $bulan= array(
+        1 =>'January',
+            'February',
+            'Maret',
+            'April',
+            'Mei',
+            'Juni',
+            'Juli',
+            'Agustus',
+            'September',
+            'Oktober',
+            'November',
+            'Desember'
+        );
+        $pecahkan = explode('/', $tanggal);
+        return $pecahkan[1].' '.$bulan[ (int)$pecahkan[0] ].' '.$pecahkan[2];
+    }
+}
+
 if(!function_exists('nama_depan')){
     function nama_depan($nama)
     {

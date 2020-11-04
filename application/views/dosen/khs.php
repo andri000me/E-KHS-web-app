@@ -7,6 +7,21 @@
 		background-color: rgba(0 0 0 0);
 		border: none;
 		width: 100px;
+
+	}
+	.time-sch{
+		position: absolute;
+		padding: 3px;
+		border-radius: 100%;
+		left: -10px;
+		top: -10px;
+		z-index: 100;
+		border:none;
+	}
+	.pos-absolute{
+		position: absolute;
+		z-index: 90;
+
 	}
 </style>
 <div class="main-panel" style="height: 100%; overflow-y: scroll;">
@@ -31,17 +46,28 @@
 												Filter
 											</button>
 											<div class="btn-group mr-3">
-												<button type="button" class="btn btn-info tambah"
+												<button <?=($stateBatas==1 && $timeLeft <0) ? 'disabled' : '' ; ?> type="button" class="btn btn-info tambah"
 														data-toggle="collapse" data-target="#jadwal"
 														aria-expanded="false" aria-controls="collapseExample">
-													Tambah
+													Input Nilai
 												</button>
-												<button type="button" class="btn btn-info dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+												<button <?=($stateBatas==1 && $timeLeft <0) ? 'disabled' : '' ; ?> type="button" class="btn btn-info dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 													<span class="sr-only">Toggle Dropdown</span>
 												</button>
 												<div class="dropdown-menu">
-													<a class="dropdown-item tambah-satu" href="#">Tambah Per Mahasiswa</a>
+													<a class="dropdown-item tambah-satu" href="#">Input Per Mahasiswa</a>
 												</div>
+												<?php if ($stateBatas==1 && $timeLeft >=0): ?>
+													<span class="time-sch bg-warning" data-toggle="popover" data-trigger="hover focus" data-placement="left" title="Batas Input Nilai" data-content="<?=tgl_indo2($Batas)?>">
+														<i class="far fa-clock text-white fa-lg"></i>
+													</span>
+													
+												<?php elseif ($stateBatas==1 && $timeLeft <0): ?>
+													<span class="time-sch bg-danger" data-toggle="popover" data-trigger="hover focus" data-placement="left" title="Batas Input Nilai" data-content="Masa Waktu Penginputan Nilai Sudah Berakhir">
+														<i class="far fa-times-circle text-white fa-lg"></i>
+													</span>
+												<?php endif ?>
+												
 											</div>
 										</div>
 									</div>
@@ -50,7 +76,7 @@
 									<div class="card card-body">
 										<div class="row">
 											<div class="col-12 ">
-												<table id="data-tb" class="display table table-hover "  cellspacing="0" style="width:100%;">
+												<table id="data-tb" class="display table table-hover " cellspacing="0" style="width:100%;">
 													<thead>
 														<tr>
 															<!-- <th>No</th> -->
@@ -334,6 +360,14 @@
 
 <script>
 	$(document).ready(function () {
+
+		// popover
+		$('.time-sch').popover('show');
+		setTimeout(() => {
+        $('.time-sch').popover('hide');
+    }, 4000);
+
+		//select2
 		$('.myselect5').select2({
 			theme: "bootstrap",
 			ajax: {
