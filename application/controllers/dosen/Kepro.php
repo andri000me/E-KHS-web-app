@@ -1,7 +1,8 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Khs extends CI_Controller {
+
+class Kepro extends CI_Controller {
 
     public function __construct()
     {
@@ -10,20 +11,25 @@ class Khs extends CI_Controller {
         $this->load->model('M_khs');
         $this->load->helper('hitung');
         
+
     }
 
     // List all your items
-    public function index( $offset = 0 )
+    public function index()
     {
-        $this->load->view('include/head');
-        $this->load->view('kajur/include/header');
-        $this->load->view('kajur/include/sidebar');   
-        $this->load->view('kajur/khs');
+
     }
-   
+    public function verifikasi()
+    {
+    	$this->load->view('include/head');
+        $this->load->view('include/header_dosen');
+        $this->load->view('include/sidebar_dosen');
+        $this->load->view('dosen/verifikasi');
+    }
     public function data_khs()
     {
-        $prodi=$this->session->userdata('prodiLog');
+    	$nip=$this->session->userdata('username');
+        $prodi=$this->db->query("SELECT * FROM prodi where kepro='$nip'")->row()->kodeprodi;
         $data=$this->M_khs->getdata($prodi);
         $output=array();
         $no=0;
@@ -79,15 +85,11 @@ class Khs extends CI_Controller {
         echo json_encode($result);
 
     }
-    public function cetak_khs()
-    {
-        
-    }
 
     public function verifi()
     {
         $data=[
-            "status"=>'1'
+            "status"=>'2'
         ];
         $this->db->where('nim', $this->input->post('nim'));
         $this->db->where('semester', $this->input->post('semester'));
@@ -102,7 +104,7 @@ class Khs extends CI_Controller {
     public function veriviAll()
     {
         $data=[
-            "status"=>'1'
+            "status"=>'2'
         ];
         $this->db->not_like('status', '1');
         $this->db->update('khs', $data);
@@ -111,9 +113,6 @@ class Khs extends CI_Controller {
         'type' =>'success',
         'text'=>'Verifikasi Brhasil');
 
-        redirect('kajur/khs');
+        redirect('dosen/kepro/verifikasi');
     }
 }
-
-/* End of file Controllername.php */
-

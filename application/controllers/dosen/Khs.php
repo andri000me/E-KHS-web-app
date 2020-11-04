@@ -30,7 +30,7 @@ class Khs extends CI_Controller {
    
 	public function data_khs()
 	{
-		$this->db->select('khs.id,khs.status,mhs.nim,mhs.nama,mhs.kelas,mk.kodemk,mk.namamk,khs.am,khs.semester');
+		$this->db->select('khs.*,mhs.nim,mhs.nama,mhs.kelas,mk.kodemk,mk.namamk');
 		$this->db->from('khs, matakulah mk,mahasiswa mhs,mkprodi mkp ');
 		$this->db->where('khs.takademik', $this->session->userdata('takademik'));
 		
@@ -66,6 +66,10 @@ class Khs extends CI_Controller {
 			$row[]=$key->kelas;
 			$row[]=$key->semester;
 			$row[]=$key->namamk;
+			$row[]=$key->khd.'%';
+			$row[]=$key->tg;
+			$row[]=$key->uts;
+			$row[]=$key->uas;
 			$row[]=$key->am;
 			$row[]=status($key->status);
 			$row[]=btnEdit($key->status);
@@ -129,9 +133,12 @@ class Khs extends CI_Controller {
 				<input type="hidden" class="mk" name="mk[]" value="'.$mk.'">
 				<input type="hidden" class="sm" name="sm[]" value="'.$sm.'">
 				<input type="hidden" class="sm" name="ta[]" value="'.$tahun.'">
-				<input type="text" style="background-color: rgba(0 0 0 0); border: none;" name="nim[]" readonly value="'.$key->nim.'">';
+				<input type="text" style=" background-color: rgba(0 0 0 0); border: none;" name="nim[]" readonly value="'.$key->nim.'">';
 				$row[]=$key->nama;
-				$row[]='<input type="text" style="background-color: rgba(0 0 0 0); border: none;" name="am[]" placeholder="Masukan AM">';
+				$row[]='<input class="input-custom" type="text" name="khd[]" placeholder="% Kehadiran">';
+				$row[]='<input class="input-custom" type="text" name="tg[]" placeholder="Nilai Tugas">';
+				$row[]='<input class="input-custom" type="text" name="uts[]" placeholder="Nilai UTS">';
+				$row[]='<input class="input-custom" type="text" name="uas[]" placeholder="Nilai UAS">';
 				$output[]=$row;
 			}
 		}
@@ -154,45 +161,42 @@ class Khs extends CI_Controller {
 		$kodemk=$_POST['mk'];
 		$semester=$_POST['sm'];
 		$takademik=$_POST['ta'];
-		$am=$_POST['am'];
+		$khd=$_POST['khd'];
+		$tg=$_POST['tg'];
+		$uts=$_POST['uts'];
+		$uas=$_POST['uas'];
 		$index=0;
 		$data=array();
-		// $cek=$this->db->query("SELECT id from khs WHERE nim IN ('$nim') and kodemk IN '($kodemk)'");
-	
-		// if ($cek->num_rows() > 0) {
-  //       $message = array(
-  //         'type' =>'error',
-  //         'text'=>'Data Sudah Ada');
-  //       echo json_encode($message);
-  //   }
-  //   else{
-			foreach($nim as $datanim)
-			{ 
-				$data[]= array(
-				'nim'=>$datanim,
-				'kodemk'=>$kodemk[$index],
-				'semester'=>$semester[$index], 
-				'am'=>$am[$index],
-				'takademik'=>$takademik[$index], 
-				);
-				$index++;
-			}
-			$input=$this->db->insert_batch('khs', $data);
-			if($input){
-				$message = array(
-					'type' =>'success',
-					'text'=>'Data Berhasil di Input' );
-				echo json_encode($message);
-			}
-			else{
-				$message = array(
-					'type' =>'Gagal',
-					'text'=>'Data Sudah Ada');
-				echo json_encode($message);
-			}
-			
-	   
-  	//}
+
+		foreach($nim as $datanim)
+		{ 
+			$data[]= array(
+			'nim'=>$datanim,
+			'kodemk'=>$kodemk[$index],
+			'semester'=>$semester[$index], 
+			'khd'=>$khd[$index], 
+			'tg'=>$tg[$index], 
+			'uts'=>$uts[$index], 
+			'uas'=>$uas[$index], 
+			'am'=>(0.2*$tg[$index])+(0.3*$uts[$index])+(0.4*$uas[$index])+(0.1*$khd[$index]),
+			'takademik'=>$takademik[$index], 
+			);
+			$index++;
+		}
+		$input=$this->db->insert_batch('khs', $data);
+		if($input){
+			$message = array(
+				'type' =>'success',
+				'text'=>'Data Berhasil di Input' );
+			echo json_encode($message);
+		}
+		else{
+			$message = array(
+				'type' =>'Gagal',
+				'text'=>'Data Sudah Ada');
+			echo json_encode($message);
+		}
+		
 	}
 
 	// Add a new item
@@ -206,20 +210,30 @@ class Khs extends CI_Controller {
 	public function update()
 	{
 		$this->form_validation->set_rules('id', 'id', 'required');
-        $this->form_validation->set_rules('am', 'am', 'required');
+        $this->form_validation->set_rules('khd', 'khd', 'required');
+        $this->form_validation->set_rules('tg', 'tg', 'required');
+        $this->form_validation->set_rules('uas', 'uas', 'required');
+        $this->form_validation->set_rules('uts', 'uts', 'required');
 
         if($this->form_validation->run()==FALSE){
             $message = array(
                 'type' =>'error',
-                'text'=>'Data Gagal Diedit');
+                'text'=>'Data Harus Lengkap Di Isi');
             echo json_encode($message);
         }
         else{
+        	$khd=$_POST['khd'];
+			$tg=$_POST['tg'];
+			$uts=$_POST['uts'];
+			$uas=$_POST['uas'];
            
             $data=array(
 
-                "am"=>$_POST['am'],
-
+                "khd"=>$_POST['khd'],
+                "tg"=>$_POST['tg'],
+                "uts"=>$_POST['uts'],
+                "uas"=>$_POST['uas'],
+				"am"=>(0.2*$tg)+(0.3*$uts)+(0.4*$uas)+(0.1*$khd),
             );
 
             $this->db->where('id', $_POST['id']);

@@ -44,7 +44,7 @@ class M_khs extends CI_Model {
 	}
 	public function get_khs($semester,$nim)
 	{
-		$this->db->select('khs.id,khs.am,khs.semester, matakulah.kodemk,matakulah.namamk ,matakulah.sks');
+		$this->db->select('khs.*, matakulah.kodemk,matakulah.namamk ,matakulah.sks');
 		$this->db->from('khs,matakulah,mahasiswa');
 		$this->db->where('mahasiswa.nim=khs.nim AND matakulah.kodemk=khs.kodemk');
 		$this->db->where('khs.semester',$semester);
@@ -133,7 +133,10 @@ class M_khs extends CI_Model {
 		$takademik=$this->session->userdata('takademik');
 		$jenjang=$this->db->query("SELECT * FROM prodi where kodeprodi='$prodi'")->row()->jenjang;
 		$semester=getSemester(substr($kodemk,3,1));
-		$am=$_POST['am'];
+		$khd=$_POST['khd'];
+		$tg=$_POST['tg'];
+		$uts=$_POST['uts'];
+		$uas=$_POST['uas'];
 		$cek=$this->db->query("SELECT * FROM khs where nim='$nim' and kodemk='$kodemk'");
 		if ($cek->num_rows() > 0) {
 			$message = array(
@@ -146,7 +149,11 @@ class M_khs extends CI_Model {
 				'nim'=>$nim,
 				'kodemk'=>$kodemk,
 				'semester'=>$semester, 
-				'am'=>$am,
+				'khd'=>$_POST['khd'],
+                'tg'=>$_POST['tg'],
+                'uts'=>$_POST['uts'],
+                'uas'=>$_POST['uas'],
+				'am'=>(0.2*$tg)+(0.3*$uts)+(0.4*$uas)+(0.1*$khd),
 				'takademik'=>$takademik 
 			];
 			$this->db->insert('khs', $data);

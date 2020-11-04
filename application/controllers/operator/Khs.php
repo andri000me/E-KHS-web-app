@@ -93,6 +93,10 @@ class Khs extends CI_Controller {
 			$row[] = $no;
 			$row[]=$key->kodemk;
 			$row[]=$key->namamk;
+			$row[]=$key->khd.'%';
+			$row[]=$key->tg;
+			$row[]=$key->uts;
+			$row[]=$key->uas;
 			$row[]=$key->am;
 			$row[]=number_format (hitung_nilai($key->am),1);
 			$row[]=$key->sks;

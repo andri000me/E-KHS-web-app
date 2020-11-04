@@ -152,7 +152,7 @@
 			"processing": true,
 			"deferRender": true,
 			"ajax": {
-				"url": "<?php echo site_url('kajur/khs/data_khs')?>",
+				"url": "<?php echo site_url('dosen/Kepro/data_khs')?>",
 				"type": "POST",
 				"data": function (data) {
 					data.kelas = $('#kelas').val();
@@ -171,7 +171,7 @@
 			"processing": true,
 			"deferRender": true,
 			"ajax": {
-				"url": "<?php echo site_url('kajur/khs/get_khs')?>",
+				"url": "<?php echo site_url('dosen/Kepro/get_khs')?>",
 				"type": "GET",
 				"data": function (data) {
 					data.nim = nim;
@@ -212,12 +212,12 @@
 			detailkhs.ajax.reload();
 
 		});
-		$('tbody').on('click', '.okk', function () {
+		$('tbody').on('click', '.okk2', function () {
 			console.log('ok');
 			let data = table.row($(this).parents('tr')).data();
 			nim = data[1];
 			semester = data[3];
-			var url = "<?php echo base_url('kajur/khs/verifi')?>";
+			var url = "<?php echo base_url('dosen/Kepro/verifi')?>";
 			var data1 = {
 				nim: nim,
 				semester: semester

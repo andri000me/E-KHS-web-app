@@ -64,7 +64,7 @@
 												<th>Nama</th>
 												<th>Semester</th>
 												<th>IP</th>
-												<th>Status Verivikasi</th>
+												<th>Status</th>
 												<th>aksi</th>
 											</tr>
 										</thead>
@@ -75,7 +75,7 @@
 												<th>Nama</th>
 												<th>Semester</th>
 												<th>IP</th>
-												<th>Status Verivikasi</th>
+												<th>Status</th>
 												<th>aksi</th>
 											</tr>
 										</tfoot>
@@ -109,6 +109,10 @@
 												<th>No</th>
 												<th>Kode Matakuliah</th>
 												<th>Nama Matakuliah</th>
+												<th>KHD</th>
+												<th>Tugas</th>
+												<th>UTS</th>
+												<th>UAS</th>
 												<th>Angka Mutu</th>
 												<th>Nilai</th>
 												<th>SKS</th>
@@ -326,7 +330,7 @@
 				},
 			},
 			"columnDefs": [{
-				"targets": [7],
+				"targets": [11],
 				"visible": false,
 			}]
 		});

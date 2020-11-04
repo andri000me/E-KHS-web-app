@@ -49,19 +49,34 @@ if(!function_exists('jnilai')){
         return hitung_nilai($am)*$sks;
     }
 }
+if (!function_exists('isKepro')) {
+    function isKepro($nip)
+    {
+        $CI =& get_instance();
+        $CI->db->where('kepro', $nip);
+        $true=$CI->db->get('prodi')->num_rows();
+        if ($true > 0) {
+            return true;
+        }
+        return false;
+
+
+    }
+}
 
 if(!function_exists('status')){
     function status($val)
     {
-        if ($val== "1") return '<span style="cursor:pointer;" class="okk badge badge-success">Verivied</span>';
-        else return '<span style="cursor:pointer;" class="badge okk badge-warning">Not Verivied</span>';
+        if ($val== "2") return '<span style="cursor:pointer;" class="okk badge badge-warning">Menunggu Validasi Kajur/Sekjur</span>';
+        else if($val=="1") return '<span style="cursor:pointer;" class="okk2 badge badge-success">Tervalidasi</span>';
+        else return '<span style="cursor:pointer;" class="badge badge-danger okk2">Menunggu Verivikasi Kepro</span>';
     }
 }
 
 if(!function_exists('btnEdit')){
     function btnEdit($val)
     {
-        if ($val== "1") return '<div class="d-flex flex-row "><button disabled="disabled" class="btn btn-icon btn-round btn-info"><i class="fas fa-pen"></i></button></div>';
+        if ($val== "1" or $val=="2") return '<div class="d-flex flex-row "><button disabled="disabled" class="btn btn-icon btn-round btn-info"><i class="fas fa-pen"></i></button></div>';
         else return '<div class="d-flex flex-row "><button class="btn btn-icon btn-round btn-info edit"><i class="fas fa-pen"></i></button></div>';
     }
 }

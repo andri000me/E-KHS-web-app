@@ -76,6 +76,20 @@ if ($this->session->userdata('lv')=='')
                         <p>Mahasiswa Bimbingan</p>
                     </a>
                 </li>
+                <?php if (isKepro($this->session->userdata('username'))): ?>
+                <li class="nav-section">
+                    <span class="sidebar-mini-icon">
+                        <i class="fas fa-copy"></i>
+                    </span>
+                    <h4 class="text-section">Tugas Kepro</h4>
+                </li>
+                 <li class="nav-item ">
+                    <a href="<?=base_url()?>dosen/kepro/Verifikasi">
+                        <i class="fas fa-clipboard-check"></i>
+                        <p>Verifikasi Nilai</p>
+                    </a>
+                </li>
+                <?php endif ?>
                 
             </ul>
         </div>

@@ -1,3 +1,14 @@
+<style>
+	.modal-xl{
+		max-width: 95%;
+
+	}
+	table .input-custom{
+		background-color: rgba(0 0 0 0);
+		border: none;
+		width: 100px;
+	}
+</style>
 <div class="main-panel" style="height: 100%; overflow-y: scroll;">
 	<div class="content">
 		<div class="page-inner" style="margin-top: 60px;">
@@ -14,7 +25,7 @@
 									<div class="d-flex align-items-center">
 										<h4 class="card-title">Nilai KHS</h4>
 										<div class="ml-auto">
-											<button class="btn btn-success btn-round mr-3" data-toggle="collapse" data-target="#filter"
+											<button class="btn btn-success btn-round mr-3 coll-filter" data-toggle="collapse"  data-target="#filter"
 												aria-expanded="false" aria-controls="collapseExample">
 												<i class="fas fa-filter"></i>
 												Filter
@@ -123,6 +134,10 @@
 												<th>Kelas</th>
 												<th>Semester</th>
 												<th>matakuliah</th>
+												<th>KHD</th>
+												<th>Tugas</th>
+												<th>UTS</th>
+												<th>UAS</th>
 												<th>Nilai(Am)</th>
 												<th>Status</th>
 												<th>aksi</th>
@@ -149,7 +164,7 @@
 </div>
 
 <div class="modal fade bd-example-modal-lg" id="modal-tambah" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-	<div class="modal-dialog modal-lg modal-dialog-centered ">
+	<div class="modal-dialog modal-xl modal-dialog-centered ">
 		<div class="modal-content">
 			<div class="modal-header">
 				
@@ -159,6 +174,11 @@
 						<th>Matakuliah</th>
 						<th>:</th>
 						<th id="matKul">asasa</th>
+					</tr>
+					<tr>
+						<th>Prodi</th>
+						<th>:</th>
+						<th id="prodiS">TKJ</th>
 					</tr>
 					<tr>
 						<th>Kelas</th>
@@ -177,23 +197,25 @@
 							
 						</th>
 					</tr>
-					<tr>
-						<th>Prodi</th>
-						<th>:</th>
-						<th id="prodiS">TKJ</th>
-					</tr>
+					
 				</table>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
 			</div>
 			<form id="form-tambah">
 				
 			<div class="modal-body">
-				<table class="table display" style="width:100%;" id="tb-input">
+				<table class="table display" style="width: 100%;" id="tb-input">
 					<thead>
 						<tr>
-							<th scope="col">#</th>
-							<th scope="col">Nim</th>
-							<th scope="col">Nama</th>
-							<th scope="col">Angka Mutu</th>
+							<th>No</th>
+							<th>Nim</th>
+							<th>Nama</th>
+							<th>KHD (%)</th>
+							<th>TG</th>
+							<th>UTS</th>
+							<th>UAS</th>
 						</tr>
 					</thead>
 				</table>
@@ -214,15 +236,28 @@
 				<h2 class="modal-title ">Edit Data</h2>
 			</div>
 			<form method="post" id="form-edit">
-				<div class="modal-body">
+				<div class="modal-body row">
 					<input type="hidden" name="id" value="">
 					<div class="form-group col-md-12">
 						<label>Nama</label>
 						<input type="text" class="form-control" name="nama" readonly="" >
 					</div>
-					<div class="form-group col-md-12">
-						<label>Nilai (AM)</label>
-						<input type="text" class="form-control" name="am" placeholder="masukan Anggka Mutu">
+					<div class="form-group col-md-6">
+						<label>KHD (%)</label>
+						<input type="text" class="form-control" name="khd" placeholder="masukan Anggka Mutu">
+					</div>
+					<div class="form-group col-md-6">
+						<label>Nilai Tugas</label>
+						<input type="text" class="form-control" name="tg" placeholder="masukan Anggka Mutu">
+					</div>
+					
+					<div class="form-group col-md-6">
+						<label>Nilai UTS</label>
+						<input type="text" class="form-control" name="uts" placeholder="masukan Anggka Mutu">
+					</div>
+					<div class="form-group col-md-6">
+						<label>Nilai UAS</label>
+						<input type="text" class="form-control" name="uas" placeholder="masukan Anggka Mutu">
 					</div>
 				</div>
 				<div  class="modal-footer">
@@ -236,7 +271,7 @@
 
 <!-- Modal add 1 mhs-->
 <div class="modal fade" id="my-modal" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-	<div class="modal-dialog modal-dialog-centered " role="document">
+	<div class="modal-dialog modal-dialog-centered" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
 				<h5 class="modal-title" id="exampleModalLongTitle"></h5>
@@ -263,14 +298,24 @@
 								<?php endforeach ?>
 							</select>
 						</div>
-				
-						<div class="form-group col-md-12">
-							<label>nilai</label>
-							<input type="text" class="form-control txt" name="am" placeholder="masukan Nilai">
+						<div class="modal-header col-12"></div>
+						<div class="col-md-12 h5 mt-4 px-2">Nilai-Nilai</div>
+						<div class="form-group col-md-6">
+							<label>KHD (%)</label>
+							<input type="number" onchange="" class="form-control" name="khd" placeholder="Kehadiran">
 						</div>
-						<div class="form-group col-md-12 judul">
-							<label>Judul TA</label>
-							<textarea class="form-control txt" placeholder="masukan judul TA" name="judul"></textarea>
+						<div class="form-group col-md-6">
+							<label>Tugas</label>
+							<input type="number" onchange="" class="form-control" name="tg" placeholder="Tugas">
+						</div>
+						
+						<div class="form-group col-md-6">
+							<label>UTS</label>
+							<input type="number" onchange="" class="form-control" name="uts" placeholder="UTS">
+						</div>
+						<div class="form-group col-md-6">
+							<label>UAS</label>
+							<input type="number" onchange="" class="form-control"  name="uas" placeholder="UAS">
 						</div>
 					</div>
 				</div>
@@ -312,6 +357,10 @@
 			placeholder: 'Pilih Matakuliah',
 		});
 
+		$('.coll-filter').click(function(event) {
+			$('#jadwal').collapse('hide');
+		});
+
 		$('#myform').on('submit',  function(e){  
 		    e.preventDefault();
 		    pos_url="<?=base_url();?>dosen/Khs/add_one";
@@ -321,7 +370,10 @@
 				id_tugas_akhir: $('#my-modal [name="idta"]').val(),
 				nim: $('#my-modal [name="nim"]').val(),
 				matakuliah: $('#my-modal [name="Matakuliah"]').val(),
-				am: $('#my-modal [name="am"]').val(),
+				khd: $('#my-modal [name="khd"]').val(),
+				tg: $('#my-modal [name="tg"]').val(),
+				uts: $('#my-modal [name="uts"]').val(),
+				uas: $('#my-modal [name="uas"]').val(),
 				judul: $('#my-modal [name="judul"]').val(),
 			};
 			post(pos_url, data);
@@ -474,7 +526,10 @@
 			
 			let data = table.row($(this).parents('tr')).data();
 			$('#modal-edit [name="nama"]').val(data[3]);
-			$('#modal-edit [name="am"]').val(data[7]);
+			$('#modal-edit [name="khd"]').val(parseInt(data[7]));
+			$('#modal-edit [name="tg"]').val(data[8]);
+			$('#modal-edit [name="uts"]').val(data[9]);
+			$('#modal-edit [name="uas"]').val(data[10]);
 			$('#modal-edit [name="id"]').val(data[0]);
 			$('#modal-edit').modal({
 					keyboard: false,
@@ -488,7 +543,10 @@
 			var url = "<?php echo site_url('dosen/khs/update')?>";
 			var data = {
 				id: $('#modal-edit [name="id"]').val(),
-				am: $('#modal-edit [name="am"]').val(),
+				khd: $('#modal-edit [name="khd"]').val(),
+				tg: $('#modal-edit [name="tg"]').val(),
+				uts: $('#modal-edit [name="uts"]').val(),
+				uas: $('#modal-edit [name="uas"]').val(),
 			};
 			post(url, data);
 			table.ajax.reload();
@@ -499,21 +557,24 @@
 		$('#form-tambah').on('submit', function (e) {
 			e.preventDefault();
 			$.ajax({  
-         url:"<?php echo site_url('dosen/khs/add')?>",                        
-         method:"POST",  
-         data:new FormData(this),  
-         contentType: false,
-         dataType: "JSON", 
-         cache: false,  
-         processData:false,  
-         success:function(data)  
-         {  
-         		
-      			table.ajax.reload();
-						$('#modal-tambah').modal('hide');
-						notif(data.type, data.text);
-         }  
-      });  
+		        url:"<?php echo site_url('dosen/khs/add')?>",                        
+		        method:"POST",  
+		        data:new FormData(this),  
+		        contentType: false,
+		        dataType:'JSON',
+		        cache: false,  
+		        processData:false,  
+		        success:function(data)  
+		        {  
+		         	console.log(data);
+		      		table.ajax.reload();
+					$('#modal-tambah').modal('hide');
+					notif(data.type, data.text);
+		        },
+		        error:function(err) {
+		          console.log(err);
+		        }  
+		    });  
 			
 
 		});
