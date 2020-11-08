@@ -22,7 +22,7 @@
   <link rel="stylesheet" href="<?php echo base_url(); ?>assets/mhs/assets/css/demo/style.css">
   <!-- End layout styles -->
 
-  <link rel="shortcut icon" href="<?php echo base_url(); ?>assets/mhs/assets/images/favicon.png" />
+  <link rel="shortcut icon" href="<?=base_url()?>assets/img/icn.png" />
 
     <style type="text/css">
       .wrap{

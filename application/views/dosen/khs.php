@@ -457,7 +457,7 @@
 				
 			},
 			"columnDefs": [{
-				"targets": [0],
+				"targets": [0 <?=($stateBatas==1 && $timeLeft <0) ? ',13' : '' ; ?>],
 				"visible": false,
 			}]
 		});
@@ -643,6 +643,44 @@
 	});
 
 </script>
+<?php if ($stateBatas==1 && $timeLeft <0): ?>
+	<script>
+		const wrapper2 = document.createElement('h4');
+		wrapper2.innerHTML ="<center>Nilai Akan Di Input secara Otomatis dengan Nilai Default:<span class='text-danger font-weight-bold'><?=$ndefault?></span></center>" ;
+		swal({
+			title:'Waktu Penginputan Nilai Sudah Berakhir !',
+			icon: "warning",
+            closeOnClickOutside:false,
+			content:wrapper2,
+			type: 'warning',
+			buttons: {
+				confirm: {
+					className: 'btn btn-success'
+				}
+			}
+		}).then((autoInput) => {
+			if (autoInput) {
+				$.ajax({
+					type: "POST",
+					dataType:'JSON',
+					url: '<?=base_url()?>dosen/Khs/autoInput',
+					data: {
+						ndefault: <?=$ndefault?>
+					},
+					success:async function(data) {
+						console.log(data.data);
+						await table.ajax.reload();
+					},
+					error: function(err) {
+						console.log(err);
+					}
+				});
+
+			}
+			table.ajax.reload();
+		});
+	</script>
+<?php endif; ?>
 </body>
 
 </html>

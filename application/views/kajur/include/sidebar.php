@@ -1,5 +1,5 @@
 <?php
-    $badge=$this->db->query("SELECT COUNT(status) as jumlah from khs WHERE status != '1' GROUP BY semester, nim")->num_rows();
+    $badge=$this->db->query("SELECT COUNT(status) as jumlah from khs WHERE status != '1' AND status = '2'  GROUP BY semester, nim")->num_rows();
 ?>
 
 

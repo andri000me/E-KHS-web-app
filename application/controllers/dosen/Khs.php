@@ -21,6 +21,7 @@ class Khs extends CI_Controller {
 		$data=[
 			'stateBatas'=>$this->db->get('setting')->row()->state,
 			'Batas'=>$this->db->get('setting')->row()->value,
+			'ndefault'=>$this->db->query("SELECT * FROM setting WHERE id='2'")->row()->value,
 			'timeLeft'=>strtotime($batas)-strtotime(date('m/d/Y')),
 			'mk' => $this->db->query("SELECT mkprodi.kodemk as kode ,matakulah.namamk as nama FROM mkprodi,matakulah WHERE mkprodi.kodemk=matakulah.kodemk AND mkprodi.nip='".$this->session->userdata('username')."' AND mkprodi.takademik='".$this->session->userdata('takademik')."' group by mkprodi.kodemk")->result(),
 			"sem"=> $this->db->query("SELECT mkprodi.semester FROM mkprodi WHERE mkprodi.nip='".$this->session->userdata('username')."' AND mkprodi.takademik='".$this->session->userdata('takademik')."' group by mkprodi.semester")->result(),
@@ -258,6 +259,76 @@ class Khs extends CI_Controller {
 		$this->db->where('id', $this->input->get('id'));
 		$this->db->delete('khs');
 		echo "ok";
+	}
+
+
+	//auto input Ndefault
+	public function autoInput()
+	{
+		$this->load->model('M_jadwal');
+		$mk =$this->M_jadwal->get_jadwal($this->session->userdata('username'),"kodemk");
+		$output=array();
+		foreach ($mk as $key) {
+			$this->insert($key->kodeprodi,$key->kelas,$key->semester,$key->kodemk);
+        }
+		
+	}
+
+	public function insert($prodi,$kelas,$semester,$kodemk)
+	{
+		$tahun=$this->session->userdata('takademik');
+		$ndefault=$this->db->query("SELECT * FROM setting WHERE id='2'")->row()->value;
+		$query = $kelas;
+		$mk=$kodemk;
+		$sm=$semester;
+		$pr=$prodi;
+		if ($sm=='I' | $sm=='II')  {
+			$ta=$tahun;
+		}
+		if ($sm=='III' | $sm=='IV')  {
+			$ta=$tahun-1;
+		}
+		if ($sm=='V' | $sm=='VI')  {
+			$ta=$tahun-2;
+		}
+		if ($sm=='VII' | $sm=='VII')  {
+			$ta=$tahun-3;
+		}
+
+		$this->db->select('mhs.nim,mhs.nama,mhs.kelas,mhs.angkatan');
+		$this->db->from('mahasiswa mhs, mkprodi mkp');
+		$this->db->where('mhs.prodi=mkp.kodeprodi and mhs.kelas=mkp.kelas');
+		$this->db->where('mkp.nip', $this->session->userdata('username'));
+		$this->db->where('mhs.angkatan', $ta);
+		$this->db->where('mhs.status','Aktif');
+		$this->db->where('mhs.kelas', $query);
+		$this->db->where('mhs.prodi', $pr);
+		$this->db->group_by('mhs.nim');
+		$data=$this->db->get()->result();
+		foreach ($data as $key) {
+			if ($this->gtnilai($key->nim,$sm,$mk) <1){
+				$dt=array(
+	                "nim"=>$key->nim,
+	                "kodemk"=>$mk,
+	                "semester"=>$sm,
+	                "takademik"=>$tahun,
+					"am"=>$ndefault,
+	            );
+	            $this->db->insert('khs',$dt);
+			}
+		}
+
+	}
+
+	public function gtnilai($nim,$semester,$kodemk)
+	{
+		$this->db->select('khs.*, matakulah.kodemk,matakulah.namamk ,matakulah.sks');
+		$this->db->from('khs,matakulah,mahasiswa');
+		$this->db->where('mahasiswa.nim=khs.nim AND matakulah.kodemk=khs.kodemk');
+		$this->db->where('khs.semester',$semester);
+		$this->db->where('khs.nim', $nim);
+		$this->db->where('khs.kodemk', $kodemk);
+		return $this->db->get()->num_rows();
 	}
 }
 
