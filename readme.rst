@@ -9,8 +9,13 @@ Aplikasi Pengolahan KHS jurusan Teknik Elektro PNK
 Environmet
 *******************
 
-PHP Framework Codeigniter V3
-Database MySql
+1. PHP Framework Codeigniter V3
+2. Database MySql
+
+*******************
+Instalasi
+*******************
+
 
 
 *******************
